@@ -1,0 +1,232 @@
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background: #fafafa;
+}
+a{
+    text-decoration: none;
+}
+.wrapper{
+    display: flex;
+    height: 100vh;
+    width:100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container{
+    width: 100%;
+    max-width: 90rem;
+   margin: 3rem auto;
+  }
+
+  .wrapper >.container{
+    display: flex;
+    }
+
+ .container .condition-rule{
+        flex: 1;
+        border-left: 2px solid #eee;
+ }
+ .condition-rule .nav-menu ul{
+   list-style: none;
+ }
+ .nav-menu ul li{
+    padding: 0 2rem;
+ }
+ .nav-menu ul li a{
+     display: block;
+     height: 20px;
+     width: 100px;
+     margin: .2rem 0;
+     transition-duration: .5s;
+ }
+ .nav-menu ul li a:hover{
+  font-size: 14px;
+  color: rgb(220,20,60);
+  border-bottom: 2px solid #00B6FF;
+ }
+ .condition-rule .notice{
+   font-size: 1.2rem;
+   color: #00B6FF;
+   text-align: justify;
+   margin: 0 2rem;
+   padding-top: 20%;
+}
+
+.notice  span h1,p{
+    padding: .3rem 0;
+}
+.notice ul{
+    list-style: none;
+    padding: .3rem 0;
+}
+.notice ul li::before{
+    content: '\2713\0020'
+}
+.container .sign-up-form{
+    max-width: 50%;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 10rem 1rem 0;
+    text-align: left;
+}
+
+.sign-up-form form{
+    display: flex;
+   flex-direction: column;
+   padding: .5rem 2rem;
+   background: #fff;
+   border: 1px solid #eee;
+ }
+ 
+form .sign-up-title{
+    -webkit-text-stroke: 1px rgb(220,20,60);
+    -webkit-text-fill-color: #fff;
+    font-size: 2.5vw;
+    padding: 1rem 0;
+}
+form input,textarea{
+
+    margin-bottom: .4rem;
+    padding: .8rem;
+    border:1px solid rgb(240,128,128);
+    outline: none;
+    border-radius: .2rem;
+    box-shadow: inset 2px 2px 2px #eee;
+    -moz-box-shadow: inset 2px 2px 2px #eee;
+    -webkit-box-shadow: inset 2px 2px 5px #eee;
+    background: transparent;
+    transition-duration: 1s;
+
+}
+form textarea:hover{
+  border:1px solid #3897f0;
+}
+form input:hover{
+    border:1px solid #3897f0;
+}
+form .signup-btn{
+    height: 3rem;
+    outline: none;
+    border:1px solid #3897f0;
+    background: #3897f0;
+    color: #fff;
+    border-radius: .2rem;
+}
+form .form-group{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group > input{
+    padding-right: 1.5rem;
+}
+
+.sign-up-form .sign-in{
+    background: white;
+    text-align: center;
+    padding: 1rem 10rem;
+    border: 1px solid #eee;
+    margin: 1rem 0;
+    padding: 1rem 0;
+}
+.sign-up a{
+    font-weight: bold;
+    color: #3897f0;
+}
+
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    
+}
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+footer .footer-nav{
+    width: 50%;
+}
+footer .footer-nav ul{
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: flex-end;
+}
+.footer-nav ul li{
+    margin-right: 1.5rem;
+
+}
+
+.footer-nav ul li a{
+    color: #003569;
+}
+footer .container .copy-right{
+   color: #999999;
+   flex: 1;
+}
+
+
+@media (max-width:1000px){
+    .container .condition-rule{
+        display: none;
+ }
+ .container  .sign-up-form{
+     padding: 0 0;
+     margin: 1rem auto;
+     border: 0px;
+ }
+
+ 
+ 
+ .sign-up-form form{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    background: #fafafa;
+   border: 0;
+ }
+ form .sign-up-title{
+    -webkit-text-stroke: 1px rgb(220,20,60);
+    -webkit-text-fill-color: #fff;
+    font-size: 20px;
+    padding: 0;
+ }
+ form .form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.container .footer-nav ul{
+    flex-wrap: wrap;
+   }
+   .wrapper >.container{
+    margin: 0 auto;
+    }
+    footer .container .copy-right{
+        color: #999999;
+        flex-wrap: wrap;
+     }
+
+}
