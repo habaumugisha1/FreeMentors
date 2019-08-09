@@ -40,7 +40,6 @@ margin: 3rem auto;
 }
 .container .left-side{
     width: 100%;
-
 }
 .left-side .mobile{
     position: absolute;
@@ -291,7 +290,6 @@ footer .container .copy-right{
     }
     
     .left-side{
-        background: red;
         flex: 0;
     }
     
