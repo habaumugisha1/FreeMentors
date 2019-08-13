@@ -168,7 +168,6 @@ border: 1px solid #eee;
 } 
 .main-content ul li{
     height: 2rem;
-    width: 10rem;
     display: flex;
     margin: 0 1rem;
     list-style: none;
@@ -176,7 +175,6 @@ border: 1px solid #eee;
 }
 .main-content ul li a{
     height: 2rem;
-    width: 10rem;
     display: block;
 }
 .main-content ul li.active a,
@@ -257,7 +255,7 @@ fieldset .role{
     height: 20px;
     margin-top: .2rem;
     padding: .2rem;
-    max-width: 5rem;
+    max-width: 7rem;
     border-radius: .2rem;
     color: #3897f0;
     font-weight: bold;
