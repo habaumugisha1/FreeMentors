@@ -1,3 +1,23 @@
 .user-mentor .info .status p{
     color: rgb(220,20,60);
 }
+.user-mentor .info a{
+    background:#ddd;
+    text-align: center;
+    border: 1px solid #eee;
+    height: 20px;
+    margin-top: .2rem;
+    padding: .2rem;
+    max-width: 10rem;
+    border-radius: .2rem;
+    color: #3897f0;
+    font-weight: bold;
+}
+.user-mentor .info .reject-accept{
+    display: flex;
+    
+}
+.reject-accept a{
+    padding: .2rem;
+    width: 10rem;
+}
