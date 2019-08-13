@@ -1,0 +1,306 @@
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background: #fafafa;
+}
+a{
+    text-decoration: none;
+}
+img{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
+.wrapper{
+    display: flex;
+    height: 100vh;
+    width:100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container{
+  width: 100%;
+  max-width: 90rem;
+ margin: 3rem auto;
+}
+.wrapper >.container{
+display: flex;
+margin: 0rem auto;
+flex-direction: column;
+border: 1px solid #eee;
+
+}
+
+.container .nav-menu{
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.4rem;
+    padding: 0 3rem;
+    color: #3897f0;
+    
+}
+.nav-menu .avatar{
+    height: 40px;
+    border: 2px solid #eee;
+    margin-right: 1rem;
+    border-radius: 50%;
+    width: 40px;
+    text-align: center;
+    padding: .6rem 1rem;
+    background: #3897f0;
+    color: #eee;
+
+}
+.nav-menu p{
+    padding-right: 3rem;
+
+}
+
+.nav-menu ul{
+    list-style: none;
+    width: 30px;
+}
+.nav-menu ul li a{
+    margin-right: 1rem;
+}
+.nav-menu .log-out{
+    padding: 0;
+    position: absolute;
+    height: 2rem;
+    padding: 0 0 1rem 0;
+}
+.nav-menu .log-out img{
+    padding: .5rem 0 0 ;
+    cursor: pointer;
+    width:2rem;
+    height: 25px;
+
+}
+.nav-menu  .log-out ul li{
+    
+    display: block;
+    position: absolute;
+    background: #fafafa;
+    border: 1px solid #eee;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 5.5rem;
+    top: 1.8rem;
+}
+.nav-menu .log-out:active ul li{
+    display: none;
+}
+
+.container .main-content{
+    display: flex;
+    border: 1px solid #eee;
+}
+
+.main-content .user-profile{
+    display: flex;
+    flex-direction: column;
+    padding:.3rem;
+    
+}
+.user-profile .personal-info{
+    display: flex;
+    flex-direction: column;
+    max-width: 10rem;
+    
+    
+}
+.personal-info img{
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin: .5rem 0 0 0;
+        padding: 5px;
+        width: 120px;
+        height: 120px;
+    
+}
+.personal-info p{
+  padding:.5rem 5rem 0 .3rem;
+  color: #262626;
+  font-weight: bold;
+}
+.personal-info a{
+    background:#ddd;
+    text-align: center;
+    border: 1px solid #eee;
+    height: 20px;
+    margin-top: .2rem;
+    padding: .2rem;
+    border-radius: .2rem;
+    font-weight: bold;
+}
+.pannel button {
+    height: 2rem;
+    width: 10rem;
+    margin: 1rem 0;
+    outline: none;
+    border:2px solid #3897f0;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.main-content .tabs-container{
+    padding: .8rem 0;
+    
+}
+.tabs-container ul{
+    display: flex;
+    border: 1px solid #eee;
+} 
+.main-content ul li{
+    height: 2rem;
+    width: 10rem;
+    display: flex;
+    margin: 0 1rem;
+    list-style: none;
+    padding: .5rem 1rem;
+}
+.main-content ul li a{
+    height: 2rem;
+    width: 10rem;
+    display: block;
+}
+.main-content ul li.active a,
+.main-content ul li a:hover{
+    color: rgb(220,20,60);
+    font-size: 1.2rem;
+    transition: .5s;
+}
+.main-content .tabs-content {
+    padding: 1rem;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+.tabs-content .pannel{
+    display: none;
+}
+.tabs-content .pannel.active{
+    display: block;
+}
+.pannel .bio-address{
+    max-width:30rem;
+}
+.pannel .bio-address fieldset{
+    border: 1px solid #eee;
+    padding: .5rem;
+}
+.bio-address fieldset legend {
+display: flex;
+padding: .5rem 0;
+
+}
+
+fieldset legend img{
+    width: 1.5rem;
+}
+ .bio-address fieldset p{
+        color: #262626;
+      }
+fieldset legend span{
+        padding: .5rem 0 .2rem .2rem;
+        color: #3897f0;
+    }
+fieldset .role{
+    background:#ddd;
+    text-align: center;
+    border: 1px solid #eee;
+    height: 20px;
+    margin-top: .2rem;
+    padding: .2rem;
+    max-width: 5rem;
+    border-radius: .2rem;
+    font-weight: bold;
+}
+.pannel .user-mentor{
+    display: flex;
+    border-bottom: 1px solid #eee;
+
+}
+.pannel .user-mentor img{
+    height: 80px;
+    width: 80px;
+    padding: 1rem;
+}
+.user-mentor .info{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+}
+.user-mentor .info p{
+    padding: 1px;
+}
+
+.user-mentor .info a{
+    background:#ddd;
+    text-align: center;
+    border: 1px solid #eee;
+    height: 20px;
+    margin-top: .2rem;
+    padding: .2rem;
+    max-width: 5rem;
+    border-radius: .2rem;
+    color: #3897f0;
+    font-weight: bold;
+}
+.user-mentor .info .status{
+    display: flex;
+    flex-wrap: wrap;
+}
+.info .status p{
+    padding: 0 .3rem 0 0;
+    color: #262626;
+}
+ 
+footer{
+    padding: 5rem;
+}
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+footer .footer-nav{
+    width: 50%;
+}
+footer .footer-nav ul{
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: flex-end;
+}
+.footer-nav ul li{
+    margin-right: 1.5rem;
+
+}
+
+.footer-nav ul li a{
+    color: #003569;
+}
+footer .container .copy-right{
+   color: #999999;
+   flex: 1;
+}
