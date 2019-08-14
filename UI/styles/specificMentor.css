@@ -1,0 +1,7 @@
+.pannel .request form{
+    display: flex;
+    flex-direction: column;
+}
+.request form textarea{
+    padding: 1rem;
+}
