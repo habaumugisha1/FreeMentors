@@ -11,7 +11,6 @@ link.addEventListener('click', e => {
 
     const index = [...parentEl.parentElement.children].indexOf(parentEl);
     const pannel = [...pannels].filter(el =>el.getAttribute('data-index') == index);
-    console.log(pannel)
     pannel[0].classList.add("active");
 
 })
