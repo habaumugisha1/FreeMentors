@@ -6,9 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Free Mentors</title>
     <link rel="stylesheet" href="../styles/dashboard.css"/>
+    <link rel="stylesheet" href="../styles/sessionReview.css"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+        <div class="modal-bg">
+                <div class="modal">
+                      
+                                <div class="review">
+                                      <p>It was an interesting session, in this session I heve 
+                                          learned alot that will help me not only today but also tomorrow, hanks my mentor</p>
+                                        <p class="score"> score: 5</p>
+                                        <p>Date: 10/8/2019</p>
+                                       
+                                </div>
+                                
+                
+                        <button class="delete-btn">Delete</button>
+                        <span class="modal-close">X</span>
+                </div>
+            </div>
+
     <div class="wrapper">
         <div class="container">
            
@@ -43,7 +61,7 @@
                     </li>
                     <li ><a href="#">Users(3)</a></li>
                     <li><a href="#">Mentors(5)</a></li>
-    
+                    <li><a href="#">Sessions(3)</a></li>
                 </ul>
                 <div class="tabs-content">
                     <div class="pannel active" data-index="0">
@@ -216,6 +234,51 @@
                             
                                 
                     </div>
+                    <div class="pannel" data-index="3">
+                            <div class="user-mentor">
+                                    <img src="../images/session.png" alt="session-image"/>
+                                    <div class="info">
+                                          <p>I need a help on Team management</p>
+                                            <p> mentor: Jhon</p>
+                                            <p>Date: 11/8/2019</p>
+                                            <div class="status">
+                                                <p> accepted </p>
+                                                
+                                            </div>
+                                            <a class="session-review" href="#">session reviw(1)</a> 
+                                    </div>
+                                    
+                            </div>
+                            <div class="user-mentor">
+                                    <img src="../images/session.png" alt="session-image"/>
+                                    <div class="info">
+                                          <p>I need a help on project management</p>
+                                            <p> mentor: Eugene Munya</p>
+                                            <p>Date: 10/8/2019</p>
+                                            <div class="status">
+                                                <p> accepted </p>
+                                                
+                                            </div>
+                                            <a class="session-review" href="#">session reviw(1)</a> 
+                                           
+                                    </div>
+                                    
+                            </div>
+                            <div class="user-mentor">
+                                    <img src="../images/session.png" alt="session-image"/>
+                                    <div class="info">
+                                          <p>I need a help on Time management</p>
+                                            <p> mentor: Simon</p>
+                                            <p>Date: 5/8/2019</p>
+                                            <div class="status">
+                                                <p> pending </p>
+                                            </div>
+                                            <a class="session-review" href="#">session reviw(1)</a> 
+                                    </div>
+                                    
+                            </div>     
+                                
+                    </div>
                   
                 </div>
             </div>
@@ -237,5 +300,6 @@
         </footer>
     </div>
     <script src="../script/script.js"></script>
+    <script src="../script/sessionReview.js"></script>
 </body>
 </html>
