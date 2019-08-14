@@ -7,9 +7,29 @@
     <title>Free Mentors</title>
     <link rel="stylesheet" href="../styles/dashboard.css"/>
     <link rel="stylesheet" href="../styles/userDashboard.css"/>
+    <link rel="stylesheet" href="../styles/popupModel.css"/>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="modal-bg">
+        <div class="modal">
+            <form>
+                    <label class="radio-container">
+                     <span class="role">User</span>
+                    <input type="radio" name="user-role" checked="true">
+                    <span class="checkmark" ></span>
+                    </label>
+                    <label class="radio-container">
+                           <span class="role">Mentor</span>
+                          <input type="radio" name="user-role">
+                          <span class="checkmark" ></span>
+                     </label>
+                <button class="change-role">Save changes</button>
+                <span class="modal-close">X</span>
+            </form>
+        </div>
+    </div>
     <div class="wrapper">
         <div class="container">
            
@@ -93,15 +113,14 @@
                                 </fieldset>
                                  
                                 </div>
-                                <button>
-                                    <a href="#">Change to mentor</a>
+                                <button class="change-mentor">
+                                    Change To mentor
                                 </button>
                     </div>
 
-
                     <div class="pannel" data-index="1">
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on Team management</p>
                                             <p> mentor: Jhon</p>
@@ -114,7 +133,7 @@
                                     
                             </div>
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on project management</p>
                                             <p> mentor: Eugene Munya</p>
@@ -122,12 +141,12 @@
                                             <div class="status">
                                                 <p> pending </p>
                                             </div>
-                                            
+                                           
                                     </div>
                                     
                             </div>
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on Time management</p>
                                             <p> mentor: Simon</p>
@@ -135,7 +154,7 @@
                                             <div class="status">
                                                 <p> pending </p>
                                             </div>
-                                           
+                                            
                                     </div>
                                     
                             </div>     
@@ -143,7 +162,7 @@
                     </div>
                     <div class="pannel" data-index="2">
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on Leadership Skills</p>
                                             <p> mentor: Eugene Munya</p>
@@ -178,5 +197,6 @@
         </footer>
     </div>
     <script src="../script/script.js"></script>
+    <script src="../script/modals.js"></script>
 </body>
 </html>
