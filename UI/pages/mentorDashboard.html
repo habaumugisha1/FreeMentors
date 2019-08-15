@@ -7,10 +7,49 @@
     <title>Free Mentors</title>
     <link rel="stylesheet" href="../styles/dashboard.css"/>
     <link rel="stylesheet" href="../styles/userDashboard.css"/>
+    <link rel="stylesheet" href="../styles/mentorUpdate.css"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    
     <div class="wrapper">
+            <div class="modal-bg">
+                    <div class="modal">
+                        <div class="review-item">
+                          
+                                    <div class="review">
+                                          <p>It was an interesting session, in this session I heve 
+                                              learned alot that will help me not only today but also tomorrow, hanks my mentor</p>
+                                            <p class="score"> score: 5</p>
+                                            <p>Date: 10/8/2019</p>
+                                           
+                                    </div>
+                            </div>
+                            <span class="modal-close">X</span>
+                    </div>
+                </div>
+    
+                <div class="modal-bg">
+                        <div class="modal">
+                                <form action="">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="First name">
+                                             <input type="text" placeholder="Last name">
+                                        </div>
+                    
+                                     <input type="email" placeholder="Email">
+                                     <input type="password" placeholder="Password">
+                                     <input type="text" placeholder="Occupation">
+                                     <textarea rows="3" cols="3" placeholder="Address"></textarea>
+                                     <textarea rows="3" cols="3" placeholder="Expertise"></textarea>
+                                     <textarea rows="5" cols="5" placeholder="Biography"></textarea>
+                                     <button class="update-profile-btn" type="submit">Update</button>
+                                    </form>
+                                <span class="modal-close">X</span>
+                        </div>
+                    </div>
+
         <div class="container">
            
         <div class="nav-menu">
@@ -91,11 +130,9 @@
                                     </legend>
                                     <p class="role">mentor</p>
                                 </fieldset>
-                                 
                                 </div>
-                                <button>
-                                    <a href="#">Change your data</a>
-                                </button>
+                                <button class="update-prof">Edit profile</button>
+
                     </div>
 
 
@@ -160,7 +197,7 @@
                                             <div class="status">
                                                 <p> accepted </p>
                                             </div>
-                                            <a href="#">session reviw(1)</a>      
+                                            <a class="session-review" href="#">session reviw(1)</a>       
                             
                                     </div>
                                     
@@ -188,5 +225,6 @@
         </footer>
     </div>
     <script src="../script/script.js"></script>
+    <script src="../script/mentorUpdate.js"></script>
 </body>
 </html>
