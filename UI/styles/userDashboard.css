@@ -17,7 +17,11 @@
     display: flex;
     
 }
-.reject-accept a{
-    padding: .2rem;
-    width: 10rem;
+.reject-accept{
+   display: flex;
+   padding-top: 1rem;
+}
+.reject-accept span{
+   flex: 1;
+   padding-left: 1rem;
 }
