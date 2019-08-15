@@ -8,33 +8,67 @@
     <link rel="stylesheet" href="../styles/dashboard.css"/>
     <link rel="stylesheet" href="../styles/userDashboard.css"/>
     <link rel="stylesheet" href="../styles/userReviewSession.css"/>
-
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-        <div class="modal-bg">
-                <div class="modal">
-                                      <form>
-                                          <div class="form-group">
-                                              <label>Score</label>
-                                              <select>
-                                                  <option value="1">1</option>
-                                                  <option value="2">2</option>
-                                                  <option value="3">3</option>
-                                                  <option value="4">4</option>
-                                                  <option value="5">5</option>
-                                              </select>
-                                          </div>
-                                          <div class="form-group">
-                                              <label>Remark</label>
-                                              <textarea  placeholder="Type your comment"></textarea>
-                                          </div>
-                                          <button class="save-review">Submit</button>
-                                      </form>
-                        <span class="modal-close">X</span>
-                </div>
-            </div>
+    
     <div class="wrapper">
+      
+            <div class="modal-bg">
+                    <div class="modal">
+                                          <form>
+                                              <div class="form-group">
+                                                  <label>Score</label>
+                                                  <select>
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                  </select>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label>Remark</label>
+                                                  <textarea  placeholder="Type your comment"></textarea>
+                                              </div>
+                                              <button class="save-review">Submit</button>
+                                          </form>
+                            <span class="modal-close">X</span>
+                    </div>
+                </div>
+
+                <div class="modal-bg">
+                        <div class="modal">
+                                <form action="">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="First name">
+                                             <input type="text" placeholder="Last name">
+                                        </div>
+                    
+                                     <input type="email" placeholder="Email">
+                                     <input type="password" placeholder="Password">
+                                     <input type="text" placeholder="Occupation">
+                                     <textarea rows="3" cols="3" placeholder="Address"></textarea>
+                                     <textarea rows="3" cols="3" placeholder="Expertise"></textarea>
+                                     <textarea rows="5" cols="5" placeholder="Biography"></textarea>
+                                     <button class="update-profile-btn" type="submit">Update</button>
+                                    </form>
+                                <span class="modal-close">X</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-bg">
+                            <div class="modal">
+                                    <form action="">
+                
+                                         <textarea cols="30" rows="10" >I need a help on Leadership Skills</textarea>
+                                         <button class="update-session-btn" type="submit">Update</button>
+                                        </form>
+                                    <span class="modal-close">X</span>
+                            </div>
+                        </div>
+
+
         <div class="container">
            
         <div class="nav-menu">
@@ -119,7 +153,7 @@
                                  
                                 </div>
                                 <button>
-                                    <a href="#">Change your data</a>
+                                    <a class="update" href="#">Change your data</a>
                                 </button>
                     </div>
 
@@ -163,7 +197,7 @@
 
                     <div class="pannel" data-index="2">
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on Team management</p>
                                             <p> mentor: Jhon</p>
@@ -171,12 +205,12 @@
                                             <div class="status">
                                                 <p> pending </p>
                                             </div>
-                                            <a href="#">modify</a>
+                                            <a class="edit-session" href="#">modify</a>
                                     </div>
                                     
                             </div>
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on project management</p>
                                             <p> mentor: Eugene Munya</p>
@@ -184,12 +218,12 @@
                                             <div class="status">
                                                 <p> pending </p>
                                             </div>
-                                            <a href="#">modify</a>
+                                            <a class="edit-session" href="#">modify</a>
                                     </div>
                                     
                             </div>
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on Time management</p>
                                             <p> mentor: Simon</p>
@@ -197,7 +231,7 @@
                                             <div class="status">
                                                 <p> pending </p>
                                             </div>
-                                            <a href="#">modify</a>
+                                            <a class="edit-session" href="#">modify</a>
                                     </div>
                                     
                             </div>     
@@ -205,7 +239,7 @@
                     </div>
                     <div class="pannel" data-index="3">
                             <div class="user-mentor">
-                                    <img src="../images/icon_user_male.jpg" alt="user-image"/>
+                                    <img src="../images/session.png" alt="session-image"/>
                                     <div class="info">
                                           <p>I need a help on Leadership Skills</p>
                                             <p> mentor: Eugene Munya</p>
@@ -239,6 +273,8 @@
             </div>
         </footer>
     </div>
+
+   
     <script src="../script/script.js"></script>
     <script src="../script/userReviewSession.js"></script>
 </body>

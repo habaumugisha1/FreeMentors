@@ -1,22 +1,58 @@
-const modalBg = document.querySelector('.modal-bg');
-const closeModal = document.querySelector('.modal-close');
+const modalBg = document.querySelectorAll('.modal-bg');
+const closeModal = document.querySelectorAll('.modal-close');
 const reviewSession = document.querySelectorAll('.review-session');
 const saveReview = document.querySelector('.save-review');
+const updateProfile = document.querySelector('.update');
+const updateSession = document.querySelectorAll('.edit-session');
 
-closeModal.addEventListener('click',e => {
-    modalBg.style.visibility= 'hidden';
-    modalBg.style.opacity = 0;
+const updateSessionBtnModal = document.querySelector('.update-session-btn');
+const updateProfileBtModal = document.querySelector('.update-profile-btn');
+ 
+
+closeModal[0].addEventListener('click',e => {
+    modalBg[0].style.visibility= 'hidden';
+    modalBg[[0]].style.opacity = 0;
     })
     
     reviewSession.forEach(session => {
         session.addEventListener('click', e => {
-            modalBg.style.visibility= 'visible';
-            modalBg.style.opacity = 1; 
+            modalBg[0].style.visibility= 'visible';
+            modalBg[0].style.opacity = 1; 
         })
     })
 
     saveReview.addEventListener('click', e => {
-        modalBg.style.visibility= 'hidden';
-        modalBg.style.opacity = 0; 
+        modalBg[0].style.visibility= 'hidden';
+        modalBg[0].style.opacity = 0; 
     })
     
+    updateProfile.addEventListener('click', e => {
+        modalBg[1].style.visibility= 'visible';
+         modalBg[1].style.opacity = 1; 
+    })
+    closeModal[1].addEventListener('click',e => {
+        modalBg[1].style.visibility= 'hidden';
+        modalBg[1].style.opacity = 0;
+        })
+
+    updateSession.forEach(session =>{
+        session.addEventListener('click', e=>{
+            modalBg[2].style.visibility= 'visible';
+            modalBg[2].style.opacity = 1;  
+        })
+    })
+
+    closeModal[2].addEventListener('click',e => {
+        modalBg[2].style.visibility= 'hidden';
+        modalBg[2].style.opacity = 0;
+        })
+
+        updateProfileBtModal.addEventListener('click',e => {
+            modalBg[1].style.visibility= 'hidden';
+            modalBg[1].style.opacity = 0;
+            });
+
+      updateSessionBtnModal.addEventListener('click',e => {
+        modalBg[2].style.visibility= 'hidden';
+        modalBg[2].style.opacity = 0;
+        });
