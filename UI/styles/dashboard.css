@@ -100,9 +100,7 @@ border: 1px solid #eee;
     width: 5.5rem;
     top: 1.8rem;
 }
-.nav-menu .log-out:active ul li{
-    display: none;
-}
+
 
 .container .main-content{
     display: flex;
