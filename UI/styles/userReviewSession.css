@@ -28,6 +28,7 @@ body .modal-bg{
 .modal form{
     display: flex;
  flex-direction: column;
+ justify-content: center;
  
 }
 .modal form input,textarea{
@@ -73,10 +74,6 @@ body .modal-bg{
     background: transparent;
     text-align: center;
     cursor: pointer;
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
 }
 .modal .modal-close{
     position: absolute;
@@ -85,3 +82,4 @@ body .modal-bg{
     cursor: pointer;
     font-size: 1.5rem;
 }
+
