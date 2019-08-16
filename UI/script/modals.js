@@ -9,12 +9,15 @@ e.preventDefault();
 modalBg.style.visibility= 'visible';
 modalBg.style.opacity = 1;
 });
+
 closeModal.addEventListener('click',e => {
+e.preventDefault();
 modalBg.style.visibility= 'hidden';
 modalBg.style.opacity = 0;
 })
 
 saveChanges.addEventListener('click', e => {
+ e.preventDefault();
 modalBg.style.visibility= 'hidden';
 modalBg.style.opacity = 0;
 })
