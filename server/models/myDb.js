@@ -22,8 +22,17 @@ export const Users = [
     bio: 'leoum epasum',
     occupation: 'minister',
     expertise: 'leadership',
-    user_role: 'user',
+    user_role: 'mentor',
     isAdmin: false,
   },
 ];
-export const Sessions = [];
+export const Sessions = [
+  {
+    id: 1,
+    mentorI: 2,
+    menteeId: 2,
+    question: 'leardership help is needed',
+    menteeEmail: 'mu@gmail.com',
+    status: 'pending',
+  },
+];
