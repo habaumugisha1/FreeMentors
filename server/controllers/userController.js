@@ -58,6 +58,12 @@ class UserController {
     if (mentors.length === 0) return res.status(404).json({ message: 'No mentor found' });
     res.status(200).json({ data: mentors });
   }
+
+  static viewSpecificMentor(req, res) {
+    const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.user_role === 'mentor');
+    if (!specificMentor) return res.status(404).json({ error: 'no mentor found' });
+    res.status(201).json({ data: specificMentor });
+  }
 }
 
 export default UserController;

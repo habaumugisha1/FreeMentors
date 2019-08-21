@@ -7,4 +7,5 @@ userApi.post('/auth/signup', userHandler.singUp);
 userApi.post('/auth/signin', userHandler.signIn);
 userApi.patch('/user/:userId', userMiddlewareHandler.isAdminUser, userHandler.changeUserToMentor);
 userApi.get('/mentors', userMiddlewareHandler.canViewAllMentors, userHandler.userViewMentors);
+userApi.get('/mentors/:mentorId', userMiddlewareHandler.canViewAllMentors, userHandler.viewSpecificMentor);
 export default userApi;
