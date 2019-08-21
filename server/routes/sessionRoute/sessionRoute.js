@@ -8,5 +8,6 @@ sessionRoute.post('/sessions', routeMiddleware.canViewAllMentors, sessionRequest
 sessionRoute.get('/sessions', routeMiddleware.canViewAllMentors, sessionRequestHandler.viewAllSessions);
 sessionRoute.patch('/sessions/:sessionId/accept', routeMiddleware.isMentor, sessionRequestHandler.acceptSession);
 sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, sessionRequestHandler.rejectSession);
+sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.canViewAllMentors, sessionRequestHandler.sessionReview);
 
 export default sessionRoute;

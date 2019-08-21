@@ -36,3 +36,5 @@ export const Sessions = [
     status: 'pending',
   },
 ];
+
+export const Reviews = [];
