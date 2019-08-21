@@ -12,5 +12,18 @@ export const Users = [
     user_role: 'admin',
     isAdmin: true,
   },
+  {
+    id: 2,
+    firstname: 'munya',
+    lastname: 'eugene',
+    email: 'mu@gmail.com',
+    password: 'webapp12',
+    address: 'kigali,rwanda',
+    bio: 'leoum epasum',
+    occupation: 'minister',
+    expertise: 'leadership',
+    user_role: 'mentor',
+    isAdmin: false,
+  },
 ];
 export const Sessions = [];
