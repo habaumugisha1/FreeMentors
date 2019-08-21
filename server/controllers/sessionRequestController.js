@@ -26,6 +26,13 @@ class sessionRequestHandler {
     singleSession.status = req.body.status;
     res.status(201).json({ data: singleSession });
   }
+
+  static rejectSession(req, res) {
+    const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
+    if (!singleSession) return res.status(404).json({ data: singleSession });
+    singleSession.status = req.body.status;
+    res.status(201).json({ data: singleSession });
+  }
 }
 
 export default sessionRequestHandler;
