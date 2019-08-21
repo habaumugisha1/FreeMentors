@@ -37,4 +37,14 @@ export const Sessions = [
   },
 ];
 
-export const Reviews = [];
+export const Reviews = [
+
+  {
+    id: 1,
+    sessionId: 1,
+    menteeId: 2,
+    score: 3,
+    menteeFullName: 'munya eugene',
+    remark: 'Was effective',
+  },
+];
