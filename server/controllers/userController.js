@@ -23,6 +23,8 @@ class UserController {
       email: newUser.email,
       isAdmin: newUser.isAdmin,
       user_role: newUser.user_role,
+      firstname: newUser.firstname,
+      lastname: newUser.lastname,
     },
     'secretkey', (errs, token) => {
       if (errs) return res.json({ err: errs });
@@ -39,6 +41,8 @@ class UserController {
       email: signInUser.email,
       isAdmin: signInUser.isAdmin,
       user_role: signInUser.user_role,
+      firstname: signInUser.firstname,
+      lastname: signInUser.lastname,
     }, 'secretkey', (errs, token) => {
       if (errs) return res.json({ err: errs });
       signInUser.token = token;
