@@ -51,6 +51,13 @@ class sessionRequestHandler {
     Reviews.push(userReview);
     res.status(201).json({ data: userReview });
   }
+
+  static deleteSessionReview(req, res) {
+    const sessionReview = Reviews.find((review) => review.sessionId === parseInt(req.params.sessionId, 10));
+    if (!sessionReview) return res.status(404).json({ data: sessionReview });
+    Reviews.splice(Reviews.indexOf(sessionReview), 1);
+    res.status(200).json({ data: { message: 'Review Deleted successfully ', review: sessionReview } });
+  }
 }
 
 export default sessionRequestHandler;
