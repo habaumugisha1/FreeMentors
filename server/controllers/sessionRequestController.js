@@ -13,6 +13,11 @@ class sessionRequestHandler {
     Sessions.push(newSession);
     res.status(201).json({ data: newSession });
   }
+
+  static viewAllSessions(req, res) {
+    const allSessions = Sessions.filter((session) => session.email === req.userData.email);
+    res.status(200).json({ data: allSessions });
+  }
 }
 
 export default sessionRequestHandler;
