@@ -22,7 +22,7 @@ export const Users = [
     bio: 'leoum epasum',
     occupation: 'minister',
     expertise: 'leadership',
-    user_role: 'mentor',
+    user_role: 'user',
     isAdmin: false,
   },
 ];

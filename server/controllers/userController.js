@@ -59,8 +59,12 @@ class UserController {
 
   static userViewMentors(req, res) {
     const mentors = Users.filter((mentor) => mentor.user_role === 'mentor');
-    if (mentors.length === 0) return res.status(404).json({ message: 'No mentor found' });
     res.status(200).json({ data: mentors });
+  }
+
+  static adminViewUsers(req, res) {
+    const users = Users.filter((user) => user.user_role === 'user');
+    res.status(200).json({ data: users });
   }
 
   static viewSpecificMentor(req, res) {
