@@ -41,7 +41,7 @@ export const Reviews = [
 
   {
     id: 1,
-    sessionId: 1,
+    sessionId: 3,
     menteeId: 2,
     score: 3,
     menteeFullName: 'munya eugene',
