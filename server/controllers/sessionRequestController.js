@@ -1,4 +1,5 @@
-import { Sessions, Reviews } from '../models/myDb';
+import { Sessions } from '../models/myDb';
+import sessionReviewResponse from '../helpers/sessionRevieRes';
 
 class sessionRequestHandler {
   static createSessionRequest(req, res) {
@@ -15,7 +16,7 @@ class sessionRequestHandler {
     res.status(201).json({ data: newSession });
   }
 
-  static viewAllSessions(req, res) {
+  static userSessions(req, res) {
     const allSessions = Sessions.filter((session) => session.menteeId === req.userData.id);
     res.status(200).json({ data: allSessions });
   }
@@ -23,6 +24,14 @@ class sessionRequestHandler {
   static mentorSessions(req, res) {
     const allSessions = Sessions.filter((session) => session.mentorId === req.userData.id);
     res.status(200).json({ data: allSessions });
+  }
+
+  static adminAllSessions(req, res) {
+    const sessRev = [];
+    Sessions.forEach((session) => {
+      sessRev.push(sessionReviewResponse(session));
+    });
+    res.status(200).json({ data: sessRev });
   }
 
   static acceptSession(req, res) {
