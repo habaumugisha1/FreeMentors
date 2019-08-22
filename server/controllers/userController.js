@@ -1,7 +1,10 @@
 import { sign } from 'jsonwebtoken';
 import Joi from '@hapi/joi';
+import bcrypt from 'bcrypt';
 import { Users } from '../models/myDb';
 import { signUpSchema, signInSchema } from '../helpers/validationSchema';
+import userReturn from '../helpers/userResponse';
+
 
 import existUser from '../helpers/isExist';
 
@@ -10,33 +13,37 @@ class UserController {
     Joi.validate(req.body, signUpSchema, (err, value) => {
       if (err) res.status(400).json({ error: err.details[0].message });
       if (!existUser(value.email, Users)) return res.status(403).json({ error: 'User exist' });
-      const newUser = {
-        id: Users.length + 1,
-        firstname: value.firstname,
-        lastname: value.lastname,
-        email: value.email,
-        password: value.password,
-        address: value.address,
-        bio: value.bio,
-        occupation: value.occupation,
-        expertise: value.expertise,
-        user_role: 'user',
-        isAdmin: false,
-        createdOn: new Date(),
-      };
-      Users.push(newUser);
-      sign({
-        id: newUser.id,
-        email: newUser.email,
-        isAdmin: newUser.isAdmin,
-        user_role: newUser.user_role,
-        firstname: newUser.firstname,
-        lastname: newUser.lastname,
-      },
-      'secretkey', (errs, token) => {
-        if (errs) return res.json({ err: errs });
-        newUser.token = token;
-        return res.status(201).json({ data: { firstname: newUser.firstname, lastname: newUser.lastname, token: newUser.token } });
+      bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
+        if (errs) return res.status(400).json({ error: errs });
+
+        const newUser = {
+          id: Users.length + 1,
+          firstname: value.firstname,
+          lastname: value.lastname,
+          email: value.email,
+          password: hashedPassword,
+          address: value.address,
+          bio: value.bio,
+          occupation: value.occupation,
+          expertise: value.expertise,
+          user_role: 'user',
+          isAdmin: false,
+          createdOn: new Date(),
+        };
+        Users.push(newUser);
+        sign({
+          id: newUser.id,
+          email: newUser.email,
+          isAdmin: newUser.isAdmin,
+          user_role: newUser.user_role,
+          firstname: newUser.firstname,
+          lastname: newUser.lastname,
+        },
+        'secretkey', (errors, token) => {
+          if (errors) return res.json({ err: errs });
+          newUser.token = token;
+          return res.status(201).json({ data: userReturn(newUser) });
+        });
       });
     });
   }
@@ -45,20 +52,25 @@ class UserController {
   static signIn(req, res) {
     Joi.validate(req.body, signInSchema, (err, value) => {
       if (err) res.status(400).json({ error: err.details[0].message });
-
       const signInUser = Users.find((user) => user.email === value.email);
       if (!signInUser) return res.status(401).json({ message: 'User not found' });
-      sign({
-        id: signInUser.id,
-        email: signInUser.email,
-        isAdmin: signInUser.isAdmin,
-        user_role: signInUser.user_role,
-        firstname: signInUser.firstname,
-        lastname: signInUser.lastname,
-      }, 'secretkey', (errs, token) => {
-        if (errs) return res.json({ err: errs });
-        signInUser.token = token;
-        return res.status(201).json({ data: { firstname: signInUser.firstname, lastname: signInUser.lastname, token: signInUser.token } });
+
+
+      bcrypt.compare(value.password, signInUser.password, (errors, result) => {
+        if (errors) return res.status(400).json({ error: errors });
+
+        sign({
+          id: signInUser.id,
+          email: signInUser.email,
+          isAdmin: signInUser.isAdmin,
+          user_role: signInUser.user_role,
+          firstname: signInUser.firstname,
+          lastname: signInUser.lastname,
+        }, 'secretkey', (errs, token) => {
+          if (errs) return res.json({ err: errs });
+          signInUser.token = token;
+          return res.status(201).json({ data: userReturn(signInUser) });
+        });
       });
     });
   }
