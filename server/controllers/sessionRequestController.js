@@ -16,7 +16,12 @@ class sessionRequestHandler {
   }
 
   static viewAllSessions(req, res) {
-    const allSessions = Sessions.filter((session) => session.email === req.userData.email);
+    const allSessions = Sessions.filter((session) => session.menteeId === req.userData.id);
+    res.status(200).json({ data: allSessions });
+  }
+
+  static mentorSessions(req, res) {
+    const allSessions = Sessions.filter((session) => session.mentorId === req.userData.id);
     res.status(200).json({ data: allSessions });
   }
 

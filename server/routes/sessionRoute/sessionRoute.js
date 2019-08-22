@@ -6,6 +6,7 @@ import sessionRequestHandler from '../../controllers/sessionRequestController';
 const sessionRoute = express.Router({ mergeParams: true });
 sessionRoute.post('/sessions', routeMiddleware.canViewAllMentors, sessionRequest.createSessionRequest);
 sessionRoute.get('/sessions', routeMiddleware.canViewAllMentors, sessionRequestHandler.viewAllSessions);
+sessionRoute.get('/mentor/sessions', routeMiddleware.isMentor, sessionRequestHandler.mentorSessions);
 sessionRoute.patch('/sessions/:sessionId/accept', routeMiddleware.isMentor, sessionRequestHandler.acceptSession);
 sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, sessionRequestHandler.rejectSession);
 sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.canViewAllMentors, sessionRequestHandler.sessionReview);

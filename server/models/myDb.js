@@ -29,7 +29,7 @@ export const Users = [
 export const Sessions = [
   {
     id: 1,
-    mentorI: 2,
+    mentorId: 1,
     menteeId: 2,
     question: 'leardership help is needed',
     menteeEmail: 'mu@gmail.com',
