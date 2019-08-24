@@ -1,4 +1,4 @@
-import { Sessions } from '../models/myDb';
+import { Sessions, Reviews } from '../models/myDb';
 import sessionReviewResponse from '../helpers/sessionRevieRes';
 
 class sessionRequestHandler {

@@ -12,7 +12,7 @@ class UserController {
   static singUp(req, res) {
     Joi.validate(req.body, signUpSchema, (err, value) => {
       if (err) res.status(400).json({ error: err.details[0].message });
-      if (!existUser(value.email, Users)) return res.status(403).json({ error: 'User exist' });
+      if (!existUser(value.email, Users)) return res.status(400).json({ error: 'User exist' });
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
         if (errs) return res.status(400).json({ error: errs });
 
@@ -53,12 +53,12 @@ class UserController {
     Joi.validate(req.body, signInSchema, (err, value) => {
       if (err) res.status(400).json({ error: err.details[0].message });
       const signInUser = Users.find((user) => user.email === value.email);
-      if (!signInUser) return res.status(401).json({ message: 'User not found' });
+      if (!signInUser) return res.status(404).json({ message: 'User not found' });
 
 
       bcrypt.compare(value.password, signInUser.password, (errors, result) => {
         if (errors) return res.status(400).json({ error: errors });
-
+        if (!result) return res.json({ error: 'Invalid credentials' });
         sign({
           id: signInUser.id,
           email: signInUser.email,
@@ -95,7 +95,7 @@ class UserController {
   static viewSpecificMentor(req, res) {
     const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.user_role === 'mentor');
     if (!specificMentor) return res.status(404).json({ error: 'no mentor found' });
-    res.status(201).json({ data: specificMentor });
+    res.status(200).json({ data: specificMentor });
   }
 }
 
