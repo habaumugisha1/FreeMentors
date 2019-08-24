@@ -8,4 +8,4 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 masterRoute(app);
-app.listen(3000);
+export default app;
