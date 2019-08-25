@@ -7,7 +7,7 @@ sessionRoute.post('/sessions', routeMiddleware.canViewAllMentors, sessionRequest
 sessionRoute.get('/user/sessions', routeMiddleware.canViewAllMentors, sessionRequestHandler.userSessions);
 sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.canViewAllMentors, sessionRequestHandler.sessionReview);
 sessionRoute.get('/mentor/sessions', routeMiddleware.isMentor, sessionRequestHandler.mentorSessions);
-sessionRoute.get('/sessions/review', routeMiddleware.isAdminUser, sessionRequestHandler.adminAllSessions);
+sessionRoute.get('/sessions/reviews', routeMiddleware.isAdminUser, sessionRequestHandler.adminAllSessions);
 
 sessionRoute.patch('/sessions/:sessionId/accept', routeMiddleware.isMentor, sessionRequestHandler.acceptSession);
 sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, sessionRequestHandler.rejectSession);

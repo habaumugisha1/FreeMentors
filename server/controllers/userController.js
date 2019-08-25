@@ -79,7 +79,7 @@ class UserController {
     const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
     if (!singleUser) return res.status(404).json({ error: 'user not found' });
     singleUser.user_role = req.body.user_role;
-    res.status(201).json({ message: 'user accunt changed to mentor' });
+    res.status(201).json({ data: singleUser });
   }
 
   static userViewMentors(req, res) {
