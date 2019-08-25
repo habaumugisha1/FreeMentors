@@ -4,7 +4,7 @@ class middleWareHandler {
   static isAdminUser(req, res, next) {
     if (!req.headers.authorization) return res.status(401).json({ error: 'You do not have an account' });
     const token = req.headers.authorization.split(' ')[1];
-    const isAdminData = verify(token, 'secretkey');
+    const isAdminData = verify(token, process.env.SECRET_KEY);
     req.userData = isAdminData;
     if (isAdminData.isAdmin) return next();
     return res.status(403).json({ error: 'You are not an admin' });
@@ -13,7 +13,7 @@ class middleWareHandler {
   static canViewAllMentors(req, res, next) {
     if (!req.headers.authorization) return res.status(401).json({ error: 'You do not have an account' });
     const token = req.headers.authorization.split(' ')[1];
-    const userData = verify(token, 'secretkey');
+    const userData = verify(token, process.env.SECRET_KEY);
     req.userData = userData;
     if (userData.user_role !== 'mentor') return next();
     return res.status(403).json({ error: 'Only users and admin are allowed' });
@@ -23,7 +23,7 @@ class middleWareHandler {
   static isMentor(req, res, next) {
     if (!req.headers.authorization) return res.status(401).json({ error: 'You do not have an account' });
     const token = req.headers.authorization.split(' ')[1];
-    const userData = verify(token, 'secretkey');
+    const userData = verify(token, process.env.SECRET_KEY);
     req.userData = userData;
     if (userData.user_role === 'mentor') return next();
     return res.status(403).json({ error: 'Only mentors allowed' });
