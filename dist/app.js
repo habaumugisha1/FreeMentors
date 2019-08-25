@@ -24,6 +24,11 @@ app.use((0, _allowMethods["default"])(['get', 'post', 'head', 'delete', 'patch']
 app.use((0, _bodyParser.urlencoded)({
   extended: true
 }));
+app.get('/', function (req, res) {
+  res.json({
+    message: 'hello'
+  });
+});
 (0, _masterRoute["default"])(app);
 app.listen(3000);
 var _default = app;
