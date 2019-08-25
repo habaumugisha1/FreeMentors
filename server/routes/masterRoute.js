@@ -1,13 +1,10 @@
 
 import userEndPoint from './userRoute/userRoute';
 import sessionEndPoint from './sessionRoute/sessionRoute';
+import swaggerDoc from './docs/swaggerDocs';
 
 export default (app) => {
   app.use('/api/v1', userEndPoint);
   app.use('/api/v1', sessionEndPoint);
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500).send({
-      message: err.message,
-    });
-  });
+  swaggerDoc(app);
 };
