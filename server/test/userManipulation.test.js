@@ -2,7 +2,7 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
-import server from '../app';
+import server from '../server';
 
 use(chaiHttp);
 describe('User endpoints', () => {
