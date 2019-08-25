@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
     message: 'hello'
   });
 });
-(0, _masterRoute["default"])(PORT);
-app.listen(3000);
+(0, _masterRoute["default"])(app);
+app.listen(PORT);
 var _default = app;
 exports["default"] = _default;

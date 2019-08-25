@@ -13,6 +13,6 @@ app.use(urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.json({ message: 'hello' });
 });
-masterRoute(PORT);
-app.listen(3000);
+masterRoute(app);
+app.listen(PORT);
 export default app;
