@@ -1,0 +1,641 @@
+  {
+  "swagger": "2.0",
+  "info": {
+    "description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.",
+    "version": "2",
+    "title": "Free Mentors"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1/",
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "SignUp as user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User create",
+            "schema": {
+              "$ref": "#/definitions/signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User account created!",
+            "schema": {
+              "$ref": "#/definitions/signup"
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "SignIn as user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "You have to login",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful!"
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Change user to mentor",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Admin token",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "user-role",
+            "in": "body",
+            "description": "Change user to mentor",
+            "schema": {
+              "$ref": "#/definitions/mentor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User changed successfully!"
+          }
+        }
+      }
+    },
+    "/mentors":{
+      "get":{
+        "tags":[
+          "User"
+        ],
+        "summary":"view all mentors",
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "User token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All mentors",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+
+        }
+      }
+    },
+    "/users":{
+      "get":{
+        "tags":["User"],
+        "summary":"View all users",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "admin token",
+            "required": true
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"All users",
+            "schema":{"$ref":"#/definitions/users"}
+          }
+        }
+      }
+    },
+    "/mentors/{mentorId}":{
+      "get":{
+        "tags":["User"],
+        "summary":"View specific mentor",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "user token",
+            "required": true
+          },
+          {
+            "name": "mentorId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"successfully retrieved",
+            "schema":{
+              "$ref":"#/definitions/users"
+            }
+          }
+        }
+      }
+    },
+    "/sessions":{
+      "post":{
+        "tags":["Session"],
+        "summary":"Create session",
+        "procedures":["applicatio/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "user token",
+            "required": true
+          },
+          {
+            "name": "session",
+            "in": "body",
+            "description": "Create a session",
+            "schema": {
+              "$ref":"#/definitions/session"
+            }
+          }
+        ],
+        "responses":{
+          "201":{
+            "description":"Session create successfully",
+            "schema":{
+              "$ref":"#/definitions/sessions"
+            }
+          }
+        }
+      }
+    },
+    "/user/sessions":{
+      "get":{
+        "tags":[ "Session"],
+        "summary":"user specific sessions",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "user token",
+            "required": true
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"get user specific session",
+            "schema":{
+              "$ref":"#/definitions/sessions"
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}/review":{
+      "post":{
+        "tags":[
+          "Session"
+        ],
+        "summary":"reviewing a session",
+        "procedures":["applicatio/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "user token",
+            "required": true
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "type":"integer"
+          },
+          {
+            "name": "review",
+            "in": "body",
+            "description": "review a session",
+            "schema": {
+              "$ref":"#/definitions/review"
+            }
+          }
+        ],
+        "responses":{
+          "201":{
+            "description":"review created successfully",
+            "schema":{
+              "$ref":"#/definitions/reviews"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags":["Session"],
+        "summary":"Delete inappropriate review",
+        "procedures":["applicatio/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "admin token",
+            "required": true
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "type":"integer"
+          }
+        ],
+        "responses":{
+          "204":{
+            "description":"deleted successfully"
+          }
+        }
+      }
+    },
+    "/mentor/sessions":{
+      "get":{
+        "tags":["Session"],
+        "summary":"mentor specific sessions",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "mentor token",
+            "required": true
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"session for a logged in mentor",
+            "schema":{
+              "$ref":"#/definitions/sessions"
+            }
+          }
+        }
+      }
+    },
+    "/sessions/reviews":{
+      "get":{
+        "tags":["Session"],
+        "summary":"As an admin will view all sessions",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "admin token",
+            "required": true
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"retrieved successfully",
+            "schema":{
+              "$ref":"#/definitions/sessionsreviews"
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}/accept":{
+      "patch":{
+        "tags":["Session"],
+        "summary":"accept session request",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "mentor token",
+            "required": true
+          },
+          {
+            "name": "session id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+          "name": "status",
+          "in": "body",
+          "description": "accept a session",
+          "schema": {
+            "$ref":"#/definitions/accept"
+          }
+        }
+        ],
+        "responses":{
+          "201":{
+            "description":"Session accepted",
+            "schema":{
+              "$ref":"#/definitions/sessions"
+            }
+          }
+        }
+      }
+    },
+    "/sessions/{sessionId}/reject":{
+      "patch":{
+        "tags":["Session"],
+        "summary":"reject session request",
+        "produces":["application/json"],
+        "parameters":[
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "mentor token",
+            "required": true
+          },
+          {
+            "name": "session id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+          "name": "status",
+          "in": "body",
+          "description": "reject a session",
+          "schema": {
+            "$ref":"#/definitions/reject"
+          }
+        }
+        ],
+        "responses":{
+          "201":{
+            "description":"Session rejected",
+            "schema":{
+              "$ref":"#/definitions/sessions"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "signup": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "occupation": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "expertise": {
+          "type": "string"
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+
+  "users":{
+    "type":"object",
+    "properties":{
+      "id":{
+        "type":"number"
+      },
+      "firstname":{
+        "type":"string"
+      },
+      "lastname":{
+        "type":"string"
+      },
+      "email":{
+        "type":"string"
+      },
+      "address":{
+        "type":"string"
+      },
+      "bio":{
+        "type":"string"
+      },
+      "user-role":{
+        "type":"string"
+      },
+      "expertise":{
+        "type":"string"
+      }
+    }
+  },
+
+  "mentor": {
+    "type": "object",
+    "properties": {
+      "user-role": {
+        "type": "string"
+      }
+    }
+  },
+
+  "reviews":{
+    "properties":{
+      "sessionId":{
+        "type":"number"
+      },
+      "mentorId":{
+        "type":"number"
+      },
+      "menteeId":{
+        "type":"number"
+      },
+      "score":{
+        "type":"number"
+      },
+      "menteeEmail":{
+        "type":"string"
+      },
+      "remark":{
+        "type":"string"
+      }
+    
+    }
+  },
+"sessions":{
+  "type":"object",
+  "properties":{
+    "sessionId":{
+      "type":"number"
+    },
+    "mentorId":{
+      "type":"number"
+    },
+    "menteeId":{
+      "type":"number"
+    },
+    "menteeEmail":{
+      "type":"string"
+    },
+    "status":{
+      "type":"string"
+    }
+  }
+},
+"session":{
+  "type":"object",
+  "properties":{
+  
+    "mentorId":{
+      "type":"number"
+    },
+    "question":{
+      "type":"string"
+    }
+  }
+},
+"review":{
+  "type":"object",
+  "properties":{
+    "score":{
+      "type":"number"
+    },
+    "remark":{
+      "type":"string"
+    }
+  }
+},
+
+"reject":{
+  "type":"object",
+  "properties":{
+    "status":{
+      "type":"string"
+    }
+  }
+},
+"accept":{
+  "type":"object",
+  "properties":{
+    "status":{
+      "type":"string"
+    }
+  }
+},
+"sessionsreviews":{
+  "type":"object",
+  "properties":{
+    "question":{
+      "type":"string"
+    },
+    "menteeEmail":{
+      "type":"string"
+    },
+    "status":{
+      "type":"string"
+    },
+    "reviews":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "sessionId":{
+            "type":"number"
+          },
+          "mentorId":{
+            "type":"number"
+          },
+          "menteeId":{
+            "type":"number"
+          },
+          "score":{
+            "type":"number"
+          },
+          "menteeEmail":{
+            "type":"string"
+          },
+          "remark":{
+            "type":"string"
+          }
+        }
+      }
+    }
+  }
+}
+  }}

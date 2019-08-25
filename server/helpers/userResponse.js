@@ -3,5 +3,4 @@ export default (UserReturnData) => ({
   lastname: UserReturnData.lastname,
   email: UserReturnData.email,
   token: UserReturnData.token,
-  password: UserReturnData.password,
 });

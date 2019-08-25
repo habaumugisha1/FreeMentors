@@ -19,7 +19,7 @@ describe('User activities', () => {
 
   it('Get all sessions and their reviews', (done) => {
     request(server)
-      .get('/api/v1/sessions/review')
+      .get('/api/v1/sessions/reviews')
       .set({ Authorization: `Bearer ${global.userToken}` })
       .end((err, res) => {
         expect(res).to.have.status(200);
