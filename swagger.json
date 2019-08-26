@@ -5,7 +5,7 @@
     "version": "2",
     "title": "Free Mentors"
   },
-  "host": "localhost:3000",
+  "host": "freementorswp.herokuapp.com",
   "basePath": "/api/v1/",
   "securityDefinitions": {
     "Bearer": {

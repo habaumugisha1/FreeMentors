@@ -8,14 +8,11 @@ import masterRoute from './routes/masterRoute';
 config();
 
 const app = express();
-const { PORT } = process.env.PORT;
+const port = process.env.PORT;
 app.use(cors());
 app.use(json());
-app.use(allowMethod(['get', 'post', 'head', 'delete', 'patch'], 'Method Not allowed'));
 app.use(urlencoded({ extended: true }));
-app.get('/', (req, res) => {
-  res.json({ message: 'hello' });
-});
+app.use(allowMethod(['get', 'post', 'head', 'delete', 'patch'], 'Method Not allowed'));
 masterRoute(app);
-app.listen(PORT);
+app.listen(port, () => console.log(`runing on port${port}`));
 export default app;
