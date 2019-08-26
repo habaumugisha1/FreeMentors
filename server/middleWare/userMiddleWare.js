@@ -7,7 +7,7 @@ class middleWareHandler {
     const isAdminData = verify(token, process.env.SECRET_KEY);
     req.userData = isAdminData;
     if (isAdminData.isAdmin) return next();
-    return res.status(403).json({ error: 'You are not an admin' });
+    return res.status(403).json({ message: 'You are not an admin' });
   }
 
   static canViewAllMentors(req, res, next) {
@@ -16,7 +16,7 @@ class middleWareHandler {
     const userData = verify(token, process.env.SECRET_KEY);
     req.userData = userData;
     if (userData.user_role !== 'mentor') return next();
-    return res.status(403).json({ error: 'Only users and admin are allowed' });
+    return res.status(403).json({ message: 'Only users and admin are allowed' });
   }
 
 
@@ -26,7 +26,7 @@ class middleWareHandler {
     const userData = verify(token, process.env.SECRET_KEY);
     req.userData = userData;
     if (userData.user_role === 'mentor') return next();
-    return res.status(403).json({ error: 'Only mentors allowed' });
+    return res.status(403).json({ message: 'Only mentors allowed' });
   }
 }
 
