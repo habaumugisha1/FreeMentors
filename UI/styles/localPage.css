@@ -1,0 +1,196 @@
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background: #fafafa;
+}
+a{
+    text-decoration: none;
+    color: #00B6FF;
+}
+.wrapper{
+    display: flex;
+    height: 100vh;
+    width:100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container{
+    width: 100%;
+    max-width: 90rem;
+   margin: 3rem auto;
+  }
+
+  .wrapper >.container{
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid #eee;
+    padding-left: .5rem;
+    }
+    .container .nav-menu ul{
+        list-style: none; 
+      }
+      .nav-menu ul li{
+         padding: 0 0rem;
+      }
+      .nav-menu ul li a{
+          display: block;
+          height: 20px;
+          width: 100px;
+          margin: .2rem 0;
+          transition-duration: .5s;
+      }
+      .nav-menu ul li a:hover{
+       font-size: 14px;
+       color: rgb(220,20,60);
+       border-bottom: 2px solid #00B6FF;
+      }
+
+.page-content{
+    padding-top:3rem;
+}
+
+.page-content ul{ list-style: none;}
+.page-content ul li{width: 50%;}
+.page-content ul li:nth-child(even) {float: right; clear: both;position: relative;}
+.page-content ul li:nth-child(odd) {float: left; clear: both; text-align: right;position: relative;}
+.page-content ul li:nth-child(even)::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: black;
+}
+.page-content ul li:nth-child(odd)::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: black;
+}
+
+.page-content ul li:nth-child(even) h2,p {padding-left: 2rem;}
+.page-content ul li:nth-child(odd) h2,p {padding-right: 2rem;}
+.page-content ul li:nth-child(even)::after{
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: red;
+}
+
+.page-content ul li:nth-child(odd)::after{
+    content: '';
+    position: absolute;
+    right:-10px;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: red;
+}
+.page-content ul li .content{
+    display: flex;
+    flex-direction: column;
+    background:#eee;
+}
+.page-content ul li .content p{
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    
+}
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+footer .footer-nav{
+    width: 50%;
+}
+footer .footer-nav ul{
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: flex-end;
+}
+.footer-nav ul li{
+    margin-right: 1.5rem;
+
+}
+
+.footer-nav ul li a{
+    color: #003569;
+}
+footer .container .copy-right{
+   color: #999999;
+   flex: 1;
+}
+
+@media (max-width:800px){
+    .wrapper >.container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+    .page-content{
+        display: flex;
+        flex-direction: column;
+    }
+    .page-content ul li{width: initial;}
+    .page-content ul li:nth-child(even) {float: initial; clear: both;position: relative;}
+.page-content ul li:nth-child(odd) {float: initial; clear: both; text-align: initial;position: relative;}
+    .page-content ul li:nth-child(even)::before{
+        display: none;
+    }
+    .page-content ul li:nth-child(odd)::before{
+        display: none;
+    }
+    .page-content ul li:nth-child(even)::after{
+        display: none;
+    }
+    .page-content ul li:nth-child(odd)::after{
+        display: none;
+    }
+.page-content ul li:nth-child(even) h2,p {padding-left: initial;}
+.page-content ul li:nth-child(odd) h2,p {padding-right: initial;}
+.page-content ul li .content{
+    display: flex;
+    flex-direction: column;
+    background:#eee;
+    justify-content: center;
+    align-items: center;
+}
+footer .container .copy-right{
+    color: #999999;
+    flex-wrap: wrap;
+ }
+}
