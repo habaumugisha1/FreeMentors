@@ -1,0 +1,136 @@
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background: #fafafa;
+}
+a{
+    text-decoration: none;
+    color: #00B6FF;
+}
+.wrapper{
+    display: flex;
+    height: 100vh;
+    width:100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container{
+    width: 100%;
+    max-width: 90rem;
+   margin: 3rem auto;
+  }
+
+  .wrapper >.container{
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid #eee;
+    padding-left: .5rem;
+    }
+    .container .nav-menu ul{
+        list-style: none; 
+      }
+      .nav-menu ul li{
+         padding: 0 0rem;
+      }
+      .nav-menu ul li a{
+          display: block;
+          height: 20px;
+          width: 100px;
+          margin: .2rem 0;
+          transition-duration: .5s;
+      }
+      .nav-menu ul li a:hover{
+       font-size: 14px;
+       color: rgb(220,20,60);
+       border-bottom: 2px solid #00B6FF;
+      }
+
+.page-content{
+    padding-top:3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.page-content span{
+    display: flex;
+    font-size: 1.5rem;
+}
+
+.page-content span p{
+    padding: .5rem;
+}
+
+}
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    
+}
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-top: 0;
+    flex-wrap: wrap;
+}
+footer .footer-nav{
+    width: 50%;
+}
+footer .footer-nav ul{
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: flex-end;
+}
+.footer-nav ul li{
+    margin-right: 1.5rem;
+
+}
+
+.footer-nav ul li a{
+    color: #003569;
+}
+footer .container .copy-right{
+   color: #999999;
+   flex: 1;
+}
+
+
+@media (max-width:800px){
+    .wrapper >.container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+    .page-content{
+        display: flex;
+        flex-direction: column;
+    }
+    .page-content span{
+        display: flex;
+        font-size: 1rem;
+    }
+    
+
+footer .container .copy-right{
+    color: #999999;
+    flex-wrap: wrap;
+ }
+}
