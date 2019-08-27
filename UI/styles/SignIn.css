@@ -82,7 +82,7 @@ padding: 2rem 0;
     font-size: 14px;
     text-align: center;
 }
-.mobile .screen button{
+.mobile .screen a{
     position: absolute;
     bottom: 40px;
     left: 50%;
@@ -92,8 +92,11 @@ padding: 2rem 0;
     background: transparent;
     border: 1px solid 	rgb(220,20,60);
     border-radius: 1rem;
-
+    outline: none;
+    text-align: center;
+    padding-top: .5rem;
 }
+
 .mobile .home-btn{
     position: absolute;
     bottom: 15px;
