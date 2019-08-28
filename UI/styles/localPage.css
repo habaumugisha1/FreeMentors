@@ -15,7 +15,8 @@ body{
 }
 a{
     text-decoration: none;
-    color: #00B6FF;
+    color: #003569;
+    font-weight: bold;
 }
 .wrapper{
     display: flex;
