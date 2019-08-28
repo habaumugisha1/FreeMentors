@@ -15,7 +15,8 @@ body{
 }
 a{
     text-decoration: none;
-    color: #00B6FF;
+    color: #003569;
+    font-weight: bold;
    
 }
 .wrapper{
@@ -200,8 +201,18 @@ footer .container .copy-right{
 
 
 @media (max-width:1000px){
-    .container .condition-rule{
+    .condition-rule .notice{
         display: none;
+ }
+ .wrapper >.container{
+     display: flex;
+     flex-direction: column;
+ }
+ .condition-rule .nav-menu ul{
+   display: flex;
+   justify-items: center;
+   align-items: center;
+   flex-direction: column;
  }
  .container  .sign-up-form{
      padding: 0 0;
