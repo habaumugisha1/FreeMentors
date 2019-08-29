@@ -54,8 +54,9 @@ export const Reviews = [
 
   {
     id: 1,
-    sessionId: 3,
+    sessionId: 1,
     menteeId: 2,
+    mentorId: 1,
     score: 3,
     menteeFullName: 'munya eugene',
     remark: 'Was effective',
