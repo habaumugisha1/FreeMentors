@@ -3,9 +3,9 @@ import routeMiddleware from '../../middleWare/userMiddleWare';
 import sessionRequestHandler from '../../controllers/sessionRequestController';
 
 const sessionRoute = express.Router({ mergeParams: true });
-sessionRoute.post('/sessions', routeMiddleware.canViewAllMentors, sessionRequestHandler.createSessionRequest);
-sessionRoute.get('/user/sessions', routeMiddleware.canViewAllMentors, sessionRequestHandler.userSessions);
-sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.canViewAllMentors, sessionRequestHandler.sessionReview);
+sessionRoute.post('/sessions', routeMiddleware.isUser, sessionRequestHandler.createSessionRequest);
+sessionRoute.get('/user/sessions', routeMiddleware.isUser, sessionRequestHandler.userSessions);
+sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.isUser, sessionRequestHandler.sessionReview);
 sessionRoute.get('/mentor/sessions', routeMiddleware.isMentor, sessionRequestHandler.mentorSessions);
 sessionRoute.get('/sessions/reviews', routeMiddleware.isAdminUser, sessionRequestHandler.adminAllSessions);
 

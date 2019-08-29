@@ -7,5 +7,6 @@ export default (mentorReturnData) => ({
   bio: mentorReturnData.bio,
   occupation: mentorReturnData.occupation,
   expertise: mentorReturnData.expertise,
-});
+  user_role: mentorReturnData.user_role,
 
+});

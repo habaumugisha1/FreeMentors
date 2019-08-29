@@ -6,9 +6,9 @@ class sessionRequestHandler {
     const newSession = {
       id: Sessions.length + 1,
       mentorId: req.body.mentorId,
-      menteeId: req.userData.id,
+      menteeId: req.authUser.id,
       question: req.body.question,
-      menteeEmail: req.userData.email,
+      menteeEmail: req.authUser.email,
       status: 'pending',
     };
 
@@ -17,12 +17,12 @@ class sessionRequestHandler {
   }
 
   static userSessions(req, res) {
-    const allSessions = Sessions.filter((session) => session.menteeId === req.userData.id);
+    const allSessions = Sessions.filter((session) => session.menteeId === req.authUser.id);
     res.status(200).json({ data: allSessions });
   }
 
   static mentorSessions(req, res) {
-    const allSessions = Sessions.filter((session) => session.mentorId === req.userData.id);
+    const allSessions = Sessions.filter((session) => session.mentorId === req.authUser.id);
     res.status(200).json({ data: allSessions });
   }
 
@@ -58,7 +58,7 @@ class sessionRequestHandler {
       mentorId: singleSession.mentorId,
       menteeId: singleSession.menteeId,
       score: req.body.score,
-      menteeFullName: `${req.userData.firstname} ${req.userData.lastname}`,
+      menteeFullName: `${req.authUser.firstname} ${req.authUser.lastname}`,
       remark: req.body.remark,
 
     };
