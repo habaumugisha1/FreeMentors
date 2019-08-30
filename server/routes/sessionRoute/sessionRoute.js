@@ -10,5 +10,6 @@ sessionRoute.get('/mentor/sessions', routeMiddleware.isMentor, sessionRequestHan
 sessionRoute.get('/sessions/reviews', routeMiddleware.isAdminUser, sessionRequestHandler.adminAllSessions);
 sessionRoute.patch('/sessions/:sessionId/accept', routeMiddleware.isMentor, sessionRequestHandler.acceptSession);
 sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, sessionRequestHandler.rejectSession);
+sessionRoute.patch('/review/:reviewId', routeMiddleware.isUser, sessionRequestHandler.editReview);
 sessionRoute.delete('/sessions/:sessionId/review', routeMiddleware.isAdminUser, sessionRequestHandler.deleteSessionReview);
 export default sessionRoute;
