@@ -55,10 +55,10 @@ export const Reviews = [
   {
     id: 1,
     sessionId: 1,
-    menteeId: 2,
     mentorId: 1,
+    menteeId: 2,
     score: 3,
     menteeFullName: 'munya eugene',
-    remark: 'Was effective',
+    remark: 'Was effective and awesome',
   },
 ];

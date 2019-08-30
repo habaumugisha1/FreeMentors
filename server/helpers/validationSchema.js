@@ -12,6 +12,6 @@ export const signUpSchema = joi.object().keys({
   lastname: joi.string().required(),
   address: joi.string().required(),
   bio: joi.string().required(),
-  expertise: joi.string().required(),
   occupation: joi.string().required(),
+  expertise: joi.string().required(),
 });

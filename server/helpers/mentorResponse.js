@@ -4,9 +4,9 @@ export default (mentorReturnData) => ({
   lastname: mentorReturnData.lastname,
   email: mentorReturnData.email,
   address: mentorReturnData.address,
+  user_role: mentorReturnData.user_role,
   bio: mentorReturnData.bio,
   occupation: mentorReturnData.occupation,
   expertise: mentorReturnData.expertise,
-  user_role: mentorReturnData.user_role,
 
 });

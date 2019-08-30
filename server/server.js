@@ -14,5 +14,5 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(allowMethod(['get', 'post', 'head', 'delete', 'patch'], 'Method Not allowed'));
 masterRoute(app);
-app.listen(port, () => console.log(`runing on port${port}`));
+app.listen(port);
 export default app;

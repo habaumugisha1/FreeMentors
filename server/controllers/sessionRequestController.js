@@ -27,11 +27,11 @@ class sessionRequestHandler {
   }
 
   static adminAllSessions(req, res) {
-    const sessRev = [];
+    const sessionReviews = [];
     Sessions.forEach((session) => {
-      sessRev.push(sessionReviewResponse(session));
+      sessionReviews.push(sessionReviewResponse(session));
     });
-    res.status(200).json({ data: sessRev });
+    res.status(200).json({ data: sessionReviews });
   }
 
   static acceptSession(req, res) {

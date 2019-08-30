@@ -8,7 +8,6 @@ sessionRoute.get('/user/sessions', routeMiddleware.isUser, sessionRequestHandler
 sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.isUser, sessionRequestHandler.sessionReview);
 sessionRoute.get('/mentor/sessions', routeMiddleware.isMentor, sessionRequestHandler.mentorSessions);
 sessionRoute.get('/sessions/reviews', routeMiddleware.isAdminUser, sessionRequestHandler.adminAllSessions);
-
 sessionRoute.patch('/sessions/:sessionId/accept', routeMiddleware.isMentor, sessionRequestHandler.acceptSession);
 sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, sessionRequestHandler.rejectSession);
 sessionRoute.delete('/sessions/:sessionId/review', routeMiddleware.isAdminUser, sessionRequestHandler.deleteSessionReview);
