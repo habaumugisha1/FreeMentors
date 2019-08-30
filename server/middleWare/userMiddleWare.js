@@ -11,7 +11,7 @@ class middleWareHandler {
     });
     req.authUser = authUser;
     if (authUser.isAdmin) return next();
-    return res.status(403).json({ error: 'You are not an admin' });
+    return res.status(403).json({ error: 'only admin allowed' });
   }
 
   static isUser(req, res, next) {

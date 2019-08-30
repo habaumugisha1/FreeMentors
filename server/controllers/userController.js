@@ -13,7 +13,7 @@ class UserController {
   static singUp(req, res) {
     Joi.validate(req.body, signUpSchema, (err, value) => {
       if (err) res.status(400).json({ error: err.details[0].message });
-      if (!existUser(value.email, Users)) return res.status(400).json({ error: 'User exist' });
+      if (!existUser(value.email, Users)) return res.status(400).json({ error: 'User already exist' });
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
         if (errs) return res.status(400).json({ error: errs });
 
@@ -103,7 +103,7 @@ class UserController {
 
   static viewSpecificMentor(req, res) {
     const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.user_role === 'mentor');
-    if (!specificMentor) return res.status(404).json({ error: 'no mentor found' });
+    if (!specificMentor) return res.status(404).json({ error: 'mentor not found' });
     const { password, isAdmin, ...rest } = specificMentor;
     res.status(200).json({ data: rest });
   }

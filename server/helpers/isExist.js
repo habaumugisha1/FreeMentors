@@ -1,5 +1,5 @@
 export default (email, users) => {
-  const existUser = users.find((user) => user.email === email);
-  if (existUser) return false;
+  const userFound = users.find((user) => user.email === email);
+  if (userFound) return false;
   return true;
 };

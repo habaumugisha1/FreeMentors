@@ -1,4 +1,3 @@
-
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
@@ -26,6 +25,8 @@ describe('User activities', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('object');
         done();
       });
   });
@@ -35,6 +36,8 @@ describe('User activities', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('array');
         done();
       });
   });
@@ -49,6 +52,8 @@ describe('User activities', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('object');
         done();
       });
   });

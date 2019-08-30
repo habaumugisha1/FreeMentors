@@ -1,4 +1,3 @@
-
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
@@ -23,16 +22,20 @@ describe('User activities', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('array');
         done();
       });
   });
 
   it('admin delete session\'s reviews', (done) => {
     request(server)
-      .delete('/api/v1/sessions/3/review')
+      .delete('/api/v1/sessions/1/review')
       .set({ Authorization: `Bearer ${global.userToken}` })
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('object');
         done();
       });
   });
