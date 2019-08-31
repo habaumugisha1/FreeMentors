@@ -1,5 +1,5 @@
 {
- "name": "freementors",
+  "name": "freementors",
   "version": "1.0.0",
   "description": "Free Mentors is a social initiative where accomplished professionals become role models to",
   "main": "app.js",
@@ -48,6 +48,7 @@
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "sinon": "^7.4.1",
     "swagger-ui-express": "^4.0.7"
   }
 }

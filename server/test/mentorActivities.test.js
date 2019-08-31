@@ -45,7 +45,7 @@ describe('User activities', () => {
 
   it('Reject a session', (done) => {
     request(server)
-      .patch('/api/v1/sessions/5/accept')
+      .patch('/api/v1/sessions/5/reject')
       .set({ Authorization: `Bearer ${global.userToken}` })
       .send({
         status: 'rejected',
@@ -53,6 +53,19 @@ describe('User activities', () => {
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('Reject a session', (done) => {
+    request(server)
+      .patch('/api/v1/sessions/1/reject')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .send({
+        status: 'rejected',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.data).to.be.an('object');
         done();
       });
   });
