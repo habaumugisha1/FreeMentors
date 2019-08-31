@@ -219,8 +219,6 @@ footer .container .copy-right{
      margin: 1rem auto;
      border: 0px;
  }
-
- 
  
  .sign-up-form form{
     display: flex;
@@ -239,7 +237,6 @@ footer .container .copy-right{
     display: flex;
     flex-direction: column;
 }
-
 .container .footer-nav ul{
     flex-wrap: wrap;
    }
@@ -252,3 +249,11 @@ footer .container .copy-right{
      }
 
 }
+
+@media (max-width:1200px){
+    form .form-group{
+        display: flex;
+        flex-direction: column;
+    }
+ }
+
