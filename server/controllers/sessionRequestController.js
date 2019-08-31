@@ -66,6 +66,13 @@ class sessionRequestHandler {
     res.status(201).json({ data: userReview });
   }
 
+  static editReview(req, res) {
+    const review = Reviews.find((rev) => rev.id === parseInt(req.params.reviewId, 10) && rev.menteeId === req.authUser.id);
+    if (!review) return res.status(404).json({ data: review });
+    review.remark = req.body.remark;
+    res.status(201).json({ data: review });
+  }
+
   static deleteSessionReview(req, res) {
     const sessionReview = Reviews.find((review) => review.sessionId === parseInt(req.params.sessionId, 10));
     if (!sessionReview) return res.status(404).json({ data: sessionReview });

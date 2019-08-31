@@ -57,4 +57,18 @@ describe('User activities', () => {
         done();
       });
   });
+  it('User can edit the review', (done) => {
+    request(server)
+      .patch('/api/v1/review/1')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .send({
+        remark: 'was awesome and obvious',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('object');
+        done();
+      });
+  });
 });

@@ -35,8 +35,8 @@ Server/
    helpers/
    middleware/
    models/
-   route/
-   tests/
+   routes/
+   test/
    server.js
  UI/
     images/
@@ -62,7 +62,7 @@ GET /api/v1/mentor/sessions #'get all sessions for a specific mentor'
 GET /api/v1/sessions/reviews #'get all reviews for a particular session'
 PATCH /api/v1/sessions/:sessionId/accept #'accepting session request'
 PATCH /api/v1/sessions/:sessionId/reject #'reject a session request'
-
+PATCH /api/v1/review/:eviewId #'edit the review'
 DELETE /api/v1/sessions/:sessionId/review #'deleting a review
 ```
 # Examples
