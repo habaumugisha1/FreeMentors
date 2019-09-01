@@ -36,12 +36,12 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "User account created!",
-            "schema": {
-              "$ref": "#/definitions/signup"
-            }
-          }
+          "201":{"description":"Created"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -62,9 +62,12 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Login successful!"
-          }
+          "201":{"description":"loggedIn"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -101,9 +104,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "User changed successfully!"
-          }
+          "201":{"description":"edited"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -126,13 +132,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "All mentors",
-            "schema": {
-              "$ref": "#/definitions/users"
-            }
-          }
-
+          "200":{"description":"Ok"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -151,10 +156,12 @@
           }
         ],
         "responses":{
-          "200":{
-            "description":"All users",
-            "schema":{"$ref":"#/definitions/users"}
-          }
+          "201":{"description":"Ok"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -179,12 +186,12 @@
           }
         ],
         "responses":{
-          "200":{
-            "description":"successfully retrieved",
-            "schema":{
-              "$ref":"#/definitions/users"
-            }
-          }
+          "201":{"description":"Ok"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -211,12 +218,12 @@
           }
         ],
         "responses":{
-          "201":{
-            "description":"Session create successfully",
-            "schema":{
-              "$ref":"#/definitions/sessions"
-            }
-          }
+          "201":{"description":"created"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -235,12 +242,12 @@
           }
         ],
         "responses":{
-          "200":{
-            "description":"get user specific session",
-            "schema":{
-              "$ref":"#/definitions/sessions"
-            }
-          }
+          "200":{"description":"Ok"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -275,12 +282,12 @@
           }
         ],
         "responses":{
-          "201":{
-            "description":"review created successfully",
-            "schema":{
-              "$ref":"#/definitions/reviews"
-            }
-          }
+          "201":{"description":"Created"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       },
       "delete":{
@@ -303,11 +310,46 @@
           }
         ],
         "responses":{
-          "204":{
-            "description":"deleted successfully"
-          }
+          "200":{"description":"Deleted"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
+    },
+    "/review/{reviewId}":{
+      "patch":{
+        "tags":["Session"],
+        "summary":"As a user will be able to edit review ",
+        "produces":["application/json"],
+        "parameters":[
+         {
+           "name": "Authorization",
+           "in": "header",
+           "type": "string",
+           "description": "user token",
+           "required": true
+         },
+         {
+           "name": "reviewId",
+           "in": "path",
+           "required": true,
+           "type":"integer"
+         }
+
+        ],
+        "responses":{
+          "201":{"description":"edited"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
+        
+        }
+     }
     },
     "/mentor/sessions":{
       "get":{
@@ -324,12 +366,12 @@
           }
         ],
         "responses":{
-          "200":{
-            "description":"session for a logged in mentor",
-            "schema":{
-              "$ref":"#/definitions/sessions"
-            }
-          }
+          "200":{"description":"Ok"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -348,12 +390,12 @@
           }
         ],
         "responses":{
-          "200":{
-            "description":"retrieved successfully",
-            "schema":{
-              "$ref":"#/definitions/sessionsreviews"
-            }
-          }
+          "200":{"description":"Ok"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -386,12 +428,12 @@
         }
         ],
         "responses":{
-          "201":{
-            "description":"Session accepted",
-            "schema":{
-              "$ref":"#/definitions/sessions"
-            }
-          }
+          "201":{"description":"edited"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     },
@@ -424,12 +466,12 @@
         }
         ],
         "responses":{
-          "201":{
-            "description":"Session rejected",
-            "schema":{
-              "$ref":"#/definitions/sessions"
-            }
-          }
+          "201":{"description":"edited"},
+          "500":{"description":"internal server error"},
+          "400":{"description":"Bad request"},
+          "401":{"description":"Unauthorised"},
+          "404":{"description":"Not found"},
+          "403":{"description":"Permission denied"}
         }
       }
     }
