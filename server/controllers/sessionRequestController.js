@@ -13,17 +13,17 @@ class sessionRequestHandler {
     };
 
     Sessions.push(newSession);
-    res.status(201).json({ data: newSession });
+    res.status(201).json({ status: 201, data: newSession });
   }
 
   static userSessions(req, res) {
     const allSessions = Sessions.filter((session) => session.menteeId === req.authUser.id);
-    res.status(200).json({ data: allSessions });
+    res.status(200).json({ status: 200, data: allSessions });
   }
 
   static mentorSessions(req, res) {
     const allSessions = Sessions.filter((session) => session.mentorId === req.authUser.id);
-    res.status(200).json({ data: allSessions });
+    res.status(200).json({ status: 200, data: allSessions });
   }
 
   static adminAllSessions(req, res) {
@@ -31,21 +31,21 @@ class sessionRequestHandler {
     Sessions.forEach((session) => {
       sessionReviews.push(sessionReviewResponse(session));
     });
-    res.status(200).json({ data: sessionReviews });
+    res.status(200).json({ status: 200, data: sessionReviews });
   }
 
   static acceptSession(req, res) {
     const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
     if (!singleSession) return res.status(404).json({ data: singleSession });
     singleSession.status = req.body.status;
-    res.status(201).json({ data: singleSession });
+    res.status(201).json({ status: 201, data: singleSession });
   }
 
   static rejectSession(req, res) {
     const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
     if (!singleSession) return res.status(404).json({ data: singleSession });
     singleSession.status = req.body.status;
-    res.status(201).json({ data: singleSession });
+    res.status(201).json({ status: 201, data: singleSession });
   }
 
   static sessionReview(req, res) {
@@ -70,14 +70,14 @@ class sessionRequestHandler {
     const review = Reviews.find((rev) => rev.id === parseInt(req.params.reviewId, 10) && rev.menteeId === req.authUser.id);
     if (!review) return res.status(404).json({ data: review });
     review.remark = req.body.remark;
-    res.status(201).json({ data: review });
+    res.status(201).json({ status: 201, data: review });
   }
 
   static deleteSessionReview(req, res) {
     const sessionReview = Reviews.find((review) => review.sessionId === parseInt(req.params.sessionId, 10));
     if (!sessionReview) return res.status(404).json({ data: sessionReview });
     Reviews.splice(Reviews.indexOf(sessionReview), 1);
-    res.status(200).json({ data: { message: 'Review Deleted successfully ', review: sessionReview } });
+    res.status(200).json({ data: { status: 200, message: 'Review Deleted successfully ', review: sessionReview } });
   }
 }
 

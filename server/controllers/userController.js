@@ -3,7 +3,6 @@ import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import { Users } from '../models/myDb';
 import { signUpSchema, signInSchema } from '../helpers/validationSchema';
-import userReturn from '../helpers/userResponse';
 import userFormat from '../helpers/mentorResponse';
 
 
@@ -23,10 +22,10 @@ class UserController {
           lastname: value.lastname,
           email: value.email,
           password: hashedPassword,
-          address: value.address,
-          bio: value.bio,
-          occupation: value.occupation,
-          expertise: value.expertise,
+          address: 'kigali',
+          bio: 'short_bio',
+          occupation: 'myjob',
+          expertise: 'expertise',
           user_role: 'user',
           isAdmin: false,
           createdOn: new Date(),
@@ -42,13 +41,16 @@ class UserController {
         },
         process.env.SECRET_KEY, (errors, token) => {
           if (errors) return res.json({ err: errs });
-          newUser.token = token;
-          return res.status(201).json({ data: userReturn(newUser) });
+          return res.status(201).json({
+            status: 201,
+            message: 'User created successfully',
+            data:
+        { token },
+          });
         });
       });
     });
   }
-
 
   static signIn(req, res) {
     Joi.validate(req.body, signInSchema, (err, value) => {
@@ -69,8 +71,13 @@ class UserController {
           lastname: signInUser.lastname,
         }, process.env.SECRET_KEY, (errs, token) => {
           if (errs) return res.json({ err: errs });
-          signInUser.token = token;
-          return res.status(201).json({ data: userReturn(signInUser) });
+          return res.status(200).json({
+            status: 200,
+            message: 'User is successfully logged in',
+            data: {
+              token,
+            },
+          });
         });
       });
     });
@@ -80,7 +87,7 @@ class UserController {
     const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
     if (!singleUser) return res.status(404).json({ error: 'user not found' });
     singleUser.user_role = req.body.user_role;
-    res.status(201).json({ data: userFormat(singleUser) });
+    res.status(201).json({ status: 201, data: userFormat(singleUser) });
   }
 
   static userViewMentors(req, res) {
@@ -89,7 +96,7 @@ class UserController {
     mentors.forEach((oneMentor) => {
       allMentors.push(userFormat(oneMentor));
     });
-    res.status(200).json({ data: allMentors });
+    res.status(200).json({ status: 200, data: allMentors });
   }
 
   static adminViewUsers(req, res) {
@@ -98,14 +105,14 @@ class UserController {
     users.forEach((oneUser) => {
       allUsers.push(userFormat(oneUser));
     });
-    res.status(200).json({ data: allUsers });
+    res.status(200).json({ status: 200, data: allUsers });
   }
 
   static viewSpecificMentor(req, res) {
     const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.user_role === 'mentor');
     if (!specificMentor) return res.status(404).json({ error: 'mentor not found' });
     const { password, isAdmin, ...rest } = specificMentor;
-    res.status(200).json({ data: rest });
+    res.status(200).json({ status: 200, data: rest });
   }
 }
 
