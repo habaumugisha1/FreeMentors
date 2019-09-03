@@ -22,10 +22,10 @@ class UserController {
           lastname: value.lastname,
           email: value.email,
           password: hashedPassword,
-          address: value.address,
-          bio: value.bio,
-          occupation: value.occupation,
-          expertise: value.expertise,
+          address: 'kigali',
+          bio: 'short_bio',
+          occupation: 'myjob',
+          expertise: 'expertise',
           user_role: 'user',
           isAdmin: false,
           createdOn: new Date(),
@@ -71,7 +71,6 @@ class UserController {
           lastname: signInUser.lastname,
         }, process.env.SECRET_KEY, (errs, token) => {
           if (errs) return res.json({ err: errs });
-          signInUser.token = token;
           return res.status(200).json({
             status: 200,
             message: 'User is successfully logged in',

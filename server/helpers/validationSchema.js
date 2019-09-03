@@ -10,8 +10,4 @@ export const signUpSchema = joi.object().keys({
   password: joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
   firstname: joi.string().required(),
   lastname: joi.string().required(),
-  address: joi.string().required(),
-  bio: joi.string().required(),
-  occupation: joi.string().required(),
-  expertise: joi.string().required(),
 });
