@@ -14,10 +14,6 @@ describe('User controller test', () => {
         lastname: 'oliver',
         email: 'ok@gmail.com',
         password: 'webapp12',
-        address: 'kigali,rwanda',
-        bio: 'leoum epasum',
-        occupation: 'instructer',
-        expertise: 'leadership',
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
