@@ -41,8 +41,12 @@ class UserController {
         },
         process.env.SECRET_KEY, (errors, token) => {
           if (errors) return res.json({ err: errs });
-          newUser.token = token;
-          return res.status(201).json({ status: 201, message: 'User created successfully', data: token });
+          return res.status(201).json({
+            status: 201,
+            message: 'User created successfully',
+            data:
+        { token },
+          });
         });
       });
     });
@@ -68,7 +72,13 @@ class UserController {
         }, process.env.SECRET_KEY, (errs, token) => {
           if (errs) return res.json({ err: errs });
           signInUser.token = token;
-          return res.status(200).json({ status: 200, message: 'User is successfully logged in', data: token });
+          return res.status(200).json({
+            status: 200,
+            message: 'User is successfully logged in',
+            data: {
+              token,
+            },
+          });
         });
       });
     });
