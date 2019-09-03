@@ -34,14 +34,11 @@ img{
 
 .container{
   width: 100%;
-  max-width: 90rem;
- margin: 3rem auto;
 }
 .wrapper >.container{
 display: flex;
-margin: 0rem auto;
 flex-direction: column;
-border: 1px solid #eee;
+padding: 0 1rem;
 
 }
 
@@ -107,7 +104,8 @@ border: 1px solid #eee;
 
 .container .main-content{
     display: flex;
-    border: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
 }
 
 .main-content .user-profile{

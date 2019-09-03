@@ -11,7 +11,7 @@ html{
     font-family: 'Roboto', sans-serif;
 }
 body{
-    background: #fafafa;
+    background: #fff;
 }
 a{
     text-decoration: none;
@@ -28,37 +28,59 @@ a{
 
 .container{
     width: 100%;
-    max-width: 90rem;
-   margin: 3rem auto;
   }
 
   .wrapper >.container{
     display: flex;
     flex-direction: column;
-    border-left: 2px solid #eee;
     padding-left: .5rem;
+
     }
-    .container .nav-menu ul{
+   
+    .nav-menu {
+        
+        display: flex;
+        justify-content: flex-end;
+        background: #fafafa;
+        border-bottom: 1px solid #eeeeee;
+      }
+
+      .nav-menu ul{
         list-style: none; 
+        display: flex;
+        padding: 1rem 0;
       }
       .nav-menu ul li{
-         padding: 0 0rem;
+         padding: 0 1rem;
+         height: 30px;
+         width: auto;
+         
       }
       .nav-menu ul li a{
-          display: block;
-          height: 20px;
-          width: 100px;
-          margin: .2rem 0;
+          height: 30px;
+          width: 120px;
+          font-size: 16px;
           transition-duration: .5s;
       }
+
       .nav-menu ul li a:hover{
        font-size: 14px;
        color: rgb(220,20,60);
        border-bottom: 2px solid #00B6FF;
       }
+      .nav-menu .right-menu a{
+        background: transparent;
+        border: 1px solid 	rgb(220,20,60);
+        border-radius: 1rem;
+        outline: none;
+        text-align: center;
+      }
 
 .page-content{
-    padding-top:3rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%)
 }
 
 .page-content ul{ list-style: none;}
@@ -156,7 +178,7 @@ footer .container .copy-right{
    flex: 1;
 }
 
-@media (max-width:800px){
+@media (max-width:1000px){
     .wrapper >.container{
         display: flex;
         flex-direction: column;
@@ -165,6 +187,7 @@ footer .container .copy-right{
     .page-content{
         display: flex;
         flex-direction: column;
+        position: relative;
     }
     .page-content ul li{width: initial;}
     .page-content ul li:nth-child(even) {float: initial; clear: both;position: relative;}
@@ -190,6 +213,18 @@ footer .container .copy-right{
     justify-content: center;
     align-items: center;
 }
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    background: #fafafa;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .nav-menu ul{
+    list-style: none; 
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+  }
 footer .container .copy-right{
     color: #999999;
     flex-wrap: wrap;
