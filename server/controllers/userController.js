@@ -90,6 +90,15 @@ class UserController {
     res.status(201).json({ status: 201, data: userFormat(singleUser) });
   }
 
+  static editUserProfile(req, res) {
+    const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
+    singleUser.address = req.body.address;
+    singleUser.bio = req.body.bio;
+    singleUser.occupation = req.body.occupation;
+    singleUser.expertise = req.body.expertise;
+    res.status(201).json({ status: 201, data: userFormat(singleUser) });
+  }
+
   static userViewMentors(req, res) {
     const allMentors = [];
     const mentors = Users.filter((mentor) => mentor.user_role === 'mentor');

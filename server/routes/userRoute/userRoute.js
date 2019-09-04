@@ -9,4 +9,5 @@ userRoute.patch('/user/:userId', userMiddlewareHandler.isAdminUser, userHandler.
 userRoute.get('/mentors', userMiddlewareHandler.isUser, userHandler.userViewMentors);
 userRoute.get('/users', userMiddlewareHandler.isAdminUser, userHandler.adminViewUsers);
 userRoute.get('/mentors/:mentorId', userMiddlewareHandler.isUser, userHandler.viewSpecificMentor);
+userRoute.patch('/users/profile/:userId/edit', userHandler.editUserProfile);
 export default userRoute;

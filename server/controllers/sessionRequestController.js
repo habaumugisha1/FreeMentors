@@ -69,6 +69,7 @@ class sessionRequestHandler {
   static editReview(req, res) {
     const review = Reviews.find((rev) => rev.id === parseInt(req.params.reviewId, 10) && rev.menteeId === req.authUser.id);
     if (!review) return res.status(404).json({ data: review });
+    review.score = req.body.score;
     review.remark = req.body.remark;
     res.status(201).json({ status: 201, data: review });
   }
