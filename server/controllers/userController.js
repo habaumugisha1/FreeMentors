@@ -92,6 +92,7 @@ class UserController {
 
   static editUserProfile(req, res) {
     const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
+    if (!singleUser) return res.status(404).json({ status: 404, message: 'User Not found', data: singleUser });
     singleUser.address = req.body.address;
     singleUser.bio = req.body.bio;
     singleUser.occupation = req.body.occupation;
