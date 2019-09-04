@@ -2,7 +2,7 @@ import { sign } from 'jsonwebtoken';
 import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import { Users } from '../models/myDb';
-import { signUpSchema, signInSchema } from '../helpers/validationSchema';
+import { signUpSchema, signInSchema, profileSchema } from '../helpers/validationSchema';
 import userFormat from '../helpers/mentorResponse';
 
 
@@ -11,8 +11,8 @@ import existUser from '../helpers/isExist';
 class UserController {
   static singUp(req, res) {
     Joi.validate(req.body, signUpSchema, (err, value) => {
-      if (err) res.status(400).json({ error: err.details[0].message });
-      if (!existUser(value.email, Users)) return res.status(400).json({ error: 'User already exist' });
+      if (err) return res.status(400).json({ error: err.details[0].message });
+      if (!existUser(value.email, Users)) return res.status(409).json({ error: 'User already exist' });
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
         if (errs) return res.status(400).json({ error: errs });
 
@@ -54,7 +54,7 @@ class UserController {
 
   static signIn(req, res) {
     Joi.validate(req.body, signInSchema, (err, value) => {
-      if (err) res.status(400).json({ error: err.details[0].message });
+      if (err) return res.status(400).json({ error: err.details[0].message });
       const signInUser = Users.find((user) => user.email === value.email);
       if (!signInUser) return res.status(404).json({ message: 'User not found' });
 
@@ -91,13 +91,16 @@ class UserController {
   }
 
   static editUserProfile(req, res) {
-    const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
-    if (!singleUser) return res.status(404).json({ status: 404, message: 'User Not found', data: singleUser });
-    singleUser.address = req.body.address;
-    singleUser.bio = req.body.bio;
-    singleUser.occupation = req.body.occupation;
-    singleUser.expertise = req.body.expertise;
-    res.status(201).json({ status: 201, data: userFormat(singleUser) });
+    Joi.validate(req.body, profileSchema, (err, value) => {
+      if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
+      const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
+      if (!singleUser) return res.status(404).json({ status: 404, message: 'User Not found', data: singleUser });
+      singleUser.address = value.address;
+      singleUser.bio = value.bio;
+      singleUser.occupation = value.occupation;
+      singleUser.expertise = value.expertise;
+      res.status(201).json({ status: 201, data: userFormat(singleUser) });
+    });
   }
 
   static userViewMentors(req, res) {
