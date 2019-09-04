@@ -11,3 +11,11 @@ export const signUpSchema = joi.object().keys({
   firstname: joi.string().required(),
   lastname: joi.string().required(),
 });
+
+export const profileSchema = joi.object().keys({
+  address: joi.string().required(),
+  bio: joi.string().required(),
+  occupation: joi.string().required(),
+  expertise: joi.string().required(),
+
+});
