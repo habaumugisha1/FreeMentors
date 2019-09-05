@@ -7,11 +7,12 @@
     border: 1px solid #eee;
     height: 20px;
     margin-top: .2rem;
-    padding: .2rem;
-    max-width: 8rem;
+    max-width: 12rem;
     border-radius: .2rem;
     color: #3897f0;
+    font-size: 12pt;
     font-weight: bold;
+    position: relative;
 }
 .user-mentor .info .reject-accept{
     display: flex;
