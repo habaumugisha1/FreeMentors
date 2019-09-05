@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 html{
-    font-size: 12px;
+    font-size: 13px;
     font-family: 'Roboto', sans-serif;
 }
 body{
@@ -38,7 +38,7 @@ img{
 .wrapper >.container{
 display: flex;
 flex-direction: column;
-padding: 0 1rem;
+padding: 0 .5rem;
 
 }
 
@@ -169,6 +169,7 @@ padding: 0 1rem;
     border-bottom: 1px solid #eee;
     justify-content: center;
     align-items: center;
+    font-size: 13pt;
 } 
 .main-content ul li{
     height: 2rem;
@@ -189,10 +190,11 @@ padding: 0 1rem;
 }
 .main-content .tabs-content {
     padding: 1rem;
-    width: 80%;
+    width: 90%;
 }
 .tabs-content .pannel{
     display: none;
+   flex-wrap: wrap;
 }
 .tabs-content .pannel.active{
     display: block;
@@ -212,10 +214,12 @@ fieldset legend img{
 }
  .bio-address fieldset p{
         color: #262626;
+        font-size: 13pt;
       }
 fieldset legend span{
         padding: .5rem 0 .2rem .2rem;
         color: #3897f0;
+        font-size: 13pt;
     }
 fieldset .role{
     background:#ddd;
@@ -223,19 +227,25 @@ fieldset .role{
     border: 1px solid #eee;
     height: 20px;
     margin-top: .2rem;
-    padding: .2rem;
     max-width: 5rem;
     border-radius: .2rem;
     font-weight: bold;
 }
+.image-info{
+    display: flex;
+    border: 1px solid #eee;
+    max-width: 30rem;
+}
 .pannel .user-mentor{
+    font-size: 13pt;
     display: flex;
     border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
 
 }
 .pannel .user-mentor img{
-    height: 80px;
-    width: 80px;
+    width: 120px;
+    height: 120px;
     padding: 1rem;
 }
 .user-mentor .info{
@@ -254,11 +264,12 @@ fieldset .role{
     border: 1px solid #eee;
     height: 20px;
     margin-top: .2rem;
-    padding: .2rem;
-    max-width: 10rem;
+    max-width: 12rem;
     border-radius: .2rem;
     color: #3897f0;
+    font-size: 12pt;
     font-weight: bold;
+    position: relative;
 }
 .user-mentor .info .status{
     display: flex;
@@ -266,7 +277,7 @@ fieldset .role{
 }
 .info .status p{
     padding: 0 .3rem 0 0;
-    color: #262626;
+    color: rgb(220,20,60);
 }
  
 footer{
