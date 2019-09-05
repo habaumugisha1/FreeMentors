@@ -23,7 +23,6 @@ body .modal-bg{
     align-items: center;
     border-radius: 1rem;
     flex-direction: column;
-    overflow-y: scroll;
 }
 .modal form{
     display: flex;
@@ -66,11 +65,12 @@ body .modal-bg{
 }
 .modal form button{
     height: 2rem;
-    width: 6rem;
+    width: 8rem;
     margin: 2rem;
+    color: white;
     outline: none;
-    border:2px solid rgb(220,20,60);
-    background: transparent;
+    background: rgb(220,20,60);
+    border-radius: 1rem;
     text-align: center;
     cursor: pointer;
     position: absolute;
@@ -97,8 +97,7 @@ body .modal-bg{
     width: 6rem;
     margin: 2rem;
     outline: none;
-    border:2px solid rgb(220,20,60);
-    background: transparent;
+    background: rgb(220,20,60);
     text-align: center;
     cursor: pointer;
 }
