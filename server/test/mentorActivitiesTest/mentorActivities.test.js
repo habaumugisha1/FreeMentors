@@ -45,8 +45,7 @@ describe('Mentor activities', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
       .send(rejectSession)
       .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body).to.be.an('object');
+        expect(res).to.have.status(409);
         done();
       });
   });
