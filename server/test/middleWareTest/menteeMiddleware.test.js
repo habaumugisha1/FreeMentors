@@ -2,24 +2,21 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
-import server from '../server';
+import server from '../../server';
+import { mentorCredentials } from '../testDummyData/mockData';
 
 use(chaiHttp);
-describe('User activities', () => {
+describe('Mentee middleware', () => {
   before((done) => {
     request(server).post('/api/v1/auth/signin')
-      .send({
-        email: 'ksj@gmail.com',
-        password: 'webapp12',
-      }).end((err, res) => {
+      .send(mentorCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
         done();
       });
   });
-
-  it('Get all sessions and their reviews', (done) => {
+  it('User specific sessions', (done) => {
     request(server)
-      .get('/api/v1/sessions/reviews')
+      .get('/api/v1/user/sessions')
       .set({ Authorization: `Bearer ${global.userToken}` })
       .end((err, res) => {
         expect(res).to.have.status(403);

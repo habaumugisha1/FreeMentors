@@ -1,20 +1,16 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../server';
+import server from '../../server';
+import { signUp, signIn } from '../testDummyData/mockData';
 
 use(chaiHttp);
 
 
-describe('User controller test', () => {
+describe('Auth test', () => {
   it('User signup', (done) => {
     request(server)
       .post('/api/v1/auth/signup')
-      .send({
-        firstname: 'nkusi',
-        lastname: 'oliver',
-        email: 'ok@gmail.com',
-        password: 'webapp12',
-      })
+      .send(signUp)
       .end((err, res) => {
         expect(res).to.have.status(201);
         done();
@@ -23,10 +19,7 @@ describe('User controller test', () => {
   it('User signin', (done) => {
     request(server)
       .post('/api/v1/auth/signin')
-      .send({
-        email: 'ok@gmail.com',
-        password: 'webapp12',
-      }).end((err, res) => {
+      .send(signIn).end((err, res) => {
         expect(res).at.have.status(200);
         done();
       });

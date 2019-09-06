@@ -1,8 +1,9 @@
 export default (sessionData) => ({
-  mentorName: sessionData.mentorName,
+  sessionId: sessionData.id,
   menteeName: sessionData.menteeName,
   question: sessionData.question,
   menteeEmail: sessionData.menteeEmail,
   status: sessionData.status,
+  menteeId: sessionData.menteeId,
 
 });

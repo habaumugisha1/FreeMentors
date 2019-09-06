@@ -1,26 +1,32 @@
+import Joi from '@hapi/joi';
 import { Sessions, Reviews, Users } from '../models/myDb';
 import sessionReviewResponse from '../helpers/sessionRevieRes';
 import sessionResponse from '../helpers/sessionResponse';
 import reviewResponse from '../helpers/reviewResponse';
+import { sessionSchema } from '../helpers/validationSchema';
 
 
 class sessionRequestHandler {
   static createSessionRequest(req, res) {
-    const mentor = Users.find((mentor) => mentor.id === parseInt(req.body.mentorId, 10));
-    if (!mentor) return res.status(404).json({ status: 404, message: 'Mentor not found' });
-    const newSession = {
-      id: Sessions.length + 1,
-      mentorId: mentor.id,
-      menteeId: req.authUser.id,
-      mentorName: `${mentor.firstname}${mentor.lastname}`,
-      menteeName: `${req.authUser.firstname} ${req.authUser.lastname}`,
-      question: req.body.question,
-      menteeEmail: req.authUser.email,
-      status: 'pending',
-    };
+    Joi.validate(req.body, sessionSchema, (err, value) => {
+      if (err) return res.status(400).json({ error: err.details[0].message });
+      const mentor = Users.find((mentor) => mentor.id === parseInt(value.mentorId, 10));
+      if (!mentor) return res.status(404).json({ status: 404, message: 'Mentor not found' });
+      const newSession = {
+        id: Sessions.length + 1,
+        mentorId: mentor.id,
+        menteeId: req.authUser.id,
+        mentorName: `${mentor.firstname}${mentor.lastname}`,
+        menteeName: `${req.authUser.firstname} ${req.authUser.lastname}`,
+        category: value.category,
+        question: value.question,
+        menteeEmail: req.authUser.email,
+        status: 'pending',
+      };
 
-    Sessions.push(newSession);
-    res.status(201).json({ status: 201, message: 'Session created successfully', data: sessionResponse(newSession) });
+      Sessions.push(newSession);
+      res.status(201).json({ status: 201, message: 'Session created successfully', data: sessionResponse(newSession) });
+    });
   }
 
   static userSessions(req, res) {
@@ -68,9 +74,9 @@ class sessionRequestHandler {
   static sessionReview(req, res) {
     const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
     if (!singleSession) return res.status(404).json({ data: singleSession });
-    if (req.body.score > 5) return res.status(400).json({ message: 'Score should be 1 up to 5' });
+    if (req.body.score < 1 && req.body.score > 5) return res.status(400).json({ message: 'Score should be 1 up to 5' });
     const prevReview = Reviews.filter((review) => review.sessionId === parseInt(req.params.sessionId, 10) && review.menteeId === req.authUser.id);
-    if (prevReview.length > 0) return res.status(400).json({ status: 400, message: 'You allowed to review only one time' });
+    if (prevReview.length > 0) return res.status(400).json({ status: 409, message: 'You allowed to review only one time' });
     const userReview = {
       id: Reviews.length + 1,
       sessionId: req.params.sessionId,

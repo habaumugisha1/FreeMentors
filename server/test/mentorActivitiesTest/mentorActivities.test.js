@@ -1,16 +1,14 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
-import server from '../server';
+import server from '../../server';
+import { mentorCredentials, acceptSession, rejectSession } from '../testDummyData/mockData';
 
 use(chaiHttp);
-describe('User activities', () => {
+describe('Mentor activities', () => {
   before((done) => {
     request(server).post('/api/v1/auth/signin')
-      .send({
-        email: 'ksj@gmail.com',
-        password: 'webapp12',
-      }).end((err, res) => {
+      .send(mentorCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
         done();
       });
@@ -32,9 +30,7 @@ describe('User activities', () => {
     request(server)
       .patch('/api/v1/sessions/1/accept')
       .set({ Authorization: `Bearer ${global.userToken}` })
-      .send({
-        status: 'accepted',
-      })
+      .send(acceptSession)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body).to.have.property('data');
@@ -45,27 +41,12 @@ describe('User activities', () => {
 
   it('Reject a session', (done) => {
     request(server)
-      .patch('/api/v1/sessions/5/reject')
-      .set({ Authorization: `Bearer ${global.userToken}` })
-      .send({
-        status: 'rejected',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-  it('Reject a session', (done) => {
-    request(server)
       .patch('/api/v1/sessions/1/reject')
       .set({ Authorization: `Bearer ${global.userToken}` })
-      .send({
-        status: 'rejected',
-      })
+      .send(rejectSession)
       .end((err, res) => {
         expect(res).to.have.status(201);
-        expect(res.body.data).to.be.an('object');
+        expect(res.body).to.be.an('object');
         done();
       });
   });

@@ -4,13 +4,14 @@ import dataMiddleWare from '../../middleWare/dataMiddleWare';
 import sessionRequestHandler from '../../controllers/sessionRequestController';
 
 const sessionRoute = express.Router({ mergeParams: true });
-sessionRoute.post('/sessions', routeMiddleware.isUser, sessionRequestHandler.createSessionRequest);
+sessionRoute.post('/sessions', routeMiddleware.isUser,
+  sessionRequestHandler.createSessionRequest);
 sessionRoute.get('/user/sessions', routeMiddleware.isUser, sessionRequestHandler.userSessions);
 sessionRoute.post('/sessions/:sessionId/review', routeMiddleware.isUser, sessionRequestHandler.sessionReview);
 sessionRoute.get('/mentor/sessions', routeMiddleware.isMentor, sessionRequestHandler.mentorSessions);
 sessionRoute.get('/sessions/reviews', routeMiddleware.isAdminUser, sessionRequestHandler.adminAllSessions);
 sessionRoute.patch('/sessions/:sessionId/accept', routeMiddleware.isMentor, dataMiddleWare.isAcceptedBefore, sessionRequestHandler.acceptSession);
-sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, sessionRequestHandler.rejectSession);
+sessionRoute.patch('/sessions/:sessionId/reject', routeMiddleware.isMentor, dataMiddleWare.isrejectedBefore, sessionRequestHandler.rejectSession);
 sessionRoute.patch('/review/:reviewId', routeMiddleware.isUser, sessionRequestHandler.editReview);
 sessionRoute.delete('/sessions/:sessionId/review', routeMiddleware.isAdminUser, sessionRequestHandler.deleteSessionReview);
 export default sessionRoute;
