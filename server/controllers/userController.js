@@ -11,7 +11,7 @@ import existUser from '../helpers/isExist';
 class UserController {
   static singUp(req, res) {
     Joi.validate(req.body, signUpSchema, (err, value) => {
-      if (err) return res.status(400).json({ error: err.details[0].message });
+      if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
       if (!existUser(value.email, Users)) return res.status(409).json({ error: 'User already exist' });
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
         if (errs) return res.status(400).json({ error: errs });
@@ -54,13 +54,13 @@ class UserController {
 
   static signIn(req, res) {
     Joi.validate(req.body, signInSchema, (err, value) => {
-      if (err) return res.status(400).json({ error: err.details[0].message });
+      if (err) return res.status(400).json({ status: 404, error: err.details[0].message });
       const signInUser = Users.find((user) => user.email === value.email);
-      if (!signInUser) return res.status(404).json({ message: 'User not found' });
+      if (!signInUser) return res.status(404).json({ status: 404, message: 'User not found' });
 
 
       bcrypt.compare(value.password, signInUser.password, (errors, result) => {
-        if (errors) return res.status(400).json({ error: errors });
+        if (errors) return res.status(400).json({ status: 400, error: errors });
         if (!result) return res.json({ error: 'Invalid credentials' });
         sign({
           id: signInUser.id,
@@ -85,7 +85,7 @@ class UserController {
 
   static changeUserToMentor(req, res) {
     const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
-    if (!singleUser) return res.status(404).json({ error: 'user not found' });
+    if (!singleUser) return res.status(404).json({ status: 404, error: 'user not found' });
     singleUser.user_role = req.body.user_role;
     res.status(201).json({ status: 201, data: userFormat(singleUser) });
   }
@@ -123,7 +123,7 @@ class UserController {
 
   static viewSpecificMentor(req, res) {
     const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.user_role === 'mentor');
-    if (!specificMentor) return res.status(404).json({ error: 'mentor not found' });
+    if (!specificMentor) return res.status(404).json({ status: 404, error: 'mentor not found' });
     const { password, isAdmin, ...rest } = specificMentor;
     res.status(200).json({ status: 200, data: rest });
   }

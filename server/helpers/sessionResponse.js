@@ -5,5 +5,6 @@ export default (sessionData) => ({
   menteeEmail: sessionData.menteeEmail,
   status: sessionData.status,
   menteeId: sessionData.menteeId,
+  mentorId: sessionData.mentorId,
 
 });

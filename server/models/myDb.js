@@ -48,7 +48,7 @@ export const Users = [
     bio: 'leoum epasum',
     occupation: 'minister',
     expertise: 'leadership',
-    user_role: 'user',
+    user_role: 'mentor',
     isAdmin: false,
   },
 ];
@@ -89,7 +89,7 @@ export const Sessions = [
   {
     id: 4,
     type: 'relationship',
-    mentorId: 2,
+    mentorId: 4,
     menteeId: 2,
     mentorName: ' Peter kayinerugaba',
     enteeName: 'paul baguma',

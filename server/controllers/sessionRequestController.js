@@ -9,7 +9,7 @@ import { sessionSchema } from '../helpers/validationSchema';
 class sessionRequestHandler {
   static createSessionRequest(req, res) {
     Joi.validate(req.body, sessionSchema, (err, value) => {
-      if (err) return res.status(400).json({ error: err.details[0].message });
+      if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
       const mentor = Users.find((mentor) => mentor.id === parseInt(value.mentorId, 10));
       if (!mentor) return res.status(404).json({ status: 404, message: 'Mentor not found' });
       const newSession = {
@@ -74,7 +74,7 @@ class sessionRequestHandler {
   static sessionReview(req, res) {
     const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
     if (!singleSession) return res.status(404).json({ data: singleSession });
-    if (req.body.score < 1 && req.body.score > 5) return res.status(400).json({ message: 'Score should be 1 up to 5' });
+    if (req.body.score > 5 || req.body.score < 1) return res.status(400).json({ status: 400, message: 'Score should be 1 up to 5' });
     const prevReview = Reviews.filter((review) => review.sessionId === parseInt(req.params.sessionId, 10) && review.menteeId === req.authUser.id);
     if (prevReview.length > 0) return res.status(400).json({ status: 409, message: 'You allowed to review only one time' });
     const userReview = {
