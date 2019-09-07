@@ -58,7 +58,7 @@ class sessionRequestHandler {
   static acceptSession(req, res) {
     const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
     if (!singleSession) return res.status(404).json({ data: singleSession });
-    if (singleSession.mentorId !== req.authUser.id) return res.status(403).json({ status: 403, message: 'This session is not yours' });
+    if (singleSession.mentorId !== req.authUser.id) return res.status(409).json({ status: 409, message: 'This session is not yours' });
     singleSession.status = req.body.status;
     res.status(201).json({ status: 201, data: sessionResponse(singleSession) });
   }
@@ -66,7 +66,7 @@ class sessionRequestHandler {
   static rejectSession(req, res) {
     const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
     if (!singleSession) return res.status(404).json({ status: 404, message: 'No session found', data: singleSession });
-    if (singleSession.mentorId !== req.authUser.id) return res.status(403).json({ status: 403, message: 'This session is not yours' });
+    if (singleSession.mentorId !== req.authUser.id) return res.status(409).json({ status: 409, message: 'This session is not yours' });
     singleSession.status = req.body.status;
     res.status(201).json({ status: 201, data: sessionResponse(singleSession) });
   }
@@ -93,7 +93,7 @@ class sessionRequestHandler {
 
   static editReview(req, res) {
     const review = Reviews.find((rev) => rev.id === parseInt(req.params.reviewId, 10) && rev.menteeId === req.authUser.id);
-    if (!review) return res.status(404).json({ data: review });
+    if (!review) return res.status(404).json({ status: 404, message: 'Review Not found' });
     review.score = req.body.score;
     review.remark = req.body.remark;
     res.status(201).json({ status: 201, data: reviewResponse(review) });
@@ -101,7 +101,7 @@ class sessionRequestHandler {
 
   static deleteSessionReview(req, res) {
     const sessionReview = Reviews.find((review) => review.sessionId === parseInt(req.params.sessionId, 10));
-    if (!sessionReview) return res.status(404).json({ data: sessionReview });
+    if (!sessionReview) return res.status(404).json({ status: 404, message: 'Review Not found' });
     Reviews.splice(Reviews.indexOf(sessionReview), 1);
     res.status(200).json({ data: { status: 200, message: 'Review Deleted successfully ', review: reviewResponse(sessionReview) } });
   }

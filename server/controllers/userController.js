@@ -14,7 +14,7 @@ class UserController {
       if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
       if (!existUser(value.email, Users)) return res.status(409).json({ error: 'User already exist' });
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
-        if (errs) return res.status(400).json({ error: errs });
+        if (errs) return res.status(400).json({ status: 400, error: errs });
 
         const newUser = {
           id: Users.length + 1,
@@ -40,7 +40,7 @@ class UserController {
           lastname: newUser.lastname,
         },
         process.env.SECRET_KEY, (errors, token) => {
-          if (errors) return res.json({ err: errs });
+          if (errors) return res.status(400).json({ status: 400, err: errs });
           return res.status(201).json({
             status: 201,
             message: 'User created successfully',
