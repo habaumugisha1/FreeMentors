@@ -2,16 +2,14 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
-import server from '../server';
+import server from '../../server';
+import { mentorCredentials } from '../testDummyData/mockData';
 
 use(chaiHttp);
-describe('User activities', () => {
+describe(' Admin middleware', () => {
   before((done) => {
     request(server).post('/api/v1/auth/signin')
-      .send({
-        email: 'ksj@gmail.com',
-        password: 'webapp12',
-      }).end((err, res) => {
+      .send(mentorCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
         done();
       });

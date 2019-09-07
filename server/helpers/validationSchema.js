@@ -17,5 +17,10 @@ export const profileSchema = joi.object().keys({
   bio: joi.string().required(),
   occupation: joi.string().required(),
   expertise: joi.string().required(),
+});
 
+export const sessionSchema = joi.object().keys({
+  category: joi.string().required(),
+  mentorId: joi.number().required(),
+  question: joi.string().required(),
 });

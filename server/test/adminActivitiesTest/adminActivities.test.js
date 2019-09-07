@@ -1,16 +1,14 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
-import server from '../server';
+import server from '../../server';
+import { adminCredentials, userRole } from '../testDummyData/mockData';
 
 use(chaiHttp);
-describe('User activities', () => {
+describe('admin activities', () => {
   before((done) => {
     request(server).post('/api/v1/auth/signin')
-      .send({
-        email: 'eu@gmail.com',
-        password: 'webapp12',
-      }).end((err, res) => {
+      .send(adminCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
         done();
       });
@@ -36,6 +34,27 @@ describe('User activities', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.be.an('object');
+        done();
+      });
+  });
+  it('admin change mentee to mentor', (done) => {
+    request(server).patch('/api/v1/user/4')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .send(userRole)
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        done();
+      });
+  });
+
+  it('View all users', (done) => {
+    request(server)
+      .get('/api/v1/users')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('array');
         done();
       });
   });

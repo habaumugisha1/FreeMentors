@@ -1,28 +1,25 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
-import server from '../server';
+import server from '../../server';
+import {
+  menteeCredentials, existSession, newSession, reviewMentor, editReview,
+} from '../testDummyData/mockData';
 
 use(chaiHttp);
-describe('User activities', () => {
+describe('Mentee activities', () => {
   before((done) => {
     request(server).post('/api/v1/auth/signin')
-      .send({
-        email: 'mu@gmail.com',
-        password: 'webapp12',
-      }).end((err, res) => {
+      .send(menteeCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
         done();
       });
   });
-  it('User create a session request', (done) => {
+  it('Mentee create a session request', (done) => {
     request(server)
       .post('/api/v1/sessions')
       .set({ Authorization: `Bearer ${global.userToken}` })
-      .send({
-        mentorId: 3,
-        question: 'I need a help on readership',
-      })
+      .send(newSession)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body).to.have.property('data');
@@ -30,7 +27,17 @@ describe('User activities', () => {
         done();
       });
   });
-  it('User specific sessions', (done) => {
+  it('view all mentors', (done) => {
+    request(server).get('/api/v1/mentors')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('array');
+        done();
+      });
+  });
+  it('Mentee specific sessions', (done) => {
     request(server)
       .get('/api/v1/user/sessions')
       .set({ Authorization: `Bearer ${global.userToken}` })
@@ -42,14 +49,23 @@ describe('User activities', () => {
       });
   });
 
-  it('User review a session', (done) => {
+  it('view specific mentor', (done) => {
+    request(server)
+      .get('/api/v1/mentors/3')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.be.an('object');
+        done();
+      });
+  });
+
+  it('mentee review a session', (done) => {
     request(server)
       .post('/api/v1/sessions/1/review')
       .set({ Authorization: `Bearer ${global.userToken}` })
-      .send({
-        score: 3,
-        remark: 'was awesome',
-      })
+      .send(reviewMentor)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body).to.have.property('data');
@@ -57,13 +73,11 @@ describe('User activities', () => {
         done();
       });
   });
-  it('User can edit the review', (done) => {
+  it('Mentee can edit the review', (done) => {
     request(server)
       .patch('/api/v1/review/1')
       .set({ Authorization: `Bearer ${global.userToken}` })
-      .send({
-        remark: 'was awesome and obvious',
-      })
+      .send(editReview)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body).to.have.property('data');

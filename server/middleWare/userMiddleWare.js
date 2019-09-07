@@ -23,7 +23,7 @@ class middleWareHandler {
       authUser = userData;
     });
     req.authUser = authUser;
-    if (authUser.user_role !== 'mentor') return next();
+    if (authUser.user_role === 'user') return next();
     return res.status(403).json({ status: 403, error: 'Only mentees allowed' });
   }
 
