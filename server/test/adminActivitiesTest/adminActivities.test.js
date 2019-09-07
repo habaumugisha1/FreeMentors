@@ -42,7 +42,7 @@ describe('admin activities', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
       .send(userRole)
       .end((err, res) => {
-        expect(res).to.have.status(403);
+        expect(res).to.have.status(409);
         done();
       });
   });
