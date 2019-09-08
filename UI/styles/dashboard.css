@@ -39,6 +39,7 @@ img{
 display: flex;
 flex-direction: column;
 padding: 0 .5rem;
+position: relative;
 
 }
 
@@ -160,7 +161,8 @@ padding: 0 .5rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: white;
+    background:#FFF;
+
 }
 .tabs-container ul{
     width: 100%;
@@ -169,24 +171,30 @@ padding: 0 .5rem;
     border-bottom: 1px solid #eee;
     justify-content: center;
     align-items: center;
-    font-size: 13pt;
+    font-size: 14px;
 } 
 .main-content ul li{
     height: 2rem;
     display: flex;
-    margin: 0 1rem;
     list-style: none;
-    padding: .5rem 1rem;
+    background: white;
+    flex: 1;
 }
 .main-content ul li a{
     height: 2rem;
     display: block;
+    width: 100%;
+    text-align: center;
+    padding: .5rem 0;
+    cursor: pointer;
+    
 }
 .main-content ul li.active a,
 .main-content ul li a:hover{
-    color: rgb(220,20,60);
+    color: #fafafa;
     font-size: 1.2rem;
     transition: .5s;
+    background: blueviolet;
 }
 .main-content .tabs-content {
     padding: 1rem;
@@ -214,12 +222,12 @@ fieldset legend img{
 }
  .bio-address fieldset p{
         color: #262626;
-        font-size: 13pt;
+        font-size: 12px;
       }
 fieldset legend span{
         padding: .5rem 0 .2rem .2rem;
         color: #3897f0;
-        font-size: 13pt;
+        font-size: 13px;
     }
 fieldset .role{
     background:#ddd;
@@ -234,12 +242,10 @@ fieldset .role{
 .image-info{
     display: flex;
     border: 1px solid #eee;
-    max-width: 30rem;
+    max-width: 25rem;
 }
 .pannel .user-mentor{
-    font-size: 13pt;
     display: flex;
-    border-bottom: 1px solid #eee;
     flex-wrap: wrap;
 
 }
@@ -266,8 +272,7 @@ fieldset .role{
     margin-top: .2rem;
     max-width: 12rem;
     border-radius: .2rem;
-    color: #3897f0;
-    font-size: 12pt;
+    color: hsl(209, 86%, 58%);
     font-weight: bold;
     position: relative;
 }
