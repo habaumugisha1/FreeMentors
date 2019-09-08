@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 html{
-    font-size: 12px;
+    font-size: 13px;
     font-family: 'Roboto', sans-serif;
 }
 body{
@@ -15,6 +15,8 @@ body{
 }
 a{
     text-decoration: none;
+    color: #003569;
+    font-weight: bold;
 }
 img{
     width: 100%;
@@ -32,14 +34,12 @@ img{
 
 .container{
   width: 100%;
-  max-width: 90rem;
- margin: 3rem auto;
 }
 .wrapper >.container{
 display: flex;
-margin: 0rem auto;
 flex-direction: column;
-border: 1px solid #eee;
+padding: 0 .5rem;
+position: relative;
 
 }
 
@@ -72,7 +72,7 @@ border: 1px solid #eee;
 
 .nav-menu ul{
     list-style: none;
-    width: 30px;
+
 }
 .nav-menu ul li a{
     margin-right: 1rem;
@@ -105,14 +105,15 @@ border: 1px solid #eee;
 
 .container .main-content{
     display: flex;
-    border: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
 }
 
 .main-content .user-profile{
     display: flex;
     flex-direction: column;
-    padding:.3rem;
-    
+    padding-left:.3rem;
+    padding-right:.3rem;
 }
 .user-profile .personal-info{
     display: flex;
@@ -133,6 +134,13 @@ border: 1px solid #eee;
   color: #262626;
   font-weight: bold;
 }
+.user-profile .edit-image-btn{
+    margin-top: 1rem;
+    outline: none;
+    padding: .3rem;
+    cursor: pointer;
+    border:1px solid #262626;
+}
 .pannel button {
     height: 2rem;
     width: 10rem;
@@ -147,42 +155,57 @@ border: 1px solid #eee;
 
 .main-content .tabs-container{
     padding: .8rem 0;
-    
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:#FFF;
+
 }
 .tabs-container ul{
+    width: 100%;
     display: flex;
-    border: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
 } 
 .main-content ul li{
     height: 2rem;
     display: flex;
-    margin: 0 1rem;
     list-style: none;
-    padding: .5rem 1rem;
+    background: white;
+    flex: 1;
 }
 .main-content ul li a{
     height: 2rem;
     display: block;
+    width: 100%;
+    text-align: center;
+    padding: .5rem 0;
+    cursor: pointer;
+    
 }
 .main-content ul li.active a,
 .main-content ul li a:hover{
-    color: rgb(220,20,60);
+    color: #fafafa;
     font-size: 1.2rem;
     transition: .5s;
+    background: blueviolet;
 }
 .main-content .tabs-content {
     padding: 1rem;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
+    width: 90%;
 }
 .tabs-content .pannel{
     display: none;
+   flex-wrap: wrap;
 }
 .tabs-content .pannel.active{
     display: block;
-}
-.pannel .bio-address{
-    max-width:30rem;
 }
 .pannel .bio-address fieldset{
     border: 1px solid #eee;
@@ -199,10 +222,12 @@ fieldset legend img{
 }
  .bio-address fieldset p{
         color: #262626;
+        font-size: 12px;
       }
 fieldset legend span{
         padding: .5rem 0 .2rem .2rem;
         color: #3897f0;
+        font-size: 13px;
     }
 fieldset .role{
     background:#ddd;
@@ -210,19 +235,23 @@ fieldset .role{
     border: 1px solid #eee;
     height: 20px;
     margin-top: .2rem;
-    padding: .2rem;
     max-width: 5rem;
     border-radius: .2rem;
     font-weight: bold;
 }
+.image-info{
+    display: flex;
+    border: 1px solid #eee;
+    max-width: 25rem;
+}
 .pannel .user-mentor{
     display: flex;
-    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
 
 }
 .pannel .user-mentor img{
-    height: 80px;
-    width: 80px;
+    width: 120px;
+    height: 120px;
     padding: 1rem;
 }
 .user-mentor .info{
@@ -241,11 +270,11 @@ fieldset .role{
     border: 1px solid #eee;
     height: 20px;
     margin-top: .2rem;
-    padding: .2rem;
-    max-width: 10rem;
+    max-width: 12rem;
     border-radius: .2rem;
-    color: #3897f0;
+    color: hsl(209, 86%, 58%);
     font-weight: bold;
+    position: relative;
 }
 .user-mentor .info .status{
     display: flex;
@@ -253,7 +282,7 @@ fieldset .role{
 }
 .info .status p{
     padding: 0 .3rem 0 0;
-    color: #262626;
+    color: rgb(220,20,60);
 }
  
 footer{

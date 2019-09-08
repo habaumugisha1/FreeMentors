@@ -23,125 +23,89 @@ img{
 }
 .wrapper{
     display: flex;
-    height: 100%;
+    height: 100vh;
     width:100%;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
 }
+.nav-menu {
+        
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid #eeeeee;
+  }
 
-.wrapper >.container{
-display: flex;
-padding: 2rem 0;
-}
-.container .left-side{
-    position: relative;
-    flex: 1;
-}
-.left-side .mobile{
-    position: relative;
-    height: 560px;
-    width: 276px;
-    background: rgb(255,250,250);
-    border: 2px solid #eee;
-    border-radius: 30px;
-    box-shadow: 2px 5px 10px 5px rgb(220,220,220);
-    padding: 3rem 1rem;
-    margin-right: 2rem;
-}
-.mobile .screen{
-    position: absolute;
-    border:1px solid #262626;
-    background: #fff;
-    width: 254px;
-    height: 453px;
-    padding: 5rem 1rem;
-     display: flex;
-     flex-direction: column;
+  .nav-menu ul{
+    list-style: none; 
+    display: flex;
+    padding: 1rem 0;
+  }
+  .nav-menu ul li{
+     padding: 0 1rem;
+     height: 30px;
+     width: auto;
      
-}
-.screen .mobile-title{
-    font-size: 20px;
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    border-bottom: 1px solid #eee;
-    width: 100%;
-    text-align: center;
-    -webkit-text-stroke: 2px rgb(220,20,60);
-}
-.screen img{
-    height: 15rem;
-    width: 20rem;
-    margin-top: 3rem;
-}
-.mobile .screen .introduction{
-    position: absolute;
-    top: 65%;
-    font-size: 14px;
-    text-align: center;
-}
-.mobile .screen button{
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 6.5%;
+  }
+  .nav-menu ul li a{
+      height: 30px;
+      width: 120px;
+      font-size: 16px;
+      transition-duration: .5s;
+  }
+
+  .nav-menu ul li a:hover{
+   font-size: 14px;
+   color: rgb(220,20,60);
+   border-bottom: 2px solid #00B6FF;
+  }
+  .nav-menu .right-menu a{
     background: transparent;
     border: 1px solid 	rgb(220,20,60);
     border-radius: 1rem;
+    outline: none;
+    text-align: center;
+  }
+
+.wrapper >.container{
+display: flex;
+}
+.container .left-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
 
 }
-.mobile .home-btn{
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
-    background:white;
-    border-radius: 50%;
-    border: 2px solid #cecece;
+.container .left-side p{
+    width: 30rem;
+    font-size: 1.8rem;
+    padding-bottom: 3rem;
+}
+.container .left-side a{
+    border-radius: 1rem;
+    text-align: center;
     cursor: pointer;
-}
+    height: 2rem;
+    width: 10rem;
+    border: 1px solid rgb(220,20,60);
+    padding-top: .3rem;
 
-.mobile .microphone{
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 4px;
-    background: #fff;
-    border: 1px solid #262626;
-}
-.mobile .volume{
-    position: absolute;
-    top:100px;
-    left: -2px;
-}
-.mobile .volume li{
-    list-style: none;
-    width: 3px;
-    height: 40px;
-  background: #cecece;
-  margin: 10px 0;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
 }
 .container .sign-in-form{
     display: flex;
     flex-direction: column;
     justify-items: center;
+    flex: 1;
+    padding:0 3rem 0 0;
 }
  .sign-in-form form{
 
-     background: #fff;
+     background: white;
      border: 1px solid #eee;
      display: flex;
      flex-direction: column;
+     width: 30rem;
      padding: 1rem 3rem;
      text-align: center;
      margin-top: .3rem;
@@ -218,32 +182,12 @@ padding: 2rem 0;
      font-weight: bold;
      color: #3897f0;
  }
-.container .get-info {
-     text-align: center;
-     color: #3897f0;
-     font-weight: bold;
-     font-size: 1.2rem;
-     padding: .1rem 0;
-     max-width: 30rem;
- }
- .container .get-info span{
-     display: block;
-     margin-bottom: 1rem;
-
- }
-
- .get-info .info-btn{
-     display: flex;
-     justify-content: center;
-     width: 100%;
-     padding: 2rem 0;
- }
  .get-info .info-btn button{
      height: 3rem;
      width: 45%;
      cursor: pointer;
-     border: 1px solid #eee;
-     background:	rgb(220,20,60);
+     border: 1px solid rgb(220,20,60);
+     background: transparent;	
      border-radius: .4rem;
      padding: .5rem;
  }
@@ -252,7 +196,7 @@ padding: 2rem 0;
  }
 
  .info-btn button a{
-     color: #fff;
+     color: rgb(220,20,60);
      width:100%;
      height: 100%;
      display: block;
@@ -292,10 +236,14 @@ footer .container .copy-right{
 }
 
 @media (max-width:700px){
-    .left-side .mobile{
-        display: none;
+
+    .container .sign-in-form{
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        padding:initial;
     }
-    
     
   .container .footer-nav ul{
    flex-wrap: wrap;
@@ -303,4 +251,20 @@ footer .container .copy-right{
   .wrapper >.container{
    display: flex;
     }
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    background: #fafafa;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .nav-menu ul{
+    list-style: none; 
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+  .container .left-side{
+      display: none;
+  }
+    
 }

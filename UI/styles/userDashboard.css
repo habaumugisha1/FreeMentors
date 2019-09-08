@@ -7,11 +7,12 @@
     border: 1px solid #eee;
     height: 20px;
     margin-top: .2rem;
-    padding: .2rem;
-    max-width: 8rem;
+    max-width: 12rem;
     border-radius: .2rem;
     color: #3897f0;
+    font-size: 12pt;
     font-weight: bold;
+    position: relative;
 }
 .user-mentor .info .reject-accept{
     display: flex;
@@ -24,4 +25,15 @@
 .reject-accept span{
    flex: 1;
    padding-left: 1rem;
+}
+
+.modal .update-session-btn{
+    height: 2rem;
+    outline: none;
+    background: rgb(220,20,60);
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 1rem;
+    border: 1px solid #fff;
 }
