@@ -130,7 +130,6 @@ form input,textarea{
     -webkit-box-shadow: inset 2px 2px 5px #eee;
     background: transparent;
     transition-duration: 1s;
-
 }
 form textarea:hover{
   border:1px solid #3897f0;
