@@ -14,7 +14,6 @@ class UserController {
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
         if (errs) return res.status(400).json({ status: 400, error: errs });
 
-
         const newUser = {
           id: Users.length + 1,
           firstName: value.firstName,
@@ -26,7 +25,6 @@ class UserController {
         };
         dbClient.connect().then(dbClient.query(SignUpUser,
           [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn], (dbError, result) => {
-            if (dbError) return res.status(503).json({ status: 503, Error: dbError });
             sign({
               id: newUser.id,
               email: newUser.email,

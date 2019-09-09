@@ -13,10 +13,10 @@ describe('Auth test', () => {
   before((done) => {
     new Pool(dbConfig).connect().then((db) => {
       db.query(Users).then((result) => {
-        console.log(result);
         db.release();
-      }).catch((er) => console.log(er));
-    }).catch((e) => console.log(e));
+      }).catch((er) => er);
+    }).catch((e) => e);
+
     done();
   });
   it('User signup', (done) => {
@@ -25,9 +25,8 @@ describe('Auth test', () => {
       .send(signUp)
       .end((err, res) => {
         expect(res).to.have.status(201);
-        console.log(res.body);
-        done();
       });
+    done();
   });
   it('User signin', (done) => {
     request(server)
