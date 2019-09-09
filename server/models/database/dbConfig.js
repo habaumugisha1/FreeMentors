@@ -1,5 +1,5 @@
 export default {
-  user: 'mamber_group',
+  user: 'postgres',
   database: 'travis_ci_test',
   password: '',
   max: 10, // max number of clients in the pool
