@@ -24,7 +24,8 @@ class UserController {
           createdOn: new Date(),
         };
         dbClient.connect().then(dbClient.query(SignUpUser,
-          [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn], (dbError, result) => {
+          [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn], () => {
+            dbClient.end();
             sign({
               id: newUser.id,
               email: newUser.email,
@@ -42,7 +43,6 @@ class UserController {
             { token },
               });
             });
-            dbClient.end();
           }));
       });
     });
