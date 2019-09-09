@@ -1,4 +1,0 @@
-postgresql: &postgresql
-adapter: postgresql
-username: postgres
-database: travis_ci_test

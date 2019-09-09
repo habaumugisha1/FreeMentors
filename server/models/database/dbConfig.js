@@ -1,7 +1,5 @@
 export default {
-  user: 'foo',
-  database: 'testing_db',
-  password: 'bar',
+  user: 'postgres',
   port: 5432,
   max: 10, // max number of clients in the pool
   idleTimeoutMillis: 30000,
