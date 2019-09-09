@@ -13,6 +13,7 @@ describe('Auth test', () => {
   before((done) => {
     new Pool(dbConfig).connect().then((db) => {
       db.query(Users).then((result) => {
+        console.log(result);
         db.release();
       }).catch((er) => console.log(er));
     }).catch((e) => console.log(e));
