@@ -26,7 +26,7 @@ class UserController {
         };
         dbClient.connect().then(dbClient.query(SignUpUser,
           [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn], (dbError, result) => {
-            if (dbError) return res.status(500).json({ status: 503, Error: dbError });
+            if (dbError) return res.status(503).json({ status: 503, Error: dbError });
             sign({
               id: newUser.id,
               email: newUser.email,

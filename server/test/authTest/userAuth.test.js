@@ -25,6 +25,7 @@ describe('Auth test', () => {
       .send(signUp)
       .end((err, res) => {
         expect(res).to.have.status(201);
+        console.log(res.body);
         done();
       });
   });
