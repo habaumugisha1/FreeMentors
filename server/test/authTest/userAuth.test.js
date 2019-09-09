@@ -14,8 +14,8 @@ describe('Auth test', () => {
     new Pool(dbConfig).connect().then((db) => {
       db.query(Users).then((result) => {
         db.release();
-      });
-    });
+      }).catch((er) => console.log(er));
+    }).catch((e) => console.log(e));
     done();
   });
   it('User signup', (done) => {
