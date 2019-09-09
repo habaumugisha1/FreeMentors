@@ -94,6 +94,7 @@ a{
 .notice ul li::before{
     content: '\2713\0020'
 }
+
 .container .sign-up-form{
     max-width: 50%;
     background: #fafafa;
@@ -153,6 +154,7 @@ form .signup-btn a{
     padding: 0.5rem;
     font-size: 1.3rem;
     cursor: pointer;
+    display: block;
 }
 form .form-group{
     display: flex;
