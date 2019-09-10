@@ -20,7 +20,7 @@ class dataMiddleware {
   static isRoleMentor(req, res, next) {
     const mentee = Users.find((user) => user.id === parseInt(req.params.userId, 10));
     if (!mentee) return res.status(404);
-    if (mentee.user_role === 'mentor') return res.status(409).json({ status: 409, message: 'This user is a mentor you allowed to change mentees' });
+    if (mentee.userRole === 'mentor') return res.status(409).json({ status: 409, message: 'This user is a mentor you allowed to change mentees' });
     next();
   }
 }

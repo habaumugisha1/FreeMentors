@@ -4,50 +4,46 @@ import bcrypt from 'bcrypt';
 import { Users } from '../models/myDb';
 import { signUpSchema, signInSchema, profileSchema } from '../helpers/validationSchema';
 import userFormat from '../helpers/mentorResponse';
-
-
-import existUser from '../helpers/isExist';
+import dbClient from '../models/database/dbClient';
+import { SignUpUser } from '../models/database/dbQueries';
 
 class UserController {
   static singUp(req, res) {
     Joi.validate(req.body, signUpSchema, (err, value) => {
       if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
-      if (!existUser(value.email, Users)) return res.status(409).json({ error: 'User already exist' });
       bcrypt.hash(value.password, 9, (errs, hashedPassword) => {
         if (errs) return res.status(400).json({ status: 400, error: errs });
 
         const newUser = {
           id: Users.length + 1,
-          firstname: value.firstname,
-          lastname: value.lastname,
+          firstName: value.firstName,
+          lastName: value.lastName,
           email: value.email,
           password: hashedPassword,
-          address: 'kigali',
-          bio: 'short_bio',
-          occupation: 'myjob',
-          expertise: 'expertise',
-          user_role: 'user',
           isAdmin: false,
           createdOn: new Date(),
         };
-        Users.push(newUser);
-        sign({
-          id: newUser.id,
-          email: newUser.email,
-          isAdmin: newUser.isAdmin,
-          user_role: newUser.user_role,
-          firstname: newUser.firstname,
-          lastname: newUser.lastname,
-        },
-        process.env.SECRET_KEY, (errors, token) => {
-          if (errors) return res.status(400).json({ status: 400, err: errs });
-          return res.status(201).json({
-            status: 201,
-            message: 'User created successfully',
-            data:
-        { token },
-          });
-        });
+        dbClient.connect().then(dbClient.query(SignUpUser,
+          [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn], () => {
+            dbClient.end();
+            sign({
+              id: newUser.id,
+              email: newUser.email,
+              isAdmin: newUser.isAdmin,
+              userRole: newUser.userRole,
+              firstName: newUser.firstName,
+              lastName: newUser.lastName,
+            },
+            process.env.SECRET_KEY, (errors, token) => {
+              if (errors) return res.status(400).json({ status: 400, err: errs });
+              return res.status(201).json({
+                status: 201,
+                message: 'User created successfully',
+                data:
+            { token },
+              });
+            });
+          }));
       });
     });
   }
@@ -66,9 +62,9 @@ class UserController {
           id: signInUser.id,
           email: signInUser.email,
           isAdmin: signInUser.isAdmin,
-          user_role: signInUser.user_role,
-          firstname: signInUser.firstname,
-          lastname: signInUser.lastname,
+          userRole: signInUser.userRole,
+          firstName: signInUser.firstName,
+          lastName: signInUser.lastName,
         }, process.env.SECRET_KEY, (errs, token) => {
           if (errs) return res.json({ err: errs });
           return res.status(200).json({
@@ -86,7 +82,7 @@ class UserController {
   static changeUserToMentor(req, res) {
     const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
     if (!singleUser) return res.status(404).json({ status: 404, error: 'user not found' });
-    singleUser.user_role = req.body.user_role;
+    singleUser.userRole = req.body.userRole;
     res.status(201).json({ status: 201, data: userFormat(singleUser) });
   }
 
@@ -105,7 +101,7 @@ class UserController {
 
   static userViewMentors(req, res) {
     const allMentors = [];
-    const mentors = Users.filter((mentor) => mentor.user_role === 'mentor');
+    const mentors = Users.filter((mentor) => mentor.userRole === 'mentor');
     mentors.forEach((oneMentor) => {
       allMentors.push(userFormat(oneMentor));
     });
@@ -114,7 +110,7 @@ class UserController {
 
   static adminViewUsers(req, res) {
     const allUsers = [];
-    const users = Users.filter((user) => user.user_role === 'user');
+    const users = Users.filter((user) => user.userRole === 'user');
     users.forEach((oneUser) => {
       allUsers.push(userFormat(oneUser));
     });
@@ -122,7 +118,7 @@ class UserController {
   }
 
   static viewSpecificMentor(req, res) {
-    const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.user_role === 'mentor');
+    const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.userRole === 'mentor');
     if (!specificMentor) return res.status(404).json({ status: 404, error: 'mentor not found' });
     const { password, isAdmin, ...rest } = specificMentor;
     res.status(200).json({ status: 200, data: rest });

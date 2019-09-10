@@ -8,8 +8,8 @@ export const signInSchema = joi.object().keys({
 export const signUpSchema = joi.object().keys({
   email: joi.string().email({ minDomainSegments: 2 }).required(),
   password: joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
-  firstname: joi.string().required(),
-  lastname: joi.string().required(),
+  firstName: joi.string().required(),
+  lastName: joi.string().required(),
 });
 
 export const profileSchema = joi.object().keys({

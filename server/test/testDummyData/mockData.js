@@ -26,13 +26,13 @@ export const adminCredentials = {
 };
 
 export const signUp = {
-  firstname: 'nkusi',
-  lastname: 'oliver',
+  firstName: 'nkusi',
+  lastName: 'oliver',
   email: 'ok@gmail.com',
   password: 'webapp12',
 };
 export const signIn = {
-  email: 'ok@gmail.com',
+  email: 'rugaf@gmail.com',
   password: 'webapp12',
 };
 

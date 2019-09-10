@@ -1,6 +1,6 @@
 export default (UserReturnData) => ({
-  lastname: UserReturnData.lastname,
-  firstname: UserReturnData.firstname,
+  lastname: UserReturnData.lastName,
+  firstname: UserReturnData.firstName,
   email: UserReturnData.email,
   token: UserReturnData.token,
 });

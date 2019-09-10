@@ -16,8 +16,8 @@ class sessionRequestHandler {
         id: Sessions.length + 1,
         mentorId: mentor.id,
         menteeId: req.authUser.id,
-        mentorName: `${mentor.firstname}${mentor.lastname}`,
-        menteeName: `${req.authUser.firstname} ${req.authUser.lastname}`,
+        mentorName: `${mentor.firstName}${mentor.lastName}`,
+        menteeName: `${req.authUser.firstName} ${req.authUser.lastName}`,
         category: value.category,
         question: value.question,
         menteeEmail: req.authUser.email,
@@ -83,7 +83,7 @@ class sessionRequestHandler {
       mentorId: singleSession.mentorId,
       menteeId: singleSession.menteeId,
       score: req.body.score,
-      menteeFullName: `${req.authUser.firstname} ${req.authUser.lastname}`,
+      menteeFullName: `${req.authUser.firstName} ${req.authUser.lastName}`,
       remark: req.body.remark,
 
     };
