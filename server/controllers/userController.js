@@ -5,7 +5,10 @@ import { Users } from '../models/myDb';
 import { signUpSchema, signInSchema, profileSchema } from '../helpers/validationSchema';
 import userFormat from '../helpers/mentorResponse';
 import dbClient from '../models/database/dbClient';
-import { SignUpUser } from '../models/database/dbQueries';
+import {
+  SignUpUser, signInUserDb, changeUserTomentor, specificUser,
+  editUserProfileDb,
+} from '../models/database/dbQueries';
 
 class UserController {
   static singUp(req, res) {
@@ -23,27 +26,29 @@ class UserController {
           isAdmin: false,
           createdOn: new Date(),
         };
-        dbClient.connect().then(dbClient.query(SignUpUser,
-          [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn], () => {
-            dbClient.end();
-            sign({
-              id: newUser.id,
-              email: newUser.email,
-              isAdmin: newUser.isAdmin,
-              userRole: newUser.userRole,
-              firstName: newUser.firstName,
-              lastName: newUser.lastName,
-            },
-            process.env.SECRET_KEY, (errors, token) => {
-              if (errors) return res.status(400).json({ status: 400, err: errs });
-              return res.status(201).json({
-                status: 201,
-                message: 'User created successfully',
-                data:
-            { token },
+        dbClient.then((client) => client.query(
+          client.query(SignUpUser, [newUser.firstName, newUser.lastName, newUser.email, newUser.password, newUser.createdOn])
+            .then(() => {
+              client.release();
+              sign({
+                id: newUser.id,
+                email: newUser.email,
+                isAdmin: newUser.isAdmin,
+                userRole: newUser.userRole,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+              },
+              process.env.SECRET_KEY, (errors, token) => {
+                if (errors) return res.status(400).json({ status: 400, err: errs });
+                return res.status(201).json({
+                  status: 201,
+                  message: 'User created successfully',
+                  data:
+              { token },
+                });
               });
-            });
-          }));
+            }).catch((error) => res.status(502).json({ status: 502, dberr: error })),
+        ));
       });
     });
   }
@@ -51,31 +56,32 @@ class UserController {
   static signIn(req, res) {
     Joi.validate(req.body, signInSchema, (err, value) => {
       if (err) return res.status(400).json({ status: 404, error: err.details[0].message });
-      const signInUser = Users.find((user) => user.email === value.email);
-      if (!signInUser) return res.status(404).json({ status: 404, message: 'User not found' });
-
-
-      bcrypt.compare(value.password, signInUser.password, (errors, result) => {
-        if (errors) return res.status(400).json({ status: 400, error: errors });
-        if (!result) return res.json({ error: 'Invalid credentials' });
-        sign({
-          id: signInUser.id,
-          email: signInUser.email,
-          isAdmin: signInUser.isAdmin,
-          userRole: signInUser.userRole,
-          firstName: signInUser.firstName,
-          lastName: signInUser.lastName,
-        }, process.env.SECRET_KEY, (errs, token) => {
-          if (errs) return res.json({ err: errs });
-          return res.status(200).json({
-            status: 200,
-            message: 'User is successfully logged in',
-            data: {
-              token,
-            },
+      return dbClient.then((client) => client.query(signInUserDb, [value.email])
+        .then((response) => {
+          client.release();
+          if (response.rows.length === 0) return res.status(404).json({ status: 404, message: 'User is not found in database' });
+          bcrypt.compare(value.password, response.rows[0].password, (errors, data) => {
+            if (errors) return res.status(400).json({ status: 400, error: errors });
+            if (!data) return res.json({ error: 'Invalid credentials' });
+            sign({
+              id: response.rows[0].id,
+              email: response.rows[0].email,
+              isAdmin: response.rows[0].isAdmin,
+              userRole: response.rows[0].userRole,
+              firstName: response.rows[0].firstName,
+              lastName: response.rows[0].lastName,
+            }, process.env.SECRET_KEY, (errs, token) => {
+              if (errs) return res.json({ err: errs });
+              return res.status(200).json({
+                status: 200,
+                message: 'User is successfully logged in',
+                data: {
+                  token,
+                },
+              });
+            });
           });
-        });
-      });
+        }).catch((errors) => res.status(502).json({ status: 502, dbErr: errors })));
     });
   }
 

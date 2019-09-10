@@ -17,7 +17,7 @@ export const rejectSession = {
 };
 
 export const userRole = {
-  user_role: 'mentor',
+  userRole: 'mentor',
 };
 
 export const adminCredentials = {
@@ -28,11 +28,11 @@ export const adminCredentials = {
 export const signUp = {
   firstName: 'nkusi',
   lastName: 'oliver',
-  email: 'ok@gmail.com',
+  email: 'nkusi12@gmail.com',
   password: 'webapp12',
 };
 export const signIn = {
-  email: 'rugaf@gmail.com',
+  email: 'nkusi12@gmail.com',
   password: 'webapp12',
 };
 

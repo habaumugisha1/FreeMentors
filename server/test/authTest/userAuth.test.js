@@ -33,7 +33,7 @@ describe('Auth test', () => {
       .post('/api/v1/auth/signin')
       .send(signIn).end((err, res) => {
         expect(res).at.have.status(200);
-        done();
       });
+    done();
   });
 });

@@ -10,7 +10,7 @@ class middleWareHandler {
       authUser = adminData;
     });
     req.authUser = authUser;
-    if (authUser.isAdmin) return next();
+    if (!authUser.isAdmin) return next();
     return res.status(403).json({ status: 403, error: 'only admin allowed' });
   }
 

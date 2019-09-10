@@ -3,27 +3,30 @@ INSERT INTO users (firstName,lastName,email,password,createdOn)
 VALUES ($1,$2,$3,$4,$5)
 `;
 
-export const signIn = `
+export const signInUserDb = `
 SELECT * FROM users WHERE email=$1;
 `;
 export const changeUserTomentor = `
-UPDATE users SET user_role=$1 WHERE id=$2
+UPDATE users SET userRole=$1 WHERE id=$2
 `;
 export const allSameUsers = `
-SELECT * FROM users WHERE user_role=$1;
+SELECT * FROM users WHERE userRole=$1;
 `;
 export const specificUser = `
-SELECT * FROM users WHERE id=$1 AND user_role=$2;
+SELECT * FROM users WHERE id=$1;
+`;
+export const editUserProfileDb = `
+UPDATE users SET address=$1,bio=$2,occupation=$3,expertise=$4 WHERE id=$4
 `;
 export const createSession = `
-INSERT INTO sessions (mentor_id,mentee_id,questions,mentee_email,status,created_on)
+INSERT INTO sessions (mentor_id,menteeId,questions,menteeEmail,status,createdOn)
 VALUES ($1,$2,$3,$4,$6)
 `;
 export const getUserSessions = `
-SELECT * FROM sessions WHERE mentee_id=$1
+SELECT * FROM sessions WHERE menteeId=$1
 `;
 export const getMentorSessions = `
-SELECT * FROM sessions WHERE mentor_id=$1
+SELECT * FROM sessions WHERE mentorId=$1
 `;
 
 export const getAllSessions = `
@@ -37,10 +40,10 @@ SELECT * FROM session WHERE id=$1
 `;
 
 export const reviewSession = `
-INSERT INTO reviews (session_id,mentor_id,mentee_id,mentee_name,score,remark,created_on)
+INSERT INTO reviews (sessionId,mentorId,menteeId,menteeName,score,remark,createdOn)
 VALUES ($1,$2,$3,$4,$5,$6)
 `;
 
 export const deleteReview = `
-DELETE reviews WHERE session_id=$1
+DELETE reviews WHERE sessionId=$1
 `;
