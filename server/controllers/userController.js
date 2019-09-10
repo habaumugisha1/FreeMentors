@@ -38,7 +38,7 @@ class UserController {
               if (errors) return res.status(400).json({ status: 400, err: errs });
               return res.status(201).json({
                 status: 201,
-                message: `User ${result.command} successfully`,
+                message: 'User created successfully',
                 data:
             { token },
               });
