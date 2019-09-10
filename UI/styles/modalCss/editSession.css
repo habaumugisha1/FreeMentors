@@ -1,0 +1,34 @@
+.modal-bg .rate-session{
+    height: 200px;
+}
+
+.rate-session .modal-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+.rate-session form .form-group {
+   padding: .5rem;
+}
+.rate-session form .save-review{
+    width: 30%;
+    text-align: center;
+    margin-left: 8rem;
+
+}
+.rate-session form label{
+    font-weight: bold;
+    font-size: 13px;
+}
+.modal-bg .modify-session{
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    position: relative;
+}
+.modify-session .modal-title{
+    position: absolute;
+    top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}

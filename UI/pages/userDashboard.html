@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../styles/dashboard.css"/>
     <link rel="stylesheet" href="../styles/userDashboard.css"/>
     <link rel="stylesheet" href="../styles/popupModel.css"/>
+    <link rel="stylesheet" href="../styles/modalCss/editSession.css"/>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,8 +17,10 @@
     <div class="wrapper">
       
             <div class="modal-bg">
-                    <div class="modal">
+                    <div class="modal rate-session">
+                       
                                           <form>
+                                              <span class="modal-title">Rate the session</span>
                                               <div class="form-group">
                                                   <label>Score</label>
                                                   <select>
@@ -58,9 +62,10 @@
                     </div>
 
                     <div class="modal-bg">
-                            <div class="modal">
+                            <div class="modal modify-session">
+                                    <span class="modal-title">Modify the session</span>
                                     <form action="">
-                
+                                        
                                          <textarea cols="30" rows="10" >I need a help on Leadership Skills</textarea>
                                          <button class="update-session-btn" type="submit">Update</button>
                                         </form>
@@ -70,23 +75,13 @@
 
 
         <div class="container">
-           
-        <div class="nav-menu">
-                        <span class="avatar">
-                            <h3>A</h3>
-                        </span>
-                        <p><a href="./userDashboard.html">Alice</a></p>
-                        <div class="log-out">
-                            <img src="../images/outline-keyboard_arrow_down-24px.svg" alt="drop-down"/>
-                            <ul>
-                                    <li>
-                                        <a href="../index.html">Sign out</a>
-                                    </li>
-                                </ul>
-                        </div> 
-                           
-                       
-        </div>
+                <div class="top-nav-menu">
+                        <ul>
+                            <li><a href="./userDashboard.html" class="circle-img"> A</a></li>
+                            <li><a href="./userDashboard.html">Alice</a></li>
+                            <li><a href="../index.html">Logout</a></li>
+                        </ul>
+                       </div>
 
         <div class="main-content">
             <div class="user-profile">

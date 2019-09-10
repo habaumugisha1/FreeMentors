@@ -1,0 +1,13 @@
+.modal-bg .change-mentee-role{
+    height: 200px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-bg .modal-title{
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 1.2rem;
+    }
