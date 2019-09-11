@@ -10,8 +10,9 @@ describe('Mentor activities', () => {
     request(server).post('/api/v1/auth/signin')
       .send(mentorCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
+        done();
       });
-    done();
+   
   });
 
   it('specific mentor sessions', (done) => {
