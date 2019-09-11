@@ -1,9 +1,8 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
-import { Pool } from 'pg';
 import server from '../../server';
 import { signUp, signIn } from '../testDummyData/mockData';
-import dbConfig from '../../models/database/dbConfig';
+import dbClient from '../../models/database/dbClient';
 import { Users } from '../../models/database/dbTables';
 
 use(chaiHttp);
@@ -11,12 +10,8 @@ use(chaiHttp);
 
 describe('Auth test', () => {
   before((done) => {
-    new Pool(dbConfig).connect().then((db) => {
-      db.query(Users).then((result) => {
-        db.release();
-      }).catch((er) => er);
-    }).catch((e) => e);
-
+    dbClient.then((client) => client.query(Users).then(() => {
+    }).catch((error) => console.log(error)));
     done();
   });
   it('User signup', (done) => {
@@ -33,7 +28,7 @@ describe('Auth test', () => {
       .post('/api/v1/auth/signin')
       .send(signIn).end((err, res) => {
         expect(res).at.have.status(200);
-        done();
       });
+    done();
   });
 });

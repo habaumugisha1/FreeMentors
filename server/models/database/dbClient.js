@@ -1,6 +1,5 @@
-import { Client } from 'pg';
+import { Pool } from 'pg';
 import dbConfig from './dbConfig';
 
-const client = new Client(dbConfig);
 
-export default client;
+export default new Pool(dbConfig).connect();
