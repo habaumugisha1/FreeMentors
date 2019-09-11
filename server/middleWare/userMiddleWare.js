@@ -10,7 +10,7 @@ class middleWareHandler {
       authUser = adminData;
     });
     req.authUser = authUser;
-    if (!authUser.isAdmin) return next();
+    if (authUser.isAdmin) return next();
     return res.status(403).json({ status: 403, error: 'only admin allowed' });
   }
 
@@ -26,7 +26,6 @@ class middleWareHandler {
     if (authUser.userRole === 'user') return next();
     return res.status(403).json({ status: 403, error: 'Only mentees allowed' });
   }
-
 
   static isMentor(req, res, next) {
     if (!req.headers.authorization) return res.status(401).json({ status: 401, error: 'You are unauthorized user' });

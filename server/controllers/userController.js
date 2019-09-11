@@ -59,8 +59,8 @@ class UserController {
               email: response.rows[0].email,
               isAdmin: response.rows[0].isadmin,
               userRole: response.rows[0].userrole,
-              firstName: response.rows[0].firstrame,
-              lastName: response.rows[0].lastrame,
+              firstName: response.rows[0].firstname,
+              lastName: response.rows[0].lastname,
             }, process.env.SECRET_KEY, (errs, token) => {
               if (errs) return res.json({ err: errs });
               return res.status(200).json({

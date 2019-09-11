@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import server from '../../server';
 import { signUp, signIn, userRole } from '../testDummyData/mockData';
 import dbClient from '../../models/database/dbClient';
-import { Users } from '../../models/database/dbTables';
+import { Users, Session, Reviews,} from '../../models/database/dbTables';
 
 use(chaiHttp);
 
@@ -11,6 +11,13 @@ use(chaiHttp);
 describe('Auth test', () => {
   before((done) => {
     dbClient.then((client) => client.query(Users).then(() => {
+      dbClient.then((session) => session.query(Session).then((sss) => {
+        console.log(sss)
+        dbClient.then((review) => review.query(Reviews).then((rrr) => {
+          
+          console.log(rrr);
+        }));
+      }));
     }).catch((error) => console.log(error)));
     done();
   });

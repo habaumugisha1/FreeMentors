@@ -1,11 +1,11 @@
 export const mentorCredentials = {
-  email: 'ksj@gmail.com',
+  email: 'mourice@gmail.com',
   password: 'webapp12',
 
 };
 
 export const menteeCredentials = {
-  email: 'rugaf@gmail.com',
+  email: 'eric@gmail.com',
   password: 'webapp12',
 };
 
@@ -21,7 +21,7 @@ export const userRole = {
 };
 
 export const adminCredentials = {
-  email: 'eu@gmail.com',
+  email: 'eug@gmail.com',
   password: 'webapp12',
 };
 
@@ -44,7 +44,7 @@ export const editProfile = {
 };
 export const newSession = {
   category: 'leadership',
-  mentorId: 3,
+  mentorId: 11,
   question: 'I need a help on readership',
 };
 
@@ -59,8 +59,6 @@ export const editReview = {
 };
 
 export const existSession = {
-
-  type: 'relationship',
   mentorId: 2,
   question: 'Time relationship build help is needed',
 };
