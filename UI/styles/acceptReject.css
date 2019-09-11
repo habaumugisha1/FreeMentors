@@ -12,7 +12,7 @@
 .switch-btn{
     position: absolute;
     content: '';
-    background: red;
+    background: blue;
     left: 0;
     top: 0;
     right: 0;
@@ -34,9 +34,12 @@
 
 }
 .switch input[type='checkbox']:checked + .switch-btn{
-   background: blue; 
+    background: red; 
 }
 
 .switch input[type='checkbox']:checked + .switch-btn::before{
     left: 1.8rem;
+ }
+ .reject-accept .title{
+     font-weight: bold;
  }

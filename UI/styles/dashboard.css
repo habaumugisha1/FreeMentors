@@ -40,67 +40,43 @@ display: flex;
 flex-direction: column;
 padding: 0 .5rem;
 position: relative;
-
 }
-
-.container .nav-menu{
-    height: 50px;
+.top-nav-menu{
+    background:#fafafa;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    font-size: 1.4rem;
-    padding: 0 3rem;
-    color: #3897f0;
-    
+    padding: .2rem;
 }
-.nav-menu .avatar{
+.top-nav-menu ul{
+    display: flex;
+    list-style-type: none;
     height: 40px;
-    border: 2px solid #eee;
-    margin-right: 1rem;
-    border-radius: 50%;
-    width: 40px;
-    text-align: center;
-    padding: .6rem 1rem;
-    background: #3897f0;
-    color: #eee;
-
 }
-.nav-menu p{
-    padding-right: 3rem;
-
-}
-
-.nav-menu ul{
-    list-style: none;
-
-}
-.nav-menu ul li a{
-    margin-right: 1rem;
-}
-.nav-menu .log-out{
-    padding: 0;
-    position: absolute;
-    height: 2rem;
-    padding: 0 0 1rem 0;
-}
-.nav-menu .log-out img{
-    padding: .5rem 0 0 ;
-    cursor: pointer;
-    width:2rem;
-    height: 25px;
-
-}
-.nav-menu  .log-out ul li{
-    
+.top-nav-menu ul li{
+    padding: 0 .3rem;
     display: block;
-    position: absolute;
-    background: #fafafa;
-    border: 1px solid #eee;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 5.5rem;
-    top: 1.8rem;
+    height: 100%;
 }
+.top-nav-menu ul li a{
+    display: block;
+    height: inherit;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    padding: 1rem 0;
+    
+}
+.top-nav-menu ul li .circle-img{
+    border-radius: 50%;
+    background:#003569;
+    height: 40px;
+    width: 40px;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding-bottom: 2rem;
+}
+
 
 
 .container .main-content{
@@ -179,6 +155,7 @@ position: relative;
     list-style: none;
     background: white;
     flex: 1;
+    text-transform: capitalize;
 }
 .main-content ul li a{
     height: 2rem;
@@ -321,32 +298,21 @@ footer .container .copy-right{
 
 
 @media (max-width:700px){
-    .container .nav-menu{
-        height: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.4rem;
-        padding: 1rem 3rem;
-        font-size: 3.5vw;
+
+    .container .top-nav-menu{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     position: relative;
     }
-    
-    .nav-menu .log-out{
-        height: 2rem;
-        padding: 0 0 1rem 0;
-        margin: 1.5rem;
+    .top-nav-menu ul li .circle-img{
+        display: none;
     }
-    .nav-menu  .log-out ul li{
-    
-        display: block;
-        position: absolute;
-        background: #fafafa;
-        cursor: pointer;
-        font-size: 1.3rem;
-        border-bottom: none;
-        width: 8rem;
-        top: 2rem;
+    .top-nav-menu ul li{
+        border-right: 1px solid #eee;
     }
+
     .container .main-content{
         display: flex;
         border: 1px solid #eee;
