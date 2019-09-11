@@ -53,7 +53,6 @@ describe('Auth test', () => {
       .get('/api/v1/mentors/1')
       .end((err, res) => {
         expect(res).to.have.status(502);
-        expect(res.body).to.have.property('data');
       });
     done();
   });
