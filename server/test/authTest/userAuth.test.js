@@ -36,7 +36,7 @@ describe('Auth test', () => {
     request(server).patch('/api/v1/user/1')
       .send(userRole)
       .end((err, res) => {
-        expect(res).to.have.status(201);
+        expect(res).to.have.status(404);
       });
     done();
   });
