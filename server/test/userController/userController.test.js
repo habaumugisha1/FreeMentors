@@ -1,25 +1,19 @@
 import { expect, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
-import { signUp, signIn, userRole } from '../testDummyData/mockData';
-import dbClient from '../../models/database/dbClient';
-import { Users, Session, Reviews,} from '../../models/database/dbTables';
+import { signUp, menteeCredentials, signIn, userRole } from '../testDummyData/mockData';
 
 use(chaiHttp);
 
 
 describe('Auth test', () => {
   before((done) => {
-    dbClient.then((client) => client.query(Users).then(() => {
-      dbClient.then((session) => session.query(Session).then((sss) => {
-        console.log(sss)
-        dbClient.then((review) => review.query(Reviews).then((rrr) => {
-          
-          console.log(rrr);
-        }));
-      }));
-    }).catch((error) => console.log(error)));
-    done();
+    request(server).post('/api/v1/auth/signin')
+      .send(menteeCredentials).end((err, res) => {
+        global.userToken = res.body.data.token;
+        done();
+      });
+   
   });
 
   it('User signup', (done) => {
@@ -41,15 +35,18 @@ describe('Auth test', () => {
   });
   it('admin change mentee to mentor', (done) => {
     request(server).patch('/api/v1/user/1')
-      .send(userRole)
+    .set({ Authorization: `Bearer ${global.userToken}` })
+     .send(userRole)
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(201);
       });
     done();
   });
   it('view all mentors', (done) => {
     request(server).get('/api/v1/mentors')
-      .end((err, res) => {
+    .set({ Authorization: `Bearer ${global.userToken}` })
+
+       .end((err, res) => {
         expect(res).to.have.status(200);
       });
 
@@ -58,17 +55,12 @@ describe('Auth test', () => {
   it('view specific mentor', (done) => {
     request(server)
       .get('/api/v1/mentors/1')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+
       .end((err, res) => {
         expect(res).to.have.status(502);
       });
     done();
   });
-  it('View all users', (done) => {
-    request(server)
-      .get('/api/v1/users')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-      });
-    done();
-  });
+
 });

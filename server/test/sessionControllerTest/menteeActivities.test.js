@@ -12,9 +12,9 @@ describe('Mentee activities', () => {
     request(server).post('/api/v1/auth/signin')
       .send(menteeCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
-       
+        done();
       });
-    done();
+  
   });
   it('Mentee create a session request', (done) => {
     request(server)

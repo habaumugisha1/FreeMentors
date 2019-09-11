@@ -10,6 +10,17 @@ describe('admin activities', () => {
     request(server).post('/api/v1/auth/signin')
       .send(adminCredentials).end((err, res) => {
         global.userToken = res.body.data.token;
+        done();
+      });
+   
+  });
+
+  it('View all users', (done) => {
+    request(server)
+      .get('/api/v1/users')
+      .set({ Authorization: `Bearer ${global.userToken}` })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
       });
     done();
   });
@@ -32,7 +43,7 @@ describe('admin activities', () => {
         expect(res).to.have.status(200);
        
       });
-      done();
+    done();
   });
 
 
