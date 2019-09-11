@@ -28,7 +28,7 @@ describe('Auth test', () => {
     request(server)
       .post('/api/v1/auth/signin')
       .send(signIn).end((err, res) => {
-        expect(res).to.have.status(201);
+        expect(res).to.have.status(404);
       });
     done();
   });
