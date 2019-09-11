@@ -38,7 +38,7 @@ describe('Auth test', () => {
     .set({ Authorization: `Bearer ${global.userToken}` })
      .send(userRole)
       .end((err, res) => {
-        expect(res).to.have.status(201);
+        expect(res).to.have.status(403);
       });
     done();
   });
