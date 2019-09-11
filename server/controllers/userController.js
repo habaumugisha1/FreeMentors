@@ -5,7 +5,9 @@ import { signUpSchema, signInSchema, profileSchema } from '../helpers/validation
 import userFormat from '../helpers/mentorResponse';
 import dbClient from '../models/database/dbClient';
 import {
-  SignUpUser, signInUserDb, isUserExist,
+  SignUpUser, signInUserDb, editUserProfileDb, specificUser,
+  changeUserTomentor, allSameUsers,
+  specificMentor, isUserExist,
 } from '../models/database/dbQueries';
 
 
@@ -75,48 +77,60 @@ class UserController {
   }
 
   static changeUserToMentor(req, res) {
-    const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
-    if (!singleUser) return res.status(404).json({ status: 404, error: 'user not found' });
-    singleUser.userRole = req.body.userRole;
-    res.status(201).json({ status: 201, data: userFormat(singleUser) });
+    return dbClient.then((client) => client.query(specificUser, [parseInt(req.params.userId, 10)])
+      .then((user) => {
+        if (user.rows.length === 0) return res.status(404).json({ status: 404, message: 'User not found in database' });
+        return dbClient
+          .then((newClient) => newClient.query(changeUserTomentor, [req.body.userRole, user.rows[0].id])
+            .then(() => res.status(201).json({ status: 201, data: userFormat(user.rows[0]) })).catch((errors) => res.status(502).json({ status: 502, dbErr: errors })))
+          .catch((dberr) => res.status(502).json({ status: 502, dbErr: dberr }));
+      }));
   }
+
 
   static editUserProfile(req, res) {
     Joi.validate(req.body, profileSchema, (err, value) => {
       if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
-      const singleUser = Users.find((user) => user.id === parseInt(req.params.userId, 10));
-      if (!singleUser) return res.status(404).json({ status: 404, message: 'User Not found', data: singleUser });
-      singleUser.address = value.address;
-      singleUser.bio = value.bio;
-      singleUser.occupation = value.occupation;
-      singleUser.expertise = value.expertise;
-      res.status(201).json({ status: 201, data: userFormat(singleUser) });
+
+      return dbClient.then((client) => client.query(specificUser, [req.params.userId])
+        .then((user) => {
+          if (user.rows.length === 0) return res.status(404).json({ status: 404, message: 'User not found in database' });
+          return dbClient
+            .then((newClient) => newClient.query(editUserProfileDb,
+              [value.address, value.bio, value.occupation, value.expertise, user.rows[0].id])
+              .then(() => res.status(201).json({ status: 201, data: userFormat(user.rows[0]) })).catch((errors) => res.status(502).json({ status: 502, dbErr: errors })))
+            .catch((dberr) => res.status(502).json({ status: 502, dbrr: dberr }));
+        }));
     });
   }
 
   static userViewMentors(req, res) {
-    const allMentors = [];
-    const mentors = Users.filter((mentor) => mentor.userRole === 'mentor');
-    mentors.forEach((oneMentor) => {
-      allMentors.push(userFormat(oneMentor));
-    });
-    res.status(200).json({ status: 200, data: allMentors });
+    return dbClient.then((client) => client.query(allSameUsers, ['mentor'])
+      .then((users) => {
+        const allMentors = [];
+        users.rows.forEach((mentor) => {
+          allMentors.push(userFormat(mentor));
+        });
+        res.status(200).json({ status: 200, data: allMentors });
+      }).catch((error) => res.status(502).json({ status: 502, error })));
   }
 
   static adminViewUsers(req, res) {
-    const allUsers = [];
-    const users = Users.filter((user) => user.userRole === 'user');
-    users.forEach((oneUser) => {
-      allUsers.push(userFormat(oneUser));
-    });
-    res.status(200).json({ status: 200, data: allUsers });
+    return dbClient.then((client) => client.query(allSameUsers, ['user'])
+      .then((users) => {
+        const allUsers = [];
+        users.rows.forEach((user) => {
+          allUsers.push(userFormat(user));
+        });
+        res.status(200).json({ status: 200, data: allUsers });
+      }).catch((error) => res.status(502).json({ status: 502, error })));
   }
 
   static viewSpecificMentor(req, res) {
-    const specificMentor = Users.find((mentor) => mentor.id === parseInt(req.params.mentorId, 10) && mentor.userRole === 'mentor');
-    if (!specificMentor) return res.status(404).json({ status: 404, error: 'mentor not found' });
-    const { password, isAdmin, ...rest } = specificMentor;
-    res.status(200).json({ status: 200, data: rest });
+    return dbClient.then((client) => client.query(specificMentor, [parseInt(req.params.mentorId, 10), 'mentor'])
+      .then((mentor) => {
+        res.status(200).json({ status: 200, data: userFormat(mentor.rows[0]) });
+      }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })));
   }
 }
 
