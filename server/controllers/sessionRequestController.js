@@ -1,109 +1,127 @@
 import Joi from '@hapi/joi';
-import { Sessions, Reviews, Users } from '../models/myDb';
-import sessionReviewResponse from '../helpers/sessionRevieRes';
 import sessionResponse from '../helpers/sessionResponse';
 import reviewResponse from '../helpers/reviewResponse';
 import { sessionSchema } from '../helpers/validationSchema';
-
+import {
+  specificMentor,
+  createSession,
+  getUserSessions,
+  getMentorSessions,
+  getAllSessions,
+  getSpecificSession,
+  acceptRejectSession,
+  reviewSession,
+  updateReview,
+  getSpecificReview,
+  adminDeleteReview,
+} from '../models/database/dbQueries';
+import dbClient from '../models/database/dbClient';
 
 class sessionRequestHandler {
   static createSessionRequest(req, res) {
     Joi.validate(req.body, sessionSchema, (err, value) => {
       if (err) return res.status(400).json({ status: 400, error: err.details[0].message });
-      const mentor = Users.find((mentor) => mentor.id === parseInt(value.mentorId, 10));
-      if (!mentor) return res.status(404).json({ status: 404, message: 'Mentor not found' });
-      const newSession = {
-        id: Sessions.length + 1,
-        mentorId: mentor.id,
-        menteeId: req.authUser.id,
-        mentorName: `${mentor.firstName}${mentor.lastName}`,
-        menteeName: `${req.authUser.firstName} ${req.authUser.lastName}`,
-        category: value.category,
-        question: value.question,
-        menteeEmail: req.authUser.email,
-        status: 'pending',
-      };
-
-      Sessions.push(newSession);
-      res.status(201).json({ status: 201, message: 'Session created successfully', data: sessionResponse(newSession) });
+      return dbClient.then((client) => client.query(specificMentor,
+        [parseInt(value.mentorId, 10), 'mentor'])
+        .then((mentor) => {
+          const newSession = {
+            mentorId: mentor.rows[0].id,
+            mentorEmail: mentor.rows[0].email,
+            menteeEmail: req.authUser.email,
+            menteeNames: `${req.authUser.firstName} ${req.authUser.lastName}`,
+            question: value.question,
+            createdOn: new Date(),
+          };
+          return dbClient.then((newclient) => newclient.query(createSession,
+            [newSession.mentorId, newSession.menteeEmail, newSession.mentorEmail, newSession.menteeNames, newSession.question, newSession.createdOn])
+            .then(() => {
+              res.status(201).json({ status: 201, message: 'Session created successfully', data: sessionResponse(newSession) });
+            }).catch((error) => res.status(502).json({ status: 502, err: error })));
+        }).then((error) => res.status(502).json({ status: 502, err: error }))).catch((querError) => res.status(502).json({ status: 502, error: querError }));
     });
   }
 
+
   static userSessions(req, res) {
-    const allSessions = Sessions.filter((session) => session.menteeId === req.authUser.id);
-    const userSessions = [];
-    allSessions.forEach((session) => {
-      userSessions.push(sessionResponse(session));
-    });
-    res.status(200).json({ status: 200, data: userSessions });
+    return dbClient.then(
+      (client) => client.query(getUserSessions, [req.authUser.email])
+        .then((sessions) => {
+          if(sessions.rows.length === 0) return res.status(404).json({status:404, message:'No session available' });
+          res.status(200).json({ status: 200, data: sessions.rows });
+        }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })),
+    );
   }
 
   static mentorSessions(req, res) {
-    const allSessions = Sessions.filter((session) => session.mentorId === req.authUser.id);
-    const mentorSessions = [];
-    allSessions.forEach((session) => {
-      mentorSessions.push(sessionResponse(session));
-    });
-    res.status(200).json({ status: 200, data: mentorSessions });
+    return dbClient.then(
+      (client) => client.query(getMentorSessions, [req.authUser.email])
+        .then((mentorSessions) => {
+          res.status(200).json({ status: 200, data: mentorSessions.rows });
+        }).catch((dbError) => res.status(502).json({ status: 502, error: dbError })),
+    ).catch((dbError) => res.status(502).json({ status: 502, error: dbError }));
   }
 
   static adminAllSessions(req, res) {
-    const sessionReviews = [];
-    Sessions.forEach((session) => {
-      sessionReviews.push(sessionReviewResponse(session));
-    });
-    res.status(200).json({ status: 200, message: 'Ok', data: sessionReviews });
+    return dbClient.then(
+      (client) => client.query(getAllSessions)
+        .then((sessions) => {
+          res.status(200).json({ status: 200, data: sessions.rows });
+        }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })),
+    );
   }
 
   static acceptSession(req, res) {
-    const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
-    if (!singleSession) return res.status(404).json({ data: singleSession });
-    if (singleSession.mentorId !== req.authUser.id) return res.status(409).json({ status: 409, message: 'This session is not yours' });
-    singleSession.status = req.body.status;
-    res.status(201).json({ status: 201, data: sessionResponse(singleSession) });
+    return dbClient.then((client) => client.query(getSpecificSession, [parseInt(req.params.sessionId, 10)])
+      .then((session) => dbClient.then((newclient) => newclient.query(acceptRejectSession, [req.body.status, session.rows[0].id])
+        .then(() => {
+          res.status(201).json({ status: 201, data: sessionResponse(session.rows[0]) });
+        }))).catch((dberr) => res.status(502).json({ status: 502, error: dberr }))).catch((queryError) => res.status(502).json({ status: 502, error: queryError }));
   }
 
   static rejectSession(req, res) {
-    const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
-    if (!singleSession) return res.status(404).json({ status: 404, message: 'No session found', data: singleSession });
-    if (singleSession.mentorId !== req.authUser.id) return res.status(409).json({ status: 409, message: 'This session is not yours' });
-    singleSession.status = req.body.status;
-    res.status(201).json({ status: 201, data: sessionResponse(singleSession) });
+    return dbClient.then((client) => client.query(getSpecificSession, [parseInt(req.params.sessionId, 10)])
+      .then((session) => dbClient.then((newclient) => newclient.query(acceptRejectSession, [req.body.status, session.rows[0].id])
+        .then(() => {
+          res.status(201).json({ status: 201, data: sessionResponse(session.rows[0]) });
+        }).catch((dbError) => res.status(502).json({ status: 502, error: dbError }))))).catch((dberr) => res.status(502).json({ status: 502, error: dberr }));
   }
 
   static sessionReview(req, res) {
-    const singleSession = Sessions.find((session) => session.id === parseInt(req.params.sessionId, 10));
-    if (!singleSession) return res.status(404).json({ data: singleSession });
-    if (req.body.score > 5 || req.body.score < 1) return res.status(400).json({ status: 400, message: 'Score should be 1 up to 5' });
-    const prevReview = Reviews.filter((review) => review.sessionId === parseInt(req.params.sessionId, 10) && review.menteeId === req.authUser.id);
-    if (prevReview.length > 0) return res.status(400).json({ status: 409, message: 'You allowed to review only one time' });
-    const userReview = {
-      id: Reviews.length + 1,
-      sessionId: req.params.sessionId,
-      mentorId: singleSession.mentorId,
-      menteeId: singleSession.menteeId,
-      score: req.body.score,
-      menteeFullName: `${req.authUser.firstName} ${req.authUser.lastName}`,
-      remark: req.body.remark,
+    return dbClient.then((client) => client.query(getSpecificSession, [parseInt(req.params.sessionId, 10)])
+      .then((session) => {
 
-    };
-    Reviews.push(userReview);
-    res.status(201).json({ status: 201, message: 'Review created successfully', data: reviewResponse(userReview) });
+        const userReview = {
+          sessionId: session.rows[0].id,
+          mentorId: session.rows[0].mentorid,
+          menteeEmail: session.rows[0].menteeemail,
+          score: req.body.score,
+          remark: req.body.remark,
+          createdOn: new Date(),
+        };
+        return dbClient.then((newClient) => newClient.query(reviewSession,
+          [userReview.sessionId, userReview.mentorId, userReview.menteeEmail, userReview.score, userReview.remark, userReview.createdOn])
+          .then(() => {
+            if (req.body.score > 5 || req.body.score <= 0) return res.status(400).json({ status: 400, message: 'Choose 1 up to 5 please' });
+            res.status(201).json({ status: 201, message: 'Review created successfully', data: reviewResponse(userReview) });
+          }).catch((error) => res.status(502).json({ status: 502, err: error })));
+      }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })));
   }
 
   static editReview(req, res) {
-    const review = Reviews.find((rev) => rev.id === parseInt(req.params.reviewId, 10) && rev.menteeId === req.authUser.id);
-    if (!review) return res.status(404).json({ status: 404, message: 'Review Not found' });
-    review.score = req.body.score;
-    review.remark = req.body.remark;
-    res.status(201).json({ status: 201, data: reviewResponse(review) });
+    return dbClient.then((client) => client.query(getSpecificReview,
+      [parseInt(req.params.reviewId, 10)])
+      .then((review) => dbClient.then((newClient) => newClient.query(updateReview,
+        [req.body.remark, review.rows[0].id])
+        .then(() => {
+          res.status(201).json({ status: 201, data: reviewResponse(review.rows[0]) });
+        }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })))).catch((dberror) => res.status(502).json({ status: 502, error: dberror })));
   }
 
   static deleteSessionReview(req, res) {
-    const sessionReview = Reviews.find((review) => review.sessionId === parseInt(req.params.sessionId, 10));
-    if (!sessionReview) return res.status(404).json({ status: 404, message: 'Review Not found' });
-    Reviews.splice(Reviews.indexOf(sessionReview), 1);
-    res.status(200).json({ data: { status: 200, message: 'Review Deleted successfully ', review: reviewResponse(sessionReview) } });
+    return dbClient.then((client) => client.query(adminDeleteReview, [parseInt(req.params.sessionId, 10)])
+      .then(() => {
+        res.status(200).json({ data: { status: 200, message: 'Review Deleted successfully ' } });
+      }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })));
   }
 }
 

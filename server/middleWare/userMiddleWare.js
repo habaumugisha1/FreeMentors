@@ -1,4 +1,6 @@
 import { verify } from 'jsonwebtoken';
+import { isUserExist } from '../models/database/dbQueries';
+import dbClient from '../models/database/dbClient';
 
 class middleWareHandler {
   static isAdminUser(req, res, next) {
@@ -10,8 +12,11 @@ class middleWareHandler {
       authUser = adminData;
     });
     req.authUser = authUser;
-    if (!authUser.isAdmin) return next();
-    return res.status(403).json({ status: 403, error: 'only admin allowed' });
+    return dbClient.then((client) => client.query(isUserExist, [authUser.email])
+      .then((user) => {
+        if (user.rows[0].isadmin) return next();
+        res.status(403).json({ status: 403, error: 'only admin allowed' });
+      }).catch((error) => res.status(502).json({ status: 502, dbErr: error })));
   }
 
   static isUser(req, res, next) {
@@ -23,10 +28,13 @@ class middleWareHandler {
       authUser = userData;
     });
     req.authUser = authUser;
-    if (authUser.userRole === 'user') return next();
-    return res.status(403).json({ status: 403, error: 'Only mentees allowed' });
+    return dbClient.then((client) => client.query(isUserExist, [authUser.email])
+      .then((user) => {
+        if (user.rows[0].userrole === 'user') return next();
+        res.status(403).json({ status: 403, error: 'only mentees allowed' });
+      }).catch((error) => res.status(502).json({ status: 502, dbErr: error })))
+      .catch((err) => res.status(502).json({ status: 502, error: err }));
   }
-
 
   static isMentor(req, res, next) {
     if (!req.headers.authorization) return res.status(401).json({ status: 401, error: 'You are unauthorized user' });
@@ -38,8 +46,12 @@ class middleWareHandler {
       authUser = mentorData;
     });
     req.authUser = authUser;
-    if (authUser.userRole === 'mentor') return next();
-    return res.status(403).json({ status: 403, error: 'Only mentors allowed' });
+    return dbClient.then((client) => client.query(isUserExist, [authUser.email])
+      .then((user) => {
+        if (user.rows[0].userrole === 'mentor') return next();
+        res.status(403).json({ status: 403, error: 'only mentors allowed' });
+      }).catch((error) => res.status(502).json({ status: 502, dbErr: error })))
+      .catch((err) => res.status(502).json({ status: 502, error: err }));
   }
 }
 

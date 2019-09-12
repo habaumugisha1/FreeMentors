@@ -19,25 +19,28 @@ export const Session = `
 CREATE TABLE IF NOT EXISTS sessions(
     id serial PRIMARY KEY,
     mentorId INT NOT NULL,
-    menteeId INT NOT NULL,
+    menteeId INT NULL,
+    mentorEmail VARCHAR(100) NOT NULL,
+    menteeEmail VARCHAR(100) NOT NULL,
+    menteeNames VARCHAR (100) NOT NULL,
     question VARCHAR (255) NOT NULL,
     status VARCHAR (20) NOT NULL DEFAULT 'pending',
-    createOn TIMESTAMP NOT NULL,
-    FOREIGN KEY (mentee_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+    createdOn TIMESTAMP NOT NULL,
+    FOREIGN KEY (menteeId) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
 `;
 export const Reviews = `
-CREATE TABLE IF NOT EXIST reviews(
+CREATE TABLE IF NOT EXISTS reviews(
 
     id serial PRIMARY KEY,
     sessionId INT NOT NULL,
-    menteeId INT NOT NULL,
     mentorId INT NOT NULL,
+    menteeEmail VARCHAR (100) NOT NULL,
     score INT NOT NULL,
-    menteeName VARCHAR (50) NOT NULL,
     remark VARCHAR (255) NOT NULL,
-    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE ON UPDATE CASCADE
+    createdOn TIMESTAMP NOT NULL,
+    FOREIGN KEY (sessionId) REFERENCES sessions(id) ON DELETE CASCADE ON UPDATE CASCADE
 
 )
 
