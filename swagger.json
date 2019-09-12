@@ -5,7 +5,7 @@
     "version": "2",
     "title": "Free Mentors"
   },
-  "host": "freementorswp.herokuapp.com",
+  "host": "localhost:5000",
   "basePath": "/api/v1/",
   "securityDefinitions": {
     "Bearer": {
@@ -15,7 +15,6 @@
     }
   },
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
@@ -29,7 +28,7 @@
           {
             "name": "user",
             "in": "body",
-            "description": "User create",
+            "description": "Create User",
             "schema": {
               "$ref": "#/definitions/signup"
             }
@@ -95,7 +94,7 @@
             "type": "integer"
           },
           {
-            "name": "user-role",
+            "name": "userRole",
             "in": "body",
             "description": "Change user to mentor",
             "schema": {
@@ -413,10 +412,10 @@
             "required": true
           },
           {
-            "name": "session id",
+            "name": "sessionId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
           "name": "status",
@@ -451,10 +450,10 @@
             "required": true
           },
           {
-            "name": "session id",
+            "name": "sessionId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
           "name": "status",
@@ -480,10 +479,10 @@
     "signup": {
       "type": "object",
       "properties": {
-        "firstname": {
+        "firstName": {
           "type": "string"
         },
-        "lastname": {
+        "lastName": {
           "type": "string"
         },
         "email": {
@@ -539,7 +538,7 @@
   "mentor": {
     "type": "object",
     "properties": {
-      "user-role": {
+      "userRole": {
         "type": "string"
       }
     }

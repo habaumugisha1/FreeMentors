@@ -27,7 +27,6 @@ class UserController {
                 sign({
                   email: value.email,
                   isAdmin: value.isAdmin,
-                  userRole: 'user',
                   firstName: value.firstName,
                   lastName: value.lastName,
                 },
@@ -57,7 +56,6 @@ class UserController {
             if (!data) return res.json({ status: 400, error: data });
             sign({
               email: response.rows[0].email,
-              isAdmin: response.rows[0].isadmin,
               userRole: response.rows[0].userrole,
               firstName: response.rows[0].firstname,
               lastName: response.rows[0].lastname,

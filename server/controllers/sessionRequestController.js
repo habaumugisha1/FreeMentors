@@ -46,6 +46,7 @@ class sessionRequestHandler {
     return dbClient.then(
       (client) => client.query(getUserSessions, [req.authUser.email])
         .then((sessions) => {
+          if(sessions.rows.length === 0) return res.status(404).json({status:404, message:'No session available' });
           res.status(200).json({ status: 200, data: sessions.rows });
         }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })),
     );
@@ -88,6 +89,7 @@ class sessionRequestHandler {
   static sessionReview(req, res) {
     return dbClient.then((client) => client.query(getSpecificSession, [parseInt(req.params.sessionId, 10)])
       .then((session) => {
+
         const userReview = {
           sessionId: session.rows[0].id,
           mentorId: session.rows[0].mentorid,
@@ -99,6 +101,7 @@ class sessionRequestHandler {
         return dbClient.then((newClient) => newClient.query(reviewSession,
           [userReview.sessionId, userReview.mentorId, userReview.menteeEmail, userReview.score, userReview.remark, userReview.createdOn])
           .then(() => {
+            if (req.body.score > 5 || req.body.score <= 0) return res.status(400).json({ status: 400, message: 'Choose 1 up to 5 please' });
             res.status(201).json({ status: 201, message: 'Review created successfully', data: reviewResponse(userReview) });
           }).catch((error) => res.status(502).json({ status: 502, err: error })));
       }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })));
