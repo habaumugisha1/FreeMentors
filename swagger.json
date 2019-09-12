@@ -491,18 +491,6 @@
         },
         "password": {
           "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "occupation": {
-          "type": "string"
-        },
-        "bio": {
-          "type": "string"
-        },
-        "expertise": {
-          "type": "string"
         }
       }
     },
