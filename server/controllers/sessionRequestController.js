@@ -37,7 +37,8 @@ class sessionRequestHandler {
             .then(() => {
               res.status(201).json({ status: 201, message: 'Session created successfully', data: sessionResponse(newSession) });
             }).catch((error) => res.status(502).json({ status: 502, err: error })));
-        }).then((error) => res.status(502).json({ status: 502, err: error }))).catch((querError) => res.status(502).json({ status: 502, error: querError }));
+        }).then((error) => res.status(400).json({ status: 400, message: 'bad request', data: error })))
+        .catch((querError) => res.status(400).json({ status: 400, message: 'Bad request', data: querError }));
     });
   }
 
@@ -46,9 +47,9 @@ class sessionRequestHandler {
     return dbClient.then(
       (client) => client.query(getUserSessions, [req.authUser.email])
         .then((sessions) => {
-          if(sessions.rows.length === 0) return res.status(404).json({status:404, message:'No session available' });
+          if (sessions.rows.length === 0) return res.status(404).json({ status: 404, message: 'No session available' });
           res.status(200).json({ status: 200, data: sessions.rows });
-        }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })),
+        }).catch((dberror) => res.status(400).json({ status: 400, message: 'Bad request', data: dberror })),
     );
   }
 
@@ -57,8 +58,8 @@ class sessionRequestHandler {
       (client) => client.query(getMentorSessions, [req.authUser.email])
         .then((mentorSessions) => {
           res.status(200).json({ status: 200, data: mentorSessions.rows });
-        }).catch((dbError) => res.status(502).json({ status: 502, error: dbError })),
-    ).catch((dbError) => res.status(502).json({ status: 502, error: dbError }));
+        }).catch((dbError) => res.status(400).json({ status: 400, message: 'Bad request', data: dbError })),
+    ).catch((dbError) => res.status(400).json({ status: 400, message: 'Bad request', data: dbError }));
   }
 
   static adminAllSessions(req, res) {
@@ -66,7 +67,7 @@ class sessionRequestHandler {
       (client) => client.query(getAllSessions)
         .then((sessions) => {
           res.status(200).json({ status: 200, data: sessions.rows });
-        }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })),
+        }).catch((dberr) => res.status(400).json({ status: 400, message: 'Bad request', data: dberr })),
     );
   }
 
@@ -75,7 +76,8 @@ class sessionRequestHandler {
       .then((session) => dbClient.then((newclient) => newclient.query(acceptRejectSession, [req.body.status, session.rows[0].id])
         .then(() => {
           res.status(201).json({ status: 201, data: sessionResponse(session.rows[0]) });
-        }))).catch((dberr) => res.status(502).json({ status: 502, error: dberr }))).catch((queryError) => res.status(502).json({ status: 502, error: queryError }));
+        }))).catch((dberr) => res.status(400).json({ status: 400, data: dberr })))
+      .catch((queryError) => res.status(400).json({ status: 400, message: 'Bad request', data: queryError }));
   }
 
   static rejectSession(req, res) {
@@ -83,13 +85,13 @@ class sessionRequestHandler {
       .then((session) => dbClient.then((newclient) => newclient.query(acceptRejectSession, [req.body.status, session.rows[0].id])
         .then(() => {
           res.status(201).json({ status: 201, data: sessionResponse(session.rows[0]) });
-        }).catch((dbError) => res.status(502).json({ status: 502, error: dbError }))))).catch((dberr) => res.status(502).json({ status: 502, error: dberr }));
+        }).catch((dbError) => res.status(400).json({ status: 400, data: dbError })))))
+      .catch((dberr) => res.status(400).json({ status: 400, message: 'Bad request', data: dberr }));
   }
 
   static sessionReview(req, res) {
     return dbClient.then((client) => client.query(getSpecificSession, [parseInt(req.params.sessionId, 10)])
       .then((session) => {
-
         const userReview = {
           sessionId: session.rows[0].id,
           mentorId: session.rows[0].mentorid,
@@ -103,8 +105,8 @@ class sessionRequestHandler {
           .then(() => {
             if (req.body.score > 5 || req.body.score <= 0) return res.status(400).json({ status: 400, message: 'Choose 1 up to 5 please' });
             res.status(201).json({ status: 201, message: 'Review created successfully', data: reviewResponse(userReview) });
-          }).catch((error) => res.status(502).json({ status: 502, err: error })));
-      }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })));
+          }).catch((error) => res.status(400).json({ status: 400, data: error })));
+      }).catch((dberr) => res.status(400).json({ status: 400, message: 'Bad request', data: dberr })));
   }
 
   static editReview(req, res) {
@@ -114,14 +116,15 @@ class sessionRequestHandler {
         [req.body.remark, review.rows[0].id])
         .then(() => {
           res.status(201).json({ status: 201, data: reviewResponse(review.rows[0]) });
-        }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })))).catch((dberror) => res.status(502).json({ status: 502, error: dberror })));
+        }).catch((dberror) => res.status(400).json({ status: 400, data: dberror }))))
+      .catch((dberror) => res.status(400).json({ status: 404, message: 'Bad request', data: dberror })));
   }
 
   static deleteSessionReview(req, res) {
     return dbClient.then((client) => client.query(adminDeleteReview, [parseInt(req.params.sessionId, 10)])
       .then(() => {
-        res.status(200).json({ data: { status: 200, message: 'Review Deleted successfully ' } });
-      }).catch((dberror) => res.status(502).json({ status: 502, error: dberror })));
+        res.status(200).json({ status: 200, message: 'Review Deleted successfully ' });
+      }).catch((dberror) => res.status(502).json({ status: 502, message: dberror })));
   }
 }
 

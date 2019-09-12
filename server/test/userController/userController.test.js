@@ -21,7 +21,7 @@ describe('Auth test', () => {
       .post('/api/v1/auth/signup')
       .send(signUp)
       .end((err, res) => {
-        expect(res).to.have.status(502);
+        expect(res).to.have.status(400);
       });
     done();
   });
@@ -58,7 +58,7 @@ describe('Auth test', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
 
       .end((err, res) => {
-        expect(res).to.have.status(502);
+        expect(res).to.have.status(400);
       });
     done();
   });

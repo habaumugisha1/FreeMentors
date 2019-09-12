@@ -31,7 +31,7 @@ class UserController {
                   lastName: value.lastName,
                 },
                 process.env.SECRET_KEY, (errors, token) => {
-                  if (errors) return res.status(400).json({ status: 400, err: errs });
+                  if (errors) return res.status(403).json({ status: 403, err: errs });
                   return res.status(201).json({
                     status: 201,
                     message: 'User created successfully',
@@ -39,9 +39,9 @@ class UserController {
                 { token },
                   });
                 });
-              }).catch((error) => res.status(502).json({ status: 502, err: error })));
+              }).catch((error) => res.status(400).json({ status: 400, data: error })));
           });
-        }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })));
+        }).catch((dberr) => res.status(400).json({ status: 400, message: 'Bad request', data: dberr })));
     });
   }
 
@@ -53,7 +53,7 @@ class UserController {
           if (response.rows.length === 0) return res.status(404).json({ status: 404, message: 'User is not found in database' });
           bcrypt.compare(value.password, response.rows[0].password, (errors, data) => {
             if (errors) return res.status(400).json({ status: 400, error: errors });
-            if (!data) return res.json({ status: 400, error: data });
+            if (!data) return res.status(400).json({ status: 400, error: data });
             sign({
               email: response.rows[0].email,
               userRole: response.rows[0].userrole,
@@ -70,7 +70,7 @@ class UserController {
               });
             });
           });
-        }).catch((errors) => res.status(502).json({ status: 502, dbErr: errors })));
+        }).catch((errors) => res.status(400).json({ status: 400, message: 'Bad request', data: errors })));
     });
   }
 
@@ -80,8 +80,9 @@ class UserController {
         if (user.rows.length === 0) return res.status(404).json({ status: 404, message: 'User not found in database' });
         return dbClient
           .then((newClient) => newClient.query(changeUserTomentor, [req.body.userRole, user.rows[0].id])
-            .then(() => res.status(201).json({ status: 201, data: userFormat(user.rows[0]) })).catch((errors) => res.status(502).json({ status: 502, dbErr: errors })))
-          .catch((dberr) => res.status(502).json({ status: 502, dbErr: dberr }));
+            .then(() => res.status(201).json({ status: 201, data: userFormat(user.rows[0]) }))
+            .catch((errors) => res.status(400).json({ status: 400 , data: errors })))
+          .catch((dberr) => res.status(400).json({ status: 400, message: 'Bad request', data: dberr }));
       }));
   }
 
@@ -92,13 +93,15 @@ class UserController {
 
       return dbClient.then((client) => client.query(specificUser, [req.params.userId])
         .then((user) => {
-          if (user.rows.length === 0) return res.status(404).json({ status: 404, message: 'User not found in database' });
+          if (user.rows.length === 0) return res.status(404).json({ status: 404, message: 'User not found' });
           return dbClient
             .then((newClient) => newClient.query(editUserProfileDb,
               [value.address, value.bio, value.occupation, value.expertise, user.rows[0].id])
-              .then(() => res.status(201).json({ status: 201, data: userFormat(user.rows[0]) })).catch((errors) => res.status(502).json({ status: 502, dbErr: errors })))
-            .catch((dberr) => res.status(502).json({ status: 502, dbrr: dberr }));
-        }));
+              .then(() => res.status(201).json({ status: 201, data: userFormat(user.rows[0]) }))
+              .catch((errors) => res.status(400).json({ status: 400, data: errors })))
+            .catch((dberr) => res.status(400).json({ status: 400, data: dberr }));
+        }).catch((error) => res.status(400).json({ status: 400, data: error })))
+        .catch((queryError) => res.status(400).json({ status: 400, message: 'Bad request', data: queryError }));
     });
   }
 
@@ -110,7 +113,7 @@ class UserController {
           allMentors.push(userFormat(mentor));
         });
         res.status(200).json({ status: 200, data: allMentors });
-      }).catch((error) => res.status(502).json({ status: 502, error })));
+      }).catch((error) => res.status(400).json({ status: 400, message: 'Bad request', data: error })));
   }
 
   static adminViewUsers(req, res) {
@@ -121,14 +124,14 @@ class UserController {
           allUsers.push(userFormat(user));
         });
         res.status(200).json({ status: 200, data: allUsers });
-      }).catch((error) => res.status(502).json({ status: 502, error })));
+      }).catch((error) => res.status(400).json({ status: 400, message: 'Bad request', data: error })));
   }
 
   static viewSpecificMentor(req, res) {
     return dbClient.then((client) => client.query(specificMentor, [parseInt(req.params.mentorId, 10), 'mentor'])
       .then((mentor) => {
         res.status(200).json({ status: 200, data: userFormat(mentor.rows[0]) });
-      }).catch((dberr) => res.status(502).json({ status: 502, error: dberr })));
+      }).catch((dberr) => res.status(400).json({ status: 400, message: 'Bad request', data: dberr })));
   }
 }
 

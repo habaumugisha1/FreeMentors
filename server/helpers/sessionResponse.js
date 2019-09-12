@@ -3,7 +3,6 @@ export default (sessionData) => ({
   menteeName: sessionData.menteeName,
   question: sessionData.question,
   menteeEmail: sessionData.menteeEmail,
-  status: sessionData.status,
   menteeId: sessionData.menteeId,
   mentorId: sessionData.mentorId,
 
