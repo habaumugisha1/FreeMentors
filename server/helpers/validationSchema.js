@@ -20,7 +20,6 @@ export const profileSchema = joi.object().keys({
 });
 
 export const sessionSchema = joi.object().keys({
-  category: joi.string().required(),
   mentorId: joi.number().required(),
   question: joi.string().required(),
 });

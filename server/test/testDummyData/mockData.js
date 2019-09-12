@@ -43,7 +43,6 @@ export const editProfile = {
   expertise: 'food processing',
 };
 export const newSession = {
-  category: 'leadership',
   mentorId: 11,
   question: 'I need a help on readership',
 };

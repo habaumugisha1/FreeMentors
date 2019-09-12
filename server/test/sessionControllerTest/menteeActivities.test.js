@@ -22,7 +22,7 @@ describe('Mentee activities', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
       .send(newSession)
       .end((err, res) => {
-        expect(res).to.have.status(502);
+        expect(res).to.have.status(400);
       });
     done();
   });
@@ -70,7 +70,7 @@ describe('Mentee activities', () => {
       .set({ Authorization: `Bearer ${global.userToken}` })
       .send(editReview)
       .end((err, res) => {
-        expect(res).to.have.status(502);
+        expect(res).to.have.status(400);
       });
     done();
   });
