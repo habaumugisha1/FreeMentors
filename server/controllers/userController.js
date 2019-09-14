@@ -56,7 +56,6 @@ class UserController {
             if (!data) return res.status(400).json({ status: 400, error: data });
             sign({
               email: response.rows[0].email,
-              userRole: response.rows[0].userrole,
               firstName: response.rows[0].firstname,
               lastName: response.rows[0].lastname,
             }, process.env.SECRET_KEY, (errs, token) => {
