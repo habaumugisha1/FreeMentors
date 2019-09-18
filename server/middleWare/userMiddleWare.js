@@ -31,7 +31,7 @@ class middleWareHandler {
     return dbClient.then((client) => client.query(isUserExist, [authUser.email])
       .then((user) => {
         if (user.rows[0].userrole === 'user') return next();
-        res.status(403).json({ status: 403, error: 'only mentees allowed' });
+        return res.status(403).json({ status: 403, error: 'only mentees allowed' });
       }).catch((error) => res.status(502).json({ status: 502, dbErr: error })))
       .catch((err) => res.status(502).json({ status: 502, error: err }));
   }
@@ -49,7 +49,7 @@ class middleWareHandler {
     return dbClient.then((client) => client.query(isUserExist, [authUser.email])
       .then((user) => {
         if (user.rows[0].userrole === 'mentor') return next();
-        res.status(403).json({ status: 403, error: 'only mentors allowed' });
+        return res.status(403).json({ status: 403, error: 'only mentors allowed' });
       }).catch((error) => res.status(502).json({ status: 502, dbErr: error })))
       .catch((err) => res.status(502).json({ status: 502, error: err }));
   }

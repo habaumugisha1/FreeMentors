@@ -11,6 +11,7 @@ class dataMiddleware {
     return dbClient.then((client) => client.query(getSpecificSession,
       [parseInt(req.params.sessionId, 10)])
       .then((session) => {
+        if (session.rows[0].mentoremail !== req.authUser.email) return res.status(409).json({ status: 409, message: 'This session is not yours' });
         if (session.rows[0].status === 'accepted') return res.status(409).json({ status: 409, message: 'It has been already accepted' });
         if (session.rows[0].status === 'rejected') return res.status(409).json({ status: 409, message: 'It has been already rejected' });
         next();
